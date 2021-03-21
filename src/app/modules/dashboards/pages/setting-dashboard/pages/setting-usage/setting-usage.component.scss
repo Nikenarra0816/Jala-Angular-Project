@@ -1,0 +1,33 @@
+.card {
+
+	&-container {
+		padding: 2.5rem;
+		border-radius: 1rem;
+		background: #FFFFFF;
+	}
+
+	&-title {
+		font-size: 1.8rem;
+		line-height: 2.1rem;
+		color: #000000;
+	}
+
+	&-subtitle {
+		font-style: italic;
+		font-weight: 300;
+		font-size: 1.2rem;
+		line-height: 1.4rem;
+		color: #9B9B9B;
+	}
+
+	&-divider {
+		border: 1px solid #E8E8E8;
+		margin: 2.5rem 0;
+		height: 0;
+		overflow: hidden;
+	}
+
+	&-content {
+		padding: 0 5.5rem;
+	}
+}

@@ -1,0 +1,86 @@
+.wrapper {
+	&--first {
+		width: 90%;
+		margin: 0 auto;
+		padding: 6rem;
+
+		& > form {
+			width: 100%;
+			max-width: 55rem;
+			margin: 0 auto;
+
+			> .form-field {
+				> div {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+
+					> :last-child {
+						margin-left: 5rem;
+					}
+				}
+
+				> h3 {
+					color: #9B9B9B;
+					font-size: 1.6rem;
+					line-height: 1.8rem;
+					font-weight: 400;
+
+					> span {
+						margin-left: 3px;
+						font-size: inherit;
+						color: #FA514E;
+					}
+				}
+			}
+		}
+
+		& > :last-child {
+			margin-top: 4rem;
+
+			> button {
+				width: 15rem;
+			}
+
+			> button:last-child {
+				margin-left: 4rem;
+			}
+		}
+	}
+
+
+	&--finish {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		padding: 5rem 0;
+
+		& > svg {
+			width: 15rem;
+			height: 15rem;
+		}
+
+		& > h1 {
+			margin-top: 1.5rem;
+			text-align: center;
+			width: 90%;
+			max-width: 55rem;
+			font-size: 3rem;
+			line-height: 3.4rem;
+			font-weight: 400;
+		}
+
+		& > h3 {
+			text-align: center;
+			width: 45rem;
+			font-size: 1.8rem;
+			line-height: 2.1rem;
+			font-weight: 400;
+		}
+
+		& > button {
+			margin-top: 5rem;
+		}
+	}
+}

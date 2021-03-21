@@ -1,0 +1,38 @@
+<form [formGroup]="formGroup1">
+	<app-form-field label="Title">
+		<input type="text" formControlName="title" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup1.get('title').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup1.get('title').hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+	<app-form-field label="Select Project">
+		<app-select formControlName="project" [dataAll]="dataProject" bindLabel="data.name"
+					bindValue="data.id" placeholder="Select Project"></app-select>
+	</app-form-field>
+	<div class="form-field">
+		<h3>Result</h3>
+		<div class="form-field-input">
+			<div *ngFor="let project of selectedProject ">
+				{{ project.data.name}}
+				<span (click)="deleteProject(project.data.id)">X</span>
+			</div>
+		</div>
+	</div>
+	<div class="form-field">
+		<h3>Background Color</h3>
+		<div class="form-field-color">
+			<color-twitter [triangle]="'hide'" [colors]="templateColor" width="312" [color]="colorPicked"
+						   (onChange)="colorChange($event)"></color-twitter>
+			<div class="color-result" [ngStyle]="{'backgroundColor': colorPicked}"></div>
+		</div>
+	</div>
+</form>
+
+
+<div mat-dialog-actions style="width: fit-content;margin-left: auto;">
+	<button appJalaButton color="outline"  style="margin-right: 1rem" (click)="closeDialog()">Close</button>
+	<button appJalaButton color="primary" (click)="save(formGroup1)" [disabled]="formGroup1.invalid || selectedProject.length === 0">Save</button>
+</div>

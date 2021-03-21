@@ -1,0 +1,149 @@
+table {
+	width: 100%;
+	border-spacing: 0;
+	background: white;
+	border: 1px solid #E8E8E8;
+	border-radius: 10px 10px 0 0;
+
+	& .cdk-header-row {
+		overflow: hidden;
+	}
+}
+
+:host ::ng-deep .mat-sort-header-container {
+	justify-content: center;
+}
+
+th {
+	height: 8rem;
+	font-family: inherit;
+	font-weight: 500;
+	font-size: 2rem;
+	color: #9B9B9B;
+	border-bottom: 2px solid #E8E8E8;
+	background-color: #E8E8E8;
+
+	&:first-child {
+		border-radius: 10px 0 0 0;
+	}
+
+	&:last-child {
+		border-radius: 0 10px 0 0;
+
+		> .checkbox-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
+
+td {
+	height: 70px;
+	border: none;
+	padding: 0 1rem;
+	border-bottom: 1px solid #E8E8E8;
+
+	& > h3 {
+		font-size: 1.4rem;
+		line-height: 1.6rem;
+		text-align: center;
+		color: black;
+		font-weight: 400;
+	}
+
+	& > .label {
+		// new leads
+		height: 3.6rem;
+		min-width: 11rem;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		color: #CCCCCC;
+		font-size: 1.2rem;
+		line-height: 1.4rem;
+		font-weight: 500;
+		background-color: lighten(#CCCCCC, 7);
+
+		&--1 {
+			color: #46B989;
+			background-color: #B5E3D0;
+		}
+
+		// hot
+		&--2 {
+			color: #FF6E66;
+			background-color: #FFB7B3;
+		}
+
+		// warm
+		&--3 {
+			color: #FF9433;
+			background-color: #FFCA99;
+		}
+
+		// cold
+		&--4 {
+			color: #58BBF3;
+			background-color: #A0D8F8;
+		}
+
+		// unqualified
+		&--5 {
+			color: #777777;
+			background-color: #CCCCCC;
+		}
+
+		// closed
+		&--6 {
+			color: #E967B5;
+			background-color: #F2A6D4;
+		}
+	}
+
+	& > .name {
+		& > h3 {
+			font-weight: 400;
+			font-size: 1.4rem;
+			line-height: 1.6rem;
+			color: #000000;
+		}
+
+		& > h4 {
+			font-style: italic;
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			color: #000000;
+		}
+
+		& > :last-child {
+			font-style: italic;
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			color: #9B9B9B;
+		}
+	}
+
+	> .checkbox-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+tr > th {
+	width: calc(83% / 6);
+
+	&:first-child {
+		width: 17%;
+	}
+}
+
+mat-paginator {
+	border-radius: 0 0 10px 10px;
+	border: 1px solid #E8E8E8;
+}

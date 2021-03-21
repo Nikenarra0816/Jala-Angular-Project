@@ -1,0 +1,28 @@
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+body {
+	font-family: 'Ubuntu', sans-serif;
+	background-color: #F5F5F5;
+	box-sizing: border-box; // wajib, fungsinya agar border didalam box, bukan diluar
+}
+
+html {
+	font-size: 62.5%;
+	@include respond(tab-land) { //if lebar layar <= 1200px
+		font-size: 56.25%; // 1 rem = 9px ; 9px/16px = 56.25%
+	}
+
+	@include respond(tab-port) { //if lebar layar <= 900px
+		font-size: 50%; // 1 rem = 8px ; 8px/16px = 50%
+	}
+
+	/*@include respond(big-desktop) { //if lebar layar >= 1800px
+		font-size: 75%; // 1 rem = 12px ; 12px/16px = 75%
+	}*/
+}

@@ -1,0 +1,36 @@
+<div class="dialog-container">
+	<app-form-field label="Pick Your Channel">
+		<app-select [dataAll]="allChannel" [formControl]="channel" bindValue="data.id"
+					placeholder="Channel"
+					bindLabel="data.name"></app-select>
+	</app-form-field>
+	<div class="dialog-form" *ngIf="!uploadOnProgress">
+		<div class="dialog-form--download">
+			<button appJalaButton color="green"
+					[disabled]="channel.hasError('required')"
+					(click)="downloadTemplate()">Download Template
+			</button>
+			<h3>This Template is only for Selected Channel</h3>
+		</div>
+		<div class="dialog-form--upload">
+			<input type="file" accept=".xlsx, .xls, .csv" #upload (change)="selectFile(upload.files)">
+			<button appJalaButton color="green"
+					[disabled]="channel.hasError('required')"
+					(click)="upload.click()">Select File
+			</button>
+			<h3>{{ file?.name ? file?.name : ''}}</h3>
+		</div>
+	</div>
+	<div class="dialog-progress" *ngIf="uploadOnProgress">
+		<mat-progress-bar mode="determinate" [value]="((message.step/message.totalStep) * 100)"
+						  [color]="(message.code === 101) || (message.code === 100) ? 'primary' : 'warn'"></mat-progress-bar>
+		<h3>{{message.message}}</h3>
+	</div>
+	<div class="dialog-action">
+		<button appJalaButton color="green" [disabled]="uploadOnProgress || channel.hasError('required') || !file"
+				(click)="uploadFile()">Upload
+		</button>
+		<button appJalaButton color="primary" [disabled]="uploadOnProgress" (click)="closeDialog()">Close</button>
+	</div>
+</div>
+

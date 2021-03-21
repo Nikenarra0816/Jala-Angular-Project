@@ -1,0 +1,49 @@
+<app-breadcrumb title="Project" subtitle="Detail"></app-breadcrumb>
+<div class="tabs">
+	<div class="tabs-header">
+		<div class="tabs-header-item" (click)="viewTabs = 1"
+			 [ngClass]="{'tabs-header-item--active': viewTabs === 1}">
+			<div class="tabs-header-item-icon">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-information"></use>
+				</svg>
+			</div>
+			<div class="tabs-header-item-title">PROJECT<br>INFORMATION</div>
+		</div>
+		<!--<div class="tabs-header-item" (click)="viewTabs = 2"
+			 [ngClass]="{'tabs-header-item&#45;&#45;active': viewTabs === 2}">
+			<div class="tabs-header-item-icon">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-product"></use>
+				</svg>
+			</div>
+			<div class="tabs-header-item-title">PRODUCT<br>SETTING</div>
+		</div>-->
+		<div class="tabs-header-item" (click)="viewTabs = 2"
+			 [ngClass]="{'tabs-header-item--active': viewTabs === 2}">
+			<div class="tabs-header-item-icon">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-status"></use>
+				</svg>
+			</div>
+			<div class="tabs-header-item-title">STATUS<br>SETTING</div>
+		</div>
+	</div>
+	<div class="tabs-content" [appSmoothHeight]="viewTabs" *ngIf="dataProject && metadata">
+		<ng-container [ngSwitch]="viewTabs">
+			<ng-template [ngSwitchCase]="1">
+				<app-project-setting-information [dataProject]="dataProject"
+												 [metadata]="metadata"></app-project-setting-information>
+			</ng-template>
+			<!--<ng-template [ngSwitchCase]="2">
+				<app-project-product-table [dataProduct]="dataProduct"
+										   [metadata]="metadata"
+										   (refreshApi)="refreshApi()"></app-project-product-table>
+			</ng-template>-->
+			<ng-template [ngSwitchCase]="2">
+				<app-project-setting-status [dataProject]="dataProject"
+											[metadata]="metadata"></app-project-setting-status>
+			</ng-template>
+		</ng-container>
+	</div>
+</div>

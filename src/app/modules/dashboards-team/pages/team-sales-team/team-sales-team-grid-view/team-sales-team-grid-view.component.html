@@ -1,0 +1,128 @@
+<div class="card-container--grid-view">
+	<div class="card" *ngFor="let data of dataTeam">
+		<div class="card__title">
+			<div class="card__title-balloon">
+				<span>{{data.data.name | uppercase | slice:0: 2}}</span>
+			</div>
+			<div class="card__title-title">
+				{{data.data.name}}
+			</div>
+			<div class="card__title-subtitle">
+				{{data.data.address}}
+			</div>
+
+			<div class="card__title-status"
+				 [ngClass]="{'card__title-status--green': data.data.isActive,
+				'card__title-status--red': !data.data.isActive}">
+				<span>{{data.data.isActive ? 'ACTIVE' : 'INACTIVE'}}</span>
+			</div>
+		</div>
+		<div class="card__status">
+			<div class="card__status-title card__status-title--1">Created At</div>
+			<div class="date-period card__status-date--1 date-period--green">
+				<div>
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+					</svg>
+				</div>
+				<span>{{ data.data.createdAt ? ( data.data.createdAt | date:'mediumDate' ) : 'PRESENT' }}</span>
+			</div>
+		</div>
+		<div class="card__summary">
+
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-pic-detail"></use>
+				</svg>
+				<h4>PIC Contact</h4>
+				<div class="card__summary--item-data">
+					<h4>{{data.getLeader.user.name}}</h4>
+					<h4>{{data.data.email}}</h4>
+				</div>
+			</div>
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-lead-detail"></use>
+				</svg>
+				<h4>Leads</h4>
+				<div class="card__summary--item-data">
+					<h4>{{data.summary?.total_lead}} Leads</h4>
+				</div>
+			</div>
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-channel-detail"></use>
+				</svg>
+				<h4>Channel</h4>
+				<div class="card__summary--item-data">
+					<h4>{{data.summary?.total_channel}} Channels</h4>
+				</div>
+			</div>
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-point"></use>
+				</svg>
+				<h4>Point</h4>
+				<div class="card__summary--item-data">
+					<h4>{{data.summary?.total_point}}</h4>
+				</div>
+			</div>
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-officer-detail"></use>
+				</svg>
+				<h4>Sales Officer</h4>
+			</div>
+			<div class="card__summary--coverage">
+				<ng-template [ngIf]="data.getMember.length !== 0">
+					<div *ngFor="let officer of data.getMember">
+						<h4>{{officer?.user.name}}</h4>
+					</div>
+				</ng-template>
+				<ng-template [ngIf]="data.getMember.length === 0">
+					<div>
+						<h4>NO OFFICERS</h4>
+					</div>
+				</ng-template>
+			</div>
+
+			<div class="card__summary--item">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-coverage-detail"></use>
+				</svg>
+				<h4>Coverage Area</h4>
+			</div>
+
+			<div class="card__summary--coverage">
+				<ng-template [ngIf]="!data.data.isGlobalCoverage">
+					<div *ngFor="let location of data.data.locations">
+						<h4>{{location?.name}}</h4>
+					</div>
+				</ng-template>
+				<ng-template [ngIf]="data.data.isGlobalCoverage">
+					<div>
+						<h4>GLOBAL COVERAGE</h4>
+					</div>
+				</ng-template>
+			</div>
+
+		</div>
+		<div class="card__action">
+			<button class="card__action-button card__action-button--1 card__action-button--green"
+					(click)="_detailClicked(data)">
+				Detail
+				<svg>
+					<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+				</svg>
+			</button>
+			<button class="card__action-button card__action-button--2 card__action-button--red"
+					(click)="_editClicked(data)">
+				Setting
+				<svg>
+					<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+				</svg>
+			</button>
+		</div>
+	</div>
+</div>
+

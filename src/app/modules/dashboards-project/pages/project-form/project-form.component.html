@@ -1,0 +1,98 @@
+<div class="wrapper">
+	<app-breadcrumb title="Project" subtitle="Form"></app-breadcrumb>
+	<div class="button-action">
+		<!--		<button appJalaButton color="green" routerLink="../form">FORM</button>-->
+		<ng-template [appPermission]="{page: 'form', feature: 'add'}">
+			<button appJalaButtonInlineIcon color="primary" icon="plus-thick" routerLink="../new-form">ADD FORM</button>
+		</ng-template>
+	</div>
+</div>
+<div class="card-container--grid-view" *ngIf="dataForms$ as dataForms">
+	<div class="card-left">
+		<ng-template ngFor let-data let-odd="odd" let-even="even" [ngForOf]="dataForms">
+			<ng-template [ngIf]="even">
+				<ng-container *ngTemplateOutlet="cardTemplate; context: {data: data}"></ng-container>
+			</ng-template>
+		</ng-template>
+	</div>
+	<div class="card-right">
+		<ng-template ngFor let-data let-odd="odd" let-even="even" [ngForOf]="dataForms">
+			<ng-template [ngIf]="odd">
+				<ng-container *ngTemplateOutlet="cardTemplate; context: {data: data}"></ng-container>
+			</ng-template>
+		</ng-template>
+	</div>
+
+	<ng-template let-data="data" #cardTemplate>
+		<div class="card">
+			<div class="card__title">
+				<div class="card__title-balloon">
+					<span>{{data.data.name | uppercase | slice:0: 2}}</span>
+				</div>
+				<div class="card__title-title">
+					{{data.data.name}}
+				</div>
+				<div class="card__title-subtitle">
+					{{data.data.detail + ' kosong'}}
+				</div>
+
+				<div class="card__title-status"
+					 [ngClass]="{'card__title-status--green': data.data.type === 'online',
+					 'card__title-status--yellow': data.data.type === 'offline'}">
+					<span>{{data.data.type | uppercase}}</span>
+				</div>
+			</div>
+			<div class="card__body">
+				<h3 class="card-title" style="grid-column: 1/3">Your Field</h3>
+				<div class="card-box" *ngFor="let form of data.data.fields">{{form.name}}</div>
+
+				<h3 class="card-title" style="grid-column: 1/3">Channel Used</h3>
+				<ng-template [ngIf]="data.data.channels.length" [ngIfElse]="notFound">
+					<div class="card-box" *ngFor="let channel of data.data.channels">{{channel.name}}</div>
+				</ng-template>
+
+				<ng-template [ngIf]="data.data.type === 'online'">
+					<h3 class="card-title" style="grid-column: 1/3">Your Script</h3>
+					<div class="card-box card-box--script" style="grid-column: 1/3">
+						{{data.data.script}}
+						<a role="button" appCopyClipboard [copyClipboard]="data.data.script" (copied)="copied($event)">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-clipboard"></use>
+							</svg>
+						</a>
+					</div>
+				</ng-template>
+
+			</div>
+			<div class="card__action">
+				<ng-template [appPermission]="{page: 'form', feature: 'edit'}">
+					<button class="card__action-button card__action-button--1 card__action-button--green"
+							(click)="openSetting(data)"
+							[ngStyle]="{'margin-right': data.data.type === 'online'? '-1rem': '0px'}">Setting
+						<svg>
+							<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+						</svg>
+					</button>
+				</ng-template>
+				<ng-template [ngIf]="data.data.type === 'online'">
+					<button class="card__action-button card__action-button--2 card__action-button--red"
+							(click)="openGuide(data.data.script)">Read Guide
+						<svg>
+							<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+						</svg>
+					</button>
+				</ng-template>
+			</div>
+		</div>
+	</ng-template>
+</div>
+
+<ng-template #notFound>
+	<div class="card-box">
+		<span class="icon-warning">
+			<svg>
+				<use xlink:href="assets/symbol-defs.svg#icon-warning"></use>
+			</svg>
+		</span>Not Found
+	</div>
+</ng-template>

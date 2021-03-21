@@ -1,0 +1,20 @@
+.button-toggle-container {
+	min-width: 10rem;
+	border-radius: 10px;
+	border: 1px solid #57BF94;
+	height: 4rem;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+}
+
+:host ::ng-deep {
+	app-button-toggle {
+		flex-grow: 1;
+		height: 100%;
+	}
+
+	app-button-toggle:not(:first-child) > .button-toggle{
+		border-left: 1px solid #57BF94;
+	}
+}

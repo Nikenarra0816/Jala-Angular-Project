@@ -1,0 +1,96 @@
+<app-breadcrumb title="Team" subtitle="List"></app-breadcrumb>
+
+<div class="row">
+	<div class="col-6">
+
+		<div class="overview">
+			<div class="overview-image">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-team"></use>
+				</svg>
+			</div>
+			<div class="overview-status">
+				<h3>{{dataTotal?.team}}</h3>
+				<h4>Total</h4>
+				<h5>Sales Team</h5>
+			</div>
+		</div>
+		<div class="expand">
+			<div class="expand-header" (click)="expandTeam = !expandTeam"
+				 [ngClass]="{'expand-header--collapse': !expandTeam}">
+				<h3>TOP 5 SALES TEAM</h3>
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-arrow-block"></use>
+				</svg>
+			</div>
+			<div class="expand-body" [@expanded]="expandTeam">
+				<ng-template let-data [ngIf]="dataChartTeam | async">
+					<app-bar-stacked-chart [dataParent]="data"></app-bar-stacked-chart>
+				</ng-template>
+			</div>
+			<div class="expand-action">
+				<ng-template [appPermission]="{page: 'salesTeam', feature: 'add'}">
+					<button class="expand-action-button expand-action-button--1 expand-action-button--green"
+							[routerLink]="['../', 'new-sales-team']">Add Team
+						<svg>
+							<use xlink:href="assets/symbol-defs.svg#icon-plus-thick"></use>
+						</svg>
+					</button>
+				</ng-template>
+				<button class="expand-action-button expand-action-button--2 expand-action-button--red"
+						[routerLink]="['../', 'sales-team']">See Detail
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
+
+	</div>
+	<div class="col-6">
+
+		<div class="overview">
+			<div class="overview-image">
+				<svg>
+					<use xlink:href="assets/sprite-team.svg#icon-officer"></use>
+				</svg>
+			</div>
+			<div class="overview-status">
+				<h3>{{dataTotal?.officer}}</h3>
+				<h4>Total</h4>
+				<h5>Sales Officer</h5>
+			</div>
+		</div>
+		<div class="expand">
+			<div class="expand-header" (click)="expandOfficer = !expandOfficer"
+				 [ngClass]="{'expand-header--collapse': !expandOfficer}">
+				<h3>TOP 5 SALES OFFICER</h3>
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-arrow-block"></use>
+				</svg>
+			</div>
+			<div class="expand-body" [@expanded]="expandOfficer">
+				<ng-template let-data [ngIf]="dataChartOfficer | async">
+					<app-bar-stacked-chart [dataParent]="data"></app-bar-stacked-chart>
+				</ng-template>
+			</div>
+
+			<div class="expand-action">
+				<button class="expand-action-button expand-action-button--1 expand-action-button--green"
+						[routerLink]="['../', 'new-sales-officer']">Add Officer
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-plus-thick"></use>
+					</svg>
+				</button>
+				<button class="expand-action-button expand-action-button--2 expand-action-button--red"
+						[routerLink]="['../', 'sales-officer']">See Detail
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+					</svg>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+

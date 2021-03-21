@@ -1,0 +1,15 @@
+<div class="chart-line" [ngStyle]="{'height': height}" *ngIf="dataForChart as data">
+	<canvas baseChart class="chart-line__small"
+			[datasets]="data.data"
+			[labels]="data.label"
+			[options]="barChartOptions"
+			[plugins]="barChartPlugins"
+			[legend]="barChartLegend"
+			[colors]="barChartColorScheme"
+			[chartType]="barChartType">
+	</canvas>
+</div>
+<div *ngIf="showMore" class="chart-action">
+	<button appJalaButton color="outline" (click)="showLessData()" *ngIf="limit !== _limit">Show Less</button>
+	<button appJalaButton color="outline" (click)="showMoreData()" *ngIf="dataForChart.data[0].data.length >= this._limit">Show More</button>
+</div>

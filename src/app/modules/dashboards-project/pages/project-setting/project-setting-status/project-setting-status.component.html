@@ -1,0 +1,57 @@
+<div class="form-container">
+	<div class="form-group3--left">
+		<div class="form-group3-title">
+			<h3>Provide Status</h3>
+			<h6>Check the status list if you want to use and uncheck if you don't use</h6>
+		</div>
+		<div class="form-group3-list">
+			<div class="form-group3-item" *ngFor="let item of leadsStatus"
+				 [ngStyle]="{'background-color' : item.color}">
+				<h5>{{ item.name }}</h5>
+				<app-checkbox [ngModel]="isChecked(item)" [disabled]="item.id === 1"
+							  (checked)="changeStatus(item, $event)"></app-checkbox>
+			</div>
+		</div>
+		<div class="form-group3-title form-group3-title--custom">
+			<h3>Custom Status</h3>
+			<h6>Click add if you want custom status</h6>
+		</div>
+		<div class="form-group3-list">
+			<div class="form-group3-item" *ngFor="let item of customLeadsStatus"
+				 [ngStyle]="{'background-color' : item.color}">
+				<h5>{{ item.name }}</h5>
+				<app-checkbox [ngModel]="isChecked(item)"
+							  (checked)="changeStatus(item, $event)"></app-checkbox>
+			</div>
+			<div class="form-group3-item--custom">
+				<h4>Add Custom Status</h4>
+				<button appJalaButtonInlineIcon color="primary" icon="plus-thick" (click)="openDialog()">ADD</button>
+			</div>
+		</div>
+	</div>
+	<div class="form-group3--mid">
+		<svg>
+			<use xlink:href="assets/sprite.svg#object-double-arrow"></use>
+		</svg>
+	</div>
+	<div class="form-group3--right">
+		<div class="form-group3-title">
+			<h3>Your Status</h3>
+			<h6>Check the status list if you want to use and uncheck if you don't use</h6>
+		</div>
+		<div class="form-group3-list">
+			<div class="form-group3-item" *ngFor="let item of checkLeadsStatus; let i = index"
+				 [@inOutAnimation]
+				 [ngStyle]="{'background-color' : item.color, 'border-radius': checkLeadsStatus.length - 1 === i? '0 0 1rem 1rem': 'unset'}">
+				<h5>{{ item.name }}</h5>
+				<input type="number" [value]="item.point"
+					   (change)="changeValue(item.name, $event.target.value)" min="0" max="100"
+					   appOnlyDigit maxInput="100">
+			</div>
+		</div>
+		<div style="display:flex; justify-content: flex-end; margin-top: 5rem;">
+			<button appJalaButton color="primary" (click)="submit()">Save
+			</button>
+		</div>
+	</div>
+</div>

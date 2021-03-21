@@ -1,0 +1,22 @@
+<div>
+	<h3 class="title">Download List</h3>
+	<div class="divider"></div>
+	<div class="download-list">
+		<ng-template [ngIf]="value.documents && value.documents?.length" [ngIfElse]="empty">
+			<div *ngFor="let data of value.documents">
+				<p>{{data.type | titlecase}}</p>
+				<span> - </span>
+				<a target="_blank" [href]="data.path">Download File</a>
+			</div>
+		</ng-template>
+		<ng-template #empty>
+			<div>
+				<p>Empty List</p>
+			</div>
+		</ng-template>
+
+	</div>
+	<div mat-dialog-actions style=" width: fit-content; margin-left: auto; margin-top: 2rem">
+		<button appJalaButton color="primary" (click)="close()">Close</button>
+	</div>
+</div>

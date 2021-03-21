@@ -1,0 +1,313 @@
+<app-breadcrumb title="Project" subtitle="Add Channel"></app-breadcrumb>
+<app-stepper #linear #stepper [headerCol]="true">
+	<!--	TAB 1 START		-->
+	<cdk-step label="MEDIA">
+		<div class="form-group form-group--1" *ngIf="channelMetadata| async as metadata">
+			<div class="card-wrapper">
+				<div class="card">
+					<div class="card-title">
+						ONLINE
+					</div>
+					<div class="card-body card-body--1">
+						<ng-template ngFor let-item [ngForOf]="metadata.medias">
+							<ng-template [ngIf]="item.type === 'online'">
+								<div class="badge" (click)="selectedMetadata = item"
+									 [ngClass]="{'badge--selected': selectedMetadata === item}">
+									<div class="badge-image">
+										<img [src]="item.picture" appImageLoader>io
+									</div>
+									<div class="badge-title">
+										{{ item.name }}
+									</div>
+								</div>
+							</ng-template>
+						</ng-template>
+					</div>
+				</div>
+				<div class="card">
+					<div class="card-title">
+						OFFLINE
+					</div>
+					<div class="card-body card-body--1">
+						<ng-template ngFor let-item [ngForOf]="metadata.medias">
+							<ng-template [ngIf]="item.type !== 'online'">
+								<div class="badge" (click)="selectedMetadata = item"
+									 [ngClass]="{'badge--selected': selectedMetadata === item}">
+									<div class="badge-image">
+										<img [src]="item.picture" appImageLoader>
+									</div>
+									<div class="badge-title">
+										{{ item.name }}
+									</div>
+								</div>
+							</ng-template>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<button appJalaButton color="outline" [routerLink]="['../detail/channel']">Back</button>
+				<button appJalaButton color="primary" [disabled]="!selectedMetadata"
+						(click)="selectedMetadata ? changeFormList(): undefined">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 1 END		-->
+	<!--	TAB 2 START		-->
+	<cdk-step label="INFORMATION">
+		<form class="form-group form-group--2" [formGroup]="formGroup2">
+
+			<app-form-field label="Name">
+				<input type="text" formControlName="name" appFormFieldInput>
+				<app-form-field-error *ngIf="formGroup2.get('name').hasError('required')">
+					This field is required
+				</app-form-field-error>
+				<app-form-field-error *ngIf="formGroup2.get('name').hasError('minlength')">
+					Min. Length is 6 Character
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Select Campaign">
+				<app-select formControlName="campaign" [dataAll]="campaignList | async" placeholder="Select Please"
+							bindValue="data.id"
+							bindLabel="data.name"></app-select>
+				<app-form-field-error *ngIf="formGroup2.get('campaign').hasError('required')">
+					Dropdown is not Valid
+				</app-form-field-error>
+			</app-form-field>
+
+			<ng-template [ngIf]="showRedirectUrl">
+				<app-form-field label="Redirect Url">
+					<input type="text" formControlName="redirectUrl" appFormFieldInput>
+					<app-form-field-error *ngIf="formGroup2.get('redirectUrl').hasError('required')">
+						This field is required
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup2.get('redirectUrl').hasError('urlValid')">
+						Url is invalid
+					</app-form-field-error>
+				</app-form-field>
+			</ng-template>
+
+
+			<div class="form-field">
+				<h3>Duration</h3>
+				<div>
+					<div>
+						<input class="radio" id="duration" type="radio" value="duration" formControlName="duration">
+						<label class="radio__label" for="duration">
+						<span class="form-group--2-option">
+							<input type="number" id="durationInput" min="1" [formControl]="formGroup2duration"
+								   appOnlyDigit maxInput="30">
+							<label for="durationInput">/ Month</label>
+						</span>
+						</label>
+					</div>
+					<div>
+						<input class="radio" id="no-duration" type="radio" value="noDuration"
+							   formControlName="duration">
+						<label class="radio__label" for="no-duration">Manually Stopped</label>
+					</div>
+				</div>
+			</div>
+
+			<app-form-field label="Detail">
+				<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+				<app-form-field-error *ngIf="formGroup2.get('detail').hasError('required')">
+					This field is required
+				</app-form-field-error>
+			</app-form-field>
+
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary" [disabled]="formGroup2.invalid" (click)="isValid(formGroup2)">Next</button>
+			</div>
+		</form>
+	</cdk-step>
+	<!--	TAB 2 END		-->
+	<!--	TAB 3 START		-->
+	<cdk-step label="TEAM">
+		<div class="form-group form-group--3">
+			<div class="card card--group-3">
+				<div class="card-title card-title--group-3">
+					<h3>Available Sales Team</h3>
+					<h5>Check the sales team that’s you want to participate in channel</h5>
+				</div>
+				<div class="card-body">
+					<div class="checkbox-list">
+						<div class="checkbox-list-item" *ngFor="let data of salesTeamList | async">
+							{{data.data.name}}
+							<app-checkbox [ngModel]="false"
+										  (checked)="changeTeam(data, $event)"></app-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary" [disabled]="selectedSalesTeam.length === 0"
+						(click)="selectedSalesTeam.length !== 0 ? stepper.next(): undefined">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 3 END		-->
+	<!--	TAB 4 START		-->
+	<cdk-step label="FORM">
+		<div class="form-group form-group--4">
+			<app-form-field label="Select Form">
+				<app-select [formControl]="formGroup4" [dataAll]="filteredFormList" bindLabel="data.name"
+							bindValue="data.id" placeholder="Select Form to Used"></app-select>
+				<app-form-field-error *ngIf="formGroup4.hasError('required')">
+					This field is required
+				</app-form-field-error>
+			</app-form-field>
+			<!--<div class="dropdown-group">
+				<div class="dropdown-item" *ngFor="let data of allFormsList | async; let i = index">
+					<input class="radio" [id]="i" name="radio" type="radio" [value]="data"
+						   [(ngModel)]="selectedForm">
+					<label class="radio__label" [for]="i">{{ data.data.name }}</label>
+				</div>
+			</div>-->
+			<app-expansion-panel *ngIf="selectedForm" [title]="selectedForm.data.name">
+				<div class="card-field">
+					<h3 class="card-field-title" style="grid-column: 1/5">Your Field</h3>
+					<div class="card-field-box" *ngFor="let form of selectedForm.data.fields">{{form.name}}</div>
+
+					<h3 class="card-field-title" style="grid-column: 1/5">Channel Used</h3>
+					<div class="card-field-box"
+						 *ngFor="let channel of selectedForm.data.channels">{{channel.name}}</div>
+					<ng-template [ngIf]="selectedForm.data.channels.length === 0">
+						<div class="card-field-box"
+							 style="justify-content: unset; grid-column: 1/3; width: fit-content;">
+							<svg style="width: 2.2rem; height: 2.2rem;">
+								<use xlink:href="assets/symbol-defs.svg#icon-warning"></use>
+							</svg>
+							<span style="flex-grow: 1; text-align:center; margin-left: 1rem;">Channel Not Found</span>
+						</div>
+					</ng-template>
+					<ng-template [ngIf]="selectedForm.data.pageUrl">
+						<h3 class="card-field-title" style="grid-column: 1/5">Page URL</h3>
+						<div class="card-field-box card-field-box--custom">
+							<a [href]="selectedForm.data.pageUrl">{{selectedForm.data.pageUrl}}</a>
+						</div>
+					</ng-template>
+				</div>
+			</app-expansion-panel>
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary"
+						(click)="formGroup4.valid? stepper.next(): undefined">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 4 END		-->
+	<!--	TAB 5 START		-->
+	<cdk-step label="REVIEW">
+		<div class="form-group form-group--5" *ngIf="isAllValid">
+			<div class="card-summary-group">
+				<div class="card-summary card-summary--1">
+					<div class="card-summary-title card-summary-title--1">
+						<h3>Information</h3>
+						<h5>Channel information</h5>
+					</div>
+					<div class="card-summary-body card-summary-body--1">
+						<div class="card-summary-badge-image" style="grid-column: 1/2;grid-row: 1;">
+							<img [src]="selectedMetadata.picture" appImageLoader>
+						</div>
+						<div class="card-summary-badge-title" style="grid-column: 2/5;grid-row: 1;">
+							<h3>{{getValueFormGroup2.name}}</h3>
+							<h5>{{getValueFormGroup2.detail}}</h5>
+						</div>
+
+						<div class="card-summary-box card-summary-box--1" style="grid-column: 1/5;grid-row: 2;">
+							{{ getValueFormGroup2.campaign.data.name }}
+						</div>
+
+						<div class="card-summary-label" style="grid-column: 1/5;grid-row: 3;">Duration</div>
+						<div class="date-period date-period--green" style="grid-column: 1/3;grid-row: 4;">
+							<div>
+								<svg>
+									<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+								</svg>
+							</div>
+							<span>{{ getValueFormGroup2.periodStart ? (getValueFormGroup2.periodStart | date:'mediumDate') : 'PRESENT' }}</span>
+						</div>
+						<div class="date-period date-period--red" style="grid-column: 3/5;grid-row: 4;">
+							<div>
+								<svg>
+									<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+								</svg>
+							</div>
+							<span>{{ getValueFormGroup2.periodStart ? (getValueFormGroup2.periodStart | date:'mediumDate') : 'PRESENT' }}</span>
+						</div>
+						<ng-template [ngIf]="selectedMetadata.type === 'online'">
+							<div class="card-summary-label" style="grid-column: 1/5;grid-row: 5;">Page Url</div>
+							<div class="card-summary-box card-summary-box--1" style="grid-column: 1/5;grid-row: 6;">
+								{{ getValueFormGroup2.redirectUrl }}
+							</div>
+
+							<div class="card-summary-label" style="grid-column: 1/5;grid-row: 7;">Page Url</div>
+							<div class="card-summary-box card-summary-box--1" style="grid-column: 1/5;grid-row: 8;">
+								{{ getValueFormGroup2.redirectUrl }}
+							</div>
+						</ng-template>
+					</div>
+				</div>
+				<div class="card-summary card-summary--2">
+					<div class="card-summary-title card-summary-title--2">
+						<h3>Sales Team</h3>
+						<h5>Participate sales team in channel</h5>
+					</div>
+					<div class="card-summary-body card-summary-body--2">
+						<div class="card-summary-box card-summary-box--2" *ngFor="let team of selectedSalesTeam">
+							{{ team.data.name }}
+						</div>
+					</div>
+				</div>
+				<div class="card-summary card-summary--3">
+					<div class="card-summary-title card-summary-title--3">
+						<h3>Your Form</h3>
+						<h5>This is field that’s use in form</h5>
+					</div>
+					<div class="card-summary-body card-summary-body--3">
+						<div class="card-summary-label-title--3"
+							 style="grid-column: 1/3;">{{ selectedForm.data.name }}</div>
+
+						<div class="card-summary-label" style="grid-column: 1/3;">Your Field</div>
+						<div class="card-summary-box card-summary-box--3" *ngFor="let data of selectedForm.data.fields">
+							{{data.name}}
+						</div>
+						<div class="card-summary-label" style="grid-column: 1/3;">Channel Used</div>
+						<div class="card-summary-box card-summary-box--3"
+							 *ngFor="let data of selectedForm.data.channels">
+							{{data.name}}
+						</div>
+						<ng-template [ngIf]="selectedForm.data.channels.length === 0">
+							<div class="card-summary-box card-summary-box--3"
+								 style="grid-column: 1/3; justify-content: unset; padding: 0 1rem;">
+								<svg style="width: 2.2rem; height: 2.2rem;">
+									<use xlink:href="assets/symbol-defs.svg#icon-warning"></use>
+								</svg>
+								<span
+									style="flex-grow: 1; text-align:center; margin-left: 1rem;">Channel Not Found</span>
+							</div>
+						</ng-template>
+						<div class="card-summary-label" style="grid-column: 1/3;">Page Url</div>
+						<div class="card-summary-box card-summary-box--3" style="grid-column: 1/3;">
+							{{selectedForm.data.pageUrl}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary"
+						(click)="submitForm()">Submit
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 5 END		-->
+</app-stepper>

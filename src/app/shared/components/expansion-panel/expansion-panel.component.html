@@ -1,0 +1,14 @@
+<div class="expansion-panel">
+	<div class="expansion-panel-header" (click)="changeState()">
+		<div class="expansion-panel-header-title">{{title}}</div>
+		<div class="expansion-panel-header-icon" [ngClass]="{'expansion-panel-header-icon--collapse':!isOpen}">
+			<svg>
+				<use xlink:href="assets/sprite.svg#icon-arrow-block"></use>
+			</svg>
+		</div>
+	</div>
+	<div class="expansion-panel-content" #panel
+		 [@expandCollapse]="isOpen">
+		<ng-content></ng-content>
+	</div>
+</div>

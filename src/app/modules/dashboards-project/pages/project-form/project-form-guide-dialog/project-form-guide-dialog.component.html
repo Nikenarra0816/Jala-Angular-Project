@@ -1,0 +1,31 @@
+<div class="card">
+	<div class="card-title">
+		<h3>Script</h3>
+		<h5>Your Script Form</h5>
+	</div>
+	<div class="card-body">
+		<div class="card-box card-box-script">
+			{{data}}
+			<a role="button" appCopyClipboard [copyClipboard]="data" (copied)="copied($event)">
+				<svg>
+					<use xlink:href="assets/symbol-defs.svg#icon-clipboard"></use>
+				</svg>
+			</a>
+		</div>
+		<h3>Guide</h3>
+		<h5>Read the guide for add script to your website that’s has form </h5>
+		<p>Put the script inside head<br>
+			<br>
+			Example :</p>
+		<div class="card-box card-box-script card-box-script--html" style="grid-column: 1/3">
+			<p><strong>&lt;head&gt;</strong><br>
+				&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ data }}</em><br>
+				<strong>&lt;/head&gt;</strong>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto;">
+	<button appJalaButton color="outline" (click)="close()">Close</button>
+</div>

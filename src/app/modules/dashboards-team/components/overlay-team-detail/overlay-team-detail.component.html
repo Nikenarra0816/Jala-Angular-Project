@@ -1,0 +1,110 @@
+<div class="overlay-team-detail overlay-team-detail--close" [ngClass]="{'overlay-team-detail--open': isOpen}">
+	<div class="overlay-team-detail-body">
+		<ng-template [ngIf]="data">
+			<div class="card">
+				<div class="card-title">Team Detail</div>
+				<div class="card-body">
+					<div class="card-item"><h4 style="margin-left: 0;">Created At</h4></div>
+					<div class="card-item date-period date-period--green">
+						<div>
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+							</svg>
+						</div>
+						<span>{{ data.data.createdAt ? (data.data.createdAt | date:'mediumDate') : 'PRESENT' }}</span>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-pic-detail"></use>
+						</svg>
+						<h4>PIC Contact</h4>
+						<div class="card-item-data">
+							<h4>{{data.getLeader.user.name}}</h4>
+							<h4>{{data.data.email}}</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-lead-detail"></use>
+						</svg>
+						<h4>Leads</h4>
+						<div class="card-item-data">
+							<h4>{{data.summary?.total_lead}} Leads</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-channel-detail"></use>
+						</svg>
+						<h4>Channel</h4>
+						<div class="card-item-data">
+							<h4>{{data.summary?.total_channel}} Channels</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-officer-detail"></use>
+						</svg>
+						<h4>Sales Officer</h4>
+					</div>
+					<div class="card-item--coverage">
+						<ng-template [ngIf]="data.getMember.length !== 0">
+							<div *ngFor="let officer of data.getMember">
+								<h4>{{officer?.user.name}}</h4>
+							</div>
+						</ng-template>
+						<ng-template [ngIf]="data.getMember.length === 0">
+							<div>
+								<h4>NO OFFICERS</h4>
+							</div>
+						</ng-template>
+					</div>
+
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-coverage-detail"></use>
+						</svg>
+						<h4>Coverage Area</h4>
+					</div>
+
+					<div class="card-item--coverage">
+						<ng-template [ngIf]="!data.data.isGlobalCoverage">
+							<div *ngFor="let location of data.data.locations">
+								<h4>{{location?.name}}</h4>
+							</div>
+						</ng-template>
+						<ng-template [ngIf]="data.data.isGlobalCoverage">
+							<div>
+								<h4>GLOBAL COVERAGE</h4>
+							</div>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+
+		</ng-template>
+		<div class="card">
+			<div class="card-title">Team History</div>
+			<div class="card-body">
+				<ng-container *ngTemplateOutlet="noResult">
+				</ng-container>
+				<!--<div class="tree">
+					<div class="tree-item" *ngFor="let data of dataJourney| async">
+						<span class="span"></span>
+						<h3>Update Status : {{data.status.status}}</h3>
+						<h4>{{data.note}}</h4>
+						<h4>{{dummyDate | date: 'MMM d, y, H:mm'}}</h4>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</div>
+</div>
+<div class="overlay-team-detail-backdrop overlay-team-detail-backdrop--close"
+	 [ngClass]="{'overlay-team-detail-backdrop--open': isOpen}"
+	 (click)="close()"></div>
+<ng-template #noResult>
+	<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+		No
+		History</h1>
+</ng-template>

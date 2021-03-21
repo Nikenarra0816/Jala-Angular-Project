@@ -1,0 +1,11 @@
+<div class="container">
+	<div class="content-container" *ngFor="let data of dataParent?.values">
+		<div class="content-number">{{ data.urutan }}</div>
+		<div class="content-body">
+			<div class="content-detail">{{ data.detail }}</div>
+			<img class="content-image" appImageLoader
+				 [src]="'https://jala.ai/admin-new/assets/picture/support/' + data.picture"
+				 [alt]="'images-' + data.urutan">
+		</div>
+	</div>
+</div>

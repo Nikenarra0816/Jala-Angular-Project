@@ -1,0 +1,345 @@
+////// STANDARD BUTTON //////
+.button {
+
+	&-jala {
+		font-family: "Ubuntu", sans-serif;
+		font-style: inherit;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
+		font-weight: 500;
+		padding: 1.1rem 2.5rem;
+		border: 1px solid transparent;
+		border-radius: 1rem;
+		outline: none;
+		box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.05);
+		cursor: pointer;
+		transition: background-color .3s ease-out, color .3s ease-out, box-shadow .3s ease-out;
+
+		&-text {
+			transition: all .3s ease-out;
+			position: relative;
+			font-size: inherit;
+		}
+
+		&:disabled {
+			box-shadow: none;
+			background-color: darken(#D9D9D9, 5) !important;
+			color: darken(#9B9B9B, 7) !important;
+
+			&:hover {
+				box-shadow: none !important;
+			}
+		}
+	}
+
+	&-disable {
+		box-shadow: none;
+		background-color: darken(#D9D9D9, 5) !important;
+		color: darken(#9B9B9B, 7) !important;
+
+		&:hover {
+			box-shadow: none !important;
+		}
+	}
+
+	&-primary {
+		background-color: #FF6F67;
+		color: white;
+
+		&:hover {
+			background-color: darken(#FF6F67, 5);
+			box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&-outline {
+		background-color: white;
+		color: #9B9B9B;
+		border: 1px solid #9B9B9B;
+
+		&:hover {
+			background-color: darken(white, 5);
+			box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&-green {
+		background-color: #46B989;
+		color: white;
+
+		&:hover {
+			background-color: darken(#46B989, 5);
+			box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&-gray {
+		background-color: #9B9B9B;
+		color: white;
+
+		&:hover {
+			background-color: darken(#9B9B9B, 5);
+			box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&-dark {
+		background-color: #41403E;
+		color: white;
+
+		&:hover {
+			background-color: lighten(#41403E, 5);
+			box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+		}
+	}
+
+	&-click {
+		transform: scale(.98);
+		transform-origin: center;
+	}
+
+	&-ripple {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 150%;
+		background-color: rgba(0, 0, 0, .1);
+
+		&-active {
+			transition: all .5s ease-out;
+			top: -150%;
+		}
+	}
+}
+
+/////// ICON BUTTON ///////
+.button {
+
+	&-jala-icon {
+		border: none;
+		outline: none;
+		box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.05);
+		cursor: pointer;
+		transition: background-color .3s ease-out, color .3s ease-out, box-shadow .3s ease-out;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 1rem;
+
+
+		&:disabled {
+			box-shadow: none;
+			background-color: darken(#9B9B9B, 5) !important;
+			color: darken(#F5F5F5, 7) !important;
+			fill: darken(#F5F5F5, 7) !important;
+
+			&:hover {
+				box-shadow: none;
+			}
+		}
+
+		&-red {
+			background-color: #FFCFCC;
+			color: #FF6E66;
+			fill: #FF6E66;
+
+			&:hover {
+				background-color: darken(#FFCFCC, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+
+			&-inverse {
+				background-color: #FF6E66;
+				color: white;
+				fill: white;
+			}
+		}
+
+		&-green {
+			background-color: #46B989;
+			color: white;
+			fill: white;
+
+			&:hover {
+				background-color: darken(#46B989, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&-blue {
+			background-color: #CFECFC;
+			color: #58BBF3;
+			fill: #58BBF3;
+
+			&:hover {
+				background-color: darken(#CFECFC, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&-gray {
+			background-color: #9B9B9B;
+			color: #F5F5F5;
+			fill: #F5F5F5;
+
+			&:hover {
+				background-color: darken(#9B9B9B, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+
+			&--inverse {
+				background-color: #D9D9D9;
+				color: #9B9B9B;
+				fill: #9B9B9B;
+
+				&:hover {
+					background-color: darken(#D9D9D9, 5);
+					box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+				}
+			}
+
+			&--active {
+				background-color: #F5F5F5;
+				color: #9B9B9B;
+				fill: #9B9B9B;
+
+				&:hover {
+					background-color: darken(#F5F5F5, 5);
+					box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+				}
+			}
+		}
+
+		&-svg {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 70%;
+			height: 70%;
+
+			&-round {
+				width: 65%;
+				height: 65%;
+			}
+		}
+
+		&-round {
+			border-radius: 10rem;
+		}
+	}
+}
+
+//// Jala Button Inline Icon ////
+.button {
+
+	&-jala-inline-icon {
+		font-family: "Ubuntu", sans-serif;
+		font-style: inherit;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
+		font-weight: 500;
+		padding: 0 .5rem;
+		border: 1px solid transparent;
+		border-radius: 1rem;
+		outline: none;
+		box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.05);
+		cursor: pointer;
+		transition: background-color .3s ease-out, color .3s ease-out, box-shadow .3s ease-out;
+
+		&-container {
+			height: 4rem;
+			min-width: 10rem;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+		}
+
+		&-svg {
+			/*position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);*/
+			display: block;
+			width: 2rem;
+			order: -1;
+			height: 2rem;
+			fill: currentColor;
+			margin: 0 .5rem;
+
+			&-round {
+				width: 2.5rem;
+				height: 2.5rem;
+			}
+		}
+
+		&-text {
+			transition: all .3s ease-out;
+			position: relative;
+			font-size: inherit;
+			margin: 0 .5rem;
+		}
+
+		&:disabled {
+			box-shadow: none;
+			background-color: darken(#D9D9D9, 5) !important;
+			color: darken(#9B9B9B, 7) !important;
+
+			&:hover {
+				box-shadow: none !important;
+			}
+		}
+
+		&-primary {
+			background-color: #FF6F67;
+			color: white;
+
+			&:hover {
+				background-color: darken(#FF6F67, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&-outline {
+			background-color: white;
+			color: #9B9B9B;
+			border: 1px solid #9B9B9B;
+
+			&:hover {
+				background-color: darken(white, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&-green {
+			background-color: #46B989;
+			color: white;
+
+			&:hover {
+				background-color: darken(#46B989, 5);
+				box-shadow: 0 0 14px 6px rgba(0, 0, 0, 0.1);
+			}
+		}
+
+		&-click {
+			transform: scale(.98);
+			transform-origin: center;
+		}
+
+		&-ripple {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			height: 150%;
+			background-color: rgba(0, 0, 0, .1);
+
+			&-active {
+				transition: all .5s ease-out;
+				top: -150%;
+			}
+		}
+	}
+
+}

@@ -1,0 +1,183 @@
+<!--<div class="table-column">
+	<mat-form-field appearance="outline" *ngIf="columnsToDisplay.length > 1">
+		<mat-select multiple [formControl]="columns">
+			<mat-select-trigger>Column To Display</mat-select-trigger>
+			<mat-option class="option-column" *ngFor="let value of columnsToDisplay" [value]="value">
+				{{value | startCase}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+</div>-->
+<div style="width: 100%; border-radius: 10px; overflow: hidden">
+	<div class="table-wrapper" [ngStyle]="{'overflow-x': columns.value.length > 7 ? 'auto': 'unset',
+					'width': columns.value.length > 7 ? 'unset': '100%',
+					 'max-width': columns.value.length > 7 ? '100%': 'unset'}">
+		<table cdk-table matSort
+			   [ngStyle]="{'width': columns.value.length > 7 ? columns.value.length * 150 + 'px' : '100%'}"
+			   [dataSource]="dataSource">
+			///////////// Name ////////////////////
+			<ng-container cdkColumnDef="name" [sticky]="columns.value.length > 7">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Name</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<div class="name">
+						<h3>{{data.data.name | truncateWord: 2}}</h3>
+						<h4>{{data.data.phone ? data.data.phone : '-'}}</h4>
+						<!-- <h4 style="color: #9B9B9B;">mboh iki opo cok</h4> -->
+					</div>
+				</td>
+			</ng-container>
+
+			<!--///////////// Email ////////////////////
+			<ng-container cdkColumnDef="email">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Email</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.data.email ? data.data.email : '-'}}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Address ////////////////////
+			<ng-container cdkColumnDef="address">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Address</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.data.address ? ( data.data.address | truncateWord: 4 ) : '-'}}</h3>
+				</td>
+			</ng-container>-->
+
+
+			///////////// Category ////////////////////
+			<ng-container cdkColumnDef="category">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Category</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<div class="label" [ngClass]="'label--'+ data.getCategorySort.id ">
+						{{data.getCategorySort.name}}
+					</div>
+				</td>
+			</ng-container>
+
+			///////////// Status ////////////////////
+			<ng-container cdkColumnDef="status">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Status</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<div class="col-status">
+						<h3>{{data.getStatus.name}}</h3>
+						<h4>{{data.data.note ? (data.data.note | truncateWord: 3) : '-' }}</h4>
+					</div>
+				</td>
+			</ng-container>
+
+			///////////// Sales Officer ////////////////////
+			<ng-container cdkColumnDef="salesOfficer">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Sales Officer</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.getSalesOfficer.name}}</h3>
+				</td>
+			</ng-container>
+
+			<!--///////////// Sales Team ////////////////////
+			<ng-container cdkColumnDef="salesTeam">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Sales Team</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.getSalesTeam.name}}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Channel ////////////////////
+			<ng-container cdkColumnDef="channel">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Channel</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.getChannel.name}}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Campaign ////////////////////
+			<ng-container cdkColumnDef="campaign">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Campaign</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.getCampaign.name}}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Product ////////////////////
+			<ng-container cdkColumnDef="product">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Product</th>
+				<td cdk-cell *cdkCellDef="let data">
+					&lt;!&ndash;					<h3>{{data.data.interest?.product ? data.data.interest?.product : '-'}}</h3>&ndash;&gt;
+					<ng-container [ngSwitch]="data.data.interests.length === 0">
+						<ng-container *ngSwitchCase="false">
+							<h3 *ngFor="let prod of data.data.interests">{{prod.product ? prod.product : '-'}}</h3>
+						</ng-container>
+						<ng-container *ngSwitchCase="true">
+							<h3>-</h3>
+						</ng-container>
+					</ng-container>
+				</td>
+			</ng-container>
+
+			///////////// Product Price ////////////////////
+			<ng-container cdkColumnDef="productPrice">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Product Price</th>
+				<td cdk-cell *cdkCellDef="let data">
+					&lt;!&ndash;					<h3>{{data.data.interest?.productPrice ? ( data.data.interest?.productPrice | currency:'IDR':'symbol-narrow' ) : '-'}}</h3>&ndash;&gt;
+					<ng-container [ngSwitch]="data.data.interests.length === 0">
+						<ng-container *ngSwitchCase="false">
+							<h3 style="height: 20px;" *ngFor="let prod of data.data.interests">{{prod.productPrice ?( prod.productPrice | currency:'IDR':'symbol-narrow' ) : '-'}}</h3>
+						</ng-container>
+						<ng-container *ngSwitchCase="true">
+							<h3>-</h3>
+						</ng-container>
+					</ng-container>
+				</td>
+			</ng-container>-->
+
+			///////////// Purchased Time ////////////////////
+			<ng-container cdkColumnDef="achievedTimes">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Purchased Time</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.data.achievedTimes}}x</h3>
+				</td>
+			</ng-container>
+
+			///////////// Last Purchased ////////////////////
+			<ng-container cdkColumnDef="lastPurchased">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Last Purchased</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{ data.data.achievedAt ? (data.data.achievedAt | date:'MMM d, y') : '-' }}</h3>
+					<h3>{{ data.data.achievedAt ? (data.data.achievedAt | date:'HH:mm') : '' }}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Total Purchased ////////////////////
+			<ng-container cdkColumnDef="totalPurchased">
+				<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Total Purchased</th>
+				<td cdk-cell *cdkCellDef="let data">
+					<h3>{{data.data.totalPurchased > 0 ? (data.data.totalPurchased | currencyShort) : '-'}}</h3>
+				</td>
+			</ng-container>
+
+			///////////// Action ////////////////////
+			<ng-container cdkColumnDef="action" stickyEnd>
+				<th cdk-header-cell *cdkHeaderCellDef>Action</th>
+				<td cdk-cell *cdkCellDef="let data"
+					style="display:flex; justify-content: space-around; align-items: center">
+					<button appJalaButtonIcon icon="eyes" color="red" (click)="show(data)"></button>
+				</td>
+			</ng-container>
+
+			<tr cdk-header-row *cdkHeaderRowDef="columns.value "></tr>
+			<tr cdk-row *cdkRowDef="let data; columns: columns.value;" class="row-jancok"
+				[ngClass]="{ 'row-jancok--active':expandedData === data}">
+			</tr>
+		</table>
+	</div>
+	<div class="table-paginator">
+		<h4>Items Per Page:</h4>
+		<mat-form-field>
+			<mat-select [formControl]="pageSize">
+				<mat-option *ngFor="let value of pageSizeOption" [value]="value.value">
+					{{value.label}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<mat-paginator [pageSizeOptions]="[5, 10 ,20]" [hidePageSize]="true" [pageSize]="5"></mat-paginator>
+	</div>
+</div>

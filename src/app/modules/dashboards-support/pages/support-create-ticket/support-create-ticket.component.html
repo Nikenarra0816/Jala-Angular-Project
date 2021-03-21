@@ -1,0 +1,61 @@
+<div class="card-content">
+	<div class="card-content-header">
+		<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<circle cx="40" cy="40" r="40" fill="#FFB7B3"/>
+			<circle cx="40" cy="40" r="40" fill="url(#paint0_linear)"/>
+			<g clip-path="url(#clip0)">
+				<path
+					d="M67.2481 56.6122V64.4445H13.8628V56.6105C13.8628 52.9118 17.0514 48.3586 20.9467 46.5084L29.6145 42.3904L35.6315 54.9291L38.7123 46.5763C39.3197 46.6912 39.9219 46.8444 40.5555 46.8444C41.189 46.8444 41.7895 46.6912 42.3987 46.5763L45.3228 54.5183L51.2214 42.2511L60.1694 46.5067C64.0595 48.3569 67.2481 52.9101 67.2481 56.6122ZM21.7369 29.1606V23.5039C21.7369 22.5449 22.2365 21.7042 22.9901 21.2204C24.0013 12.4168 31.4891 5.55566 40.559 5.55566C49.6288 5.55566 57.1183 12.4168 58.1313 21.2204C58.8832 21.7042 59.3827 22.5449 59.3827 23.5039V29.1606C59.3827 30.6627 58.1661 31.8811 56.6623 31.8811C55.1585 31.8811 53.9418 30.6627 53.9418 29.1606V27.9719C52.4694 35.3778 47.0476 42.2529 40.5607 42.2529C34.0738 42.2529 28.652 35.3778 27.1795 27.9719V29.1606C27.1795 30.379 26.3702 31.399 25.265 31.7453C26.3476 35.43 28.7495 38.6134 32.0669 40.7021C32.6796 40.5002 33.4524 40.5385 34.2026 40.9283C35.407 41.5549 36.0214 42.7733 35.5654 43.6435C35.1111 44.5138 33.7674 44.7087 32.556 44.0804C31.6718 43.6192 31.1114 42.8446 31.0522 42.1206C27.2526 39.6908 24.5583 35.9713 23.4461 31.6809C22.4471 31.2806 21.7369 30.3059 21.7369 29.1606ZM24.8438 20.5851C24.9256 20.5903 25.0039 20.592 25.0822 20.6216C25.2789 20.6947 25.4216 20.8357 25.5208 21.0011C26.1109 21.2517 26.5808 21.7095 26.8697 22.2769C27.6721 14.7561 33.4855 10.7772 40.5555 10.7772C47.6255 10.7772 53.4388 14.7561 54.2412 22.2769C54.6398 21.4954 55.3969 20.9367 56.3037 20.8201C55.1271 13.1739 48.5236 7.29445 40.5555 7.29445C32.6692 7.29619 26.1178 13.0556 24.8438 20.5851Z"
+					fill="white"/>
+			</g>
+			<defs>
+				<linearGradient id="paint0_linear" x1="80" y1="0" x2="0" y2="80" gradientUnits="userSpaceOnUse">
+					<stop stop-color="#FB4E4A"/>
+					<stop offset="1" stop-color="white" stop-opacity="0"/>
+				</linearGradient>
+				<clipPath id="clip0">
+					<rect width="58.8889" height="58.8889" fill="white" transform="translate(11.1113 5.55566)"/>
+				</clipPath>
+			</defs>
+		</svg>
+		<h4>SUPPORT CENTRE</h4>
+		<button appJalaButton color="primary"  routerLink="../ticket-list">View All Ticket</button>
+	</div>
+	<form class="card-content-body" [formGroup]="formGroup">
+		<app-form-field label="Title">
+			<input type="text" formControlName="title" appFormFieldInput>
+			<app-form-field-error *ngIf="formGroup.get('title').hasError('required')">
+				This field is required
+			</app-form-field-error>
+		</app-form-field>
+		<app-form-field label="Problem">
+			<textarea type="text" formControlName="description" appFormFieldInput></textarea>
+			<app-form-field-error *ngIf="formGroup.get('description').hasError('required')">
+				This field is required
+			</app-form-field-error>
+		</app-form-field>
+		<div class="image-container">
+			<div class="image-item" *ngFor="let image of newImage; let i = index">
+				<span class="image-item-edit" (click)="uploadEdit.click()">
+					<button appJalaButtonIcon icon="edit" color="blue" round="true"></button>
+					<input type="file" accept=".png, .jpg, .jpeg" #uploadEdit
+						   (change)="editImage(uploadEdit.files, i, $event)">
+				</span>
+				<span class="image-item-delete" (click)="deleteImage(i)">
+					<button appJalaButtonIcon icon="close" color="red" round="true"></button>
+				</span>
+				<img [src]="image">
+			</div>
+			<div class="image-item" (click)="upload.click()" style="cursor:pointer;">
+				<svg>
+					<use xlink:href="assets/symbol-defs.svg#icon-plus"></use>
+				</svg>
+				<input type="file" accept=".png, .jpg, .jpeg" #upload (change)="addImage(upload.files)">
+			</div>
+		</div>
+	</form>
+	<div class="card-content-action">
+		<button appJalaButton color="outline" style="margin-right: 2rem;">Cancel</button>
+		<button appJalaButton color="primary" [disabled]="!isFormValid" (click)="submit()">Submit</button>
+	</div>
+</div>

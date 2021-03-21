@@ -1,0 +1,135 @@
+<app-breadcrumb title="Team" subtitle="Add Sales Officer"></app-breadcrumb>
+<app-stepper #stepper>
+	<!--	TAB 1 START		-->
+	<cdk-step label="SETUP DETAIL">
+		<div class="wrapper--first">
+			<form [formGroup]="formGroup">
+				<!--	//////// COVERAGE //////////-->
+				<app-form-field label="Sales Team">
+					<ng-select
+						class="jala-select"
+						[items]="teams$ | async"
+						[multiple]="true"
+						[closeOnSelect]="false"
+						[hideSelected]="true"
+						bindLabel="name"
+						placeholder="Select Sales Team"
+						formControlName="teams">
+						<ng-template ng-label-tmp let-item="item" let-clear="clear">
+							<div class="ng-select-jala-item">
+								{{item.name}}
+								<span (click)="clear(item)">
+						<svg><use xlink:href="assets/symbol-defs.svg#icon-close"></use></svg>
+					</span>
+							</div>
+						</ng-template>
+					</ng-select>
+					<app-form-field-error *ngIf="formGroup.get('teams').hasError('required')">
+						This field is required
+					</app-form-field-error>
+				</app-form-field>
+				<!--	////////////////////////////-->
+
+				<app-form-field label="Name">
+					<input type="text" formControlName="name" appFormFieldInput>
+					<app-form-field-error *ngIf="formGroup.get('name').hasError('required')">
+						This field is required
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('name').hasError('minlength')">
+						This field min. character is 6
+					</app-form-field-error>
+				</app-form-field>
+
+				<app-form-field label="Phone">
+					<input type="text" formControlName="phone" appFormFieldInput>
+					<app-form-field-error *ngIf="formGroup.get('phone').hasError('required')">
+						Please fill out this field
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('phone').hasError('minlength')">
+						Phone Number Min Length 8 digit
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('phone').hasError('pattern')">
+						Phone Number Must Be Number And +62 Number Only
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('phone').hasError('phoneExists')">
+						Phone already Exists
+					</app-form-field-error>
+				</app-form-field>
+
+				<app-form-field label="Email">
+					<input type="email" formControlName="email" appFormFieldInput>
+					<app-form-field-error *ngIf="formGroup.get('email').hasError('required')">
+						Email Required
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('email').hasError('email')">
+						Email is not Valid
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup.get('email').hasError('emailExists')">
+						Email already Exists
+					</app-form-field-error>
+				</app-form-field>
+
+
+				<app-form-field label="Address">
+					<textarea formControlName="address" appFormFieldInput></textarea>
+					<app-form-field-error *ngIf="formGroup.get('address').hasError('required')">
+						Please fill out this field
+					</app-form-field-error>
+				</app-form-field>
+
+
+				<div class="form-field">
+					<h3>Gender<span>*</span></h3>
+					<div>
+						<div>
+							<input class="radio" id="male" type="radio" value="male" formControlName="gender">
+							<label class="radio__label" for="male">Male</label>
+						</div>
+						<div>
+							<input class="radio" id="female" type="radio" value="female" formControlName="gender">
+							<label class="radio__label" for="female">Female</label>
+						</div>
+					</div>
+				</div>
+
+			</form>
+			<div style=" width: fit-content;margin-left: auto;">
+				<button appJalaButton color="outline" [routerLink]="['../sales-officer']">Back</button>
+				<button appJalaButton color="primary" (click)="save(formGroup)">Save</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 1 END		-->
+	<!--	TAB 2 START		-->
+	<cdk-step label="FINISH">
+		<div class="wrapper--finish">
+			<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M74.9998 150C116.421 150 150 116.421 150 75C150 33.5786 116.421 0 74.9998 0C33.5786 0 0 33.5786 0 75C0 116.421 33.5786 150 74.9998 150Z"
+					fill="#57BF94"/>
+				<path
+					d="M74.9998 150C116.421 150 150 116.421 150 75C150 33.5786 116.421 0 74.9998 0C33.5786 0 0 33.5786 0 75C0 116.421 33.5786 150 74.9998 150Z"
+					fill="url(#paint0_linear)"/>
+				<path
+					d="M55.8359 108.833L94.4005 147.398C126.341 138.881 150 109.78 150 75.0004C150 74.2907 150 73.5809 150 72.8711L119.716 44.9531L55.8359 108.833Z"
+					fill="#46B989"/>
+				<path
+					d="M76.8927 91.7994C80.205 95.1117 80.205 100.79 76.8927 104.102L70.0316 110.963C66.7193 114.276 61.041 114.276 57.7287 110.963L27.6815 80.6795C24.3692 77.3672 24.3692 71.689 27.6815 68.3767L34.5427 61.5155C37.855 58.2032 43.5332 58.2032 46.8455 61.5155L76.8927 91.7994Z"
+					fill="white"/>
+				<path
+					d="M103.154 39.5116C106.467 36.1993 112.145 36.1993 115.457 39.5116L122.318 46.3728C125.631 49.6851 125.631 55.3633 122.318 58.6756L70.2678 110.489C66.9556 113.802 61.2773 113.802 57.965 110.489L51.1039 103.628C47.7916 100.316 47.7916 94.6377 51.1039 91.3254L103.154 39.5116Z"
+					fill="white"/>
+				<defs>
+					<linearGradient id="paint0_linear" x1="150" y1="0" x2="-0.000305175" y2="150"
+									gradientUnits="userSpaceOnUse">
+						<stop stop-color="#46B989"/>
+						<stop offset="1" stop-color="white" stop-opacity="0"/>
+					</linearGradient>
+				</defs>
+			</svg>
+			<h1>Yaaay, you success create sales officer</h1>
+			<button appJalaButton color="green" [routerLink]="['../sales-officer']">View Sales Officer</button>
+		</div>
+	</cdk-step>
+	<!--	TAB 2 END		-->
+</app-stepper>

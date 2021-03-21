@@ -1,0 +1,23 @@
+<app-breadcrumb title="Pipeline" subtitle="List"></app-breadcrumb>
+<div class="container-pipeline">
+	<div class="container-pipeline-header">
+		<h3>Pipeline Per-Project</h3>
+		<div>
+			<button appJalaButtonInlineIcon color="primary" icon="plus-thick" (click)="openAddDialog()">ADD PIPELINE
+			</button>
+		</div>
+	</div>
+	<ng-template [ngIf]="data | async" [ngIfElse]="loading" let-pipelines>
+		<div class="container-pipeline-body">
+			<app-pipeline-list-card *ngFor="let pipeline of pipelines" [dataParent]="pipeline"
+									(changeTitle)="changeTitle($event)"
+									(clicked)="jumpToDetail($event)"
+									(deleteClicked)="deletePipeline($event)">
+			</app-pipeline-list-card>
+		</div>
+	</ng-template>
+</div>
+
+<ng-template #loading>
+	<app-loader-spinner-v2></app-loader-spinner-v2>
+</ng-template>

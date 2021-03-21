@@ -1,0 +1,141 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 1rem;
+
+	&-title {
+		margin-bottom: 4rem;
+
+		& h3 {
+			font-size: 2rem;
+			font-weight: 400;
+		}
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 5.5rem;
+
+	& > * {
+		margin-bottom: 1.5rem;
+	}
+
+	&-field {
+		position: relative;
+
+		& input {
+			padding: 1.4rem;
+			background-color: #F5F5F5;
+			outline: none;
+			border: none;
+			border-radius: 1rem;
+			width: 100%;
+			font-size: 1.6rem;
+		}
+
+		& input::placeholder {
+			font-size: 1.6rem;
+			color: #D9D9D9;
+		}
+
+		& label {
+			position: absolute;
+			height: 2rem;
+			width: 2rem;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		& label span {
+			width: 100%;
+			height: 100%;
+		}
+
+		& label span svg {
+			width: 100%;
+			height: 100%;
+		}
+
+	}
+
+	&-option {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		color: #9B9B9B;
+		font-size: 1.4rem;
+		& a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+}
+
+app-checkbox ::ng-deep {
+	& .checkbox-wrapper {
+		& .checkbox-box {
+			border: 2px solid #D9D9D9;
+		}
+
+		& .checkbox-label {
+			font-size: inherit;
+			line-height: inherit;
+		}
+	}
+}
+
+
+@media(max-width: 767px) {
+	.container {
+		justify-content: center;
+		width: 82%;
+		margin-top: -1.5rem;
+		padding-top: 2rem;
+		background: white;
+		opacity: 2;
+		border-radius: 1rem;
+	}
+	.container-title {
+		margin-bottom: 2rem;
+	}
+	.form {
+		width: 27.5rem;
+		justify-content: center;
+	}
+	.form-field {
+		width: 35.5rem;
+	}
+	.form-option {
+		width: 35.5rem;
+	}
+
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+	.container {
+		justify-content: center;
+		width: 82%;
+		margin-top: -1.5rem;
+		padding-top: 2rem;
+		background: white;
+		opacity: 2;
+		border-radius: 1rem;
+	}
+	.container-title {
+		margin-bottom: 2rem;
+	}
+	.form {
+		width: 27.5rem;
+		justify-content: center;
+	}
+	.form-field {
+		width: 35.5rem;
+	}
+	.form-option {
+		width: 35.5rem;
+	}
+
+}

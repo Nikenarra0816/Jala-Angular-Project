@@ -1,0 +1,182 @@
+.button-action {
+	display: flex;
+	justify-content: flex-end;
+	margin: 2rem 0;
+
+	> button {
+		width: 17rem;
+	}
+}
+
+
+:host ::ng-deep .mat-sort-header-container {
+	justify-content: center;
+}
+
+.name ::ng-deep .mat-sort-header-container {
+	justify-content: flex-start;
+}
+
+.wrapper {
+	border-radius: 1rem;
+	border: 1px solid #E8E8E8;
+	overflow: hidden;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	//height: 371px;
+	background: white;
+}
+
+th {
+	height: 8rem;
+	font-family: inherit;
+	font-weight: 500;
+	font-size: 2rem;
+	color: #9B9B9B;
+}
+
+tr.header {
+	background-color: #E8E8E8;
+}
+
+td {
+	border: none;
+}
+
+tr.trigger-row {
+	border-bottom: 1px solid #E8E8E8;
+	transition: background-color .2s ease;
+}
+
+tr.trigger-row:hover {
+	background: darken(white, 3);
+}
+
+tr.trigger-row:active {
+	background: darken(white, 1);
+}
+
+.cdk-column-action{
+	width: 12rem;
+}
+.cdk-column-price{
+	width: 18rem;
+}
+.cdk-column-minBookingPrice{
+	width: 18rem;
+}
+
+.table-action {
+	display: flex;
+	justify-content: center;
+	> button:last-child {
+		margin-left: 1rem;
+	}
+}
+
+.card {
+	&__title {
+
+		&-balloon {
+			width: 10rem;
+			height: 10rem;
+			border-radius: 10rem;
+			background-color: #E8E8E8;
+			position: relative;
+			margin: 2rem auto;
+
+			& span {
+				font-weight: 500;
+				font-size: 1.6rem;
+				line-height: 1.8rem;
+				position: absolute;
+				color: #9B9B9B;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
+			& img {
+				object-fit: cover;
+				border-radius: 10rem;
+				height: 100%;
+				width: 100%;
+				position: absolute;
+				color: #9B9B9B;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+		}
+
+		&-title {
+			font-weight: 500;
+			font-size: 1.4rem;
+			line-height: 1.6rem;
+
+			&--price {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 4rem;
+				background-color: rgba(255, 207, 204, 0.31);
+				border-radius: 10px;
+			}
+		}
+
+		&-subtitle {
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			font-style: italic;
+		}
+
+		&-status {
+			width: 10rem;
+			height: 3.6rem;
+			border-radius: 1rem;
+			margin: 0 auto;
+			position: relative;
+
+			& span {
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				transform: translate(-50%, -50%);
+				color: inherit;
+				font-weight: 500;
+				font-size: 1.2rem;
+				line-height: 1.4rem;
+			}
+
+			&--green {
+				background-color: #EDF8F3;
+				color: #46B989;
+			}
+
+			&--yellow {
+				background-color: #FFF2E5;
+				color: #FF7A00;
+			}
+
+			&--red {
+				background-color: #FFCFCC;
+				color: #FF6F67;
+			}
+		}
+	}
+
+	&__status {
+		&-date {
+			width: 11.5rem;
+			margin: 0 auto;
+		}
+	}
+}
+
+mat-paginator {
+	border-radius: 0 0 1rem 1rem;
+}

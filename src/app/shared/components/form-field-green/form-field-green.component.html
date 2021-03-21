@@ -1,0 +1,31 @@
+<div class="form-wrapper">
+	<div class="form-label" *ngIf="!withoutLabel">
+		<ng-container [ngSwitch]="icon">
+			<ng-template [ngSwitchCase]="'filter'">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-filter"></use>
+				</svg>
+			</ng-template>
+			<ng-template [ngSwitchCase]="'search'">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-search"></use>
+				</svg>
+			</ng-template>
+		</ng-container>
+		<span>{{label}}</span>
+	</div>
+	<div class="form-clear" *ngIf="clearBtn" (click)="clearValue()">
+		<svg>
+			<use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+		</svg>
+	</div>
+	<div class="form-input">
+		<ng-content select="input"></ng-content>
+		<ng-content select="app-select"></ng-content>
+	</div>
+	<!--<div class="form-error-container">
+		<ng-template [ngIf]="first">
+			<ng-content></ng-content>
+		</ng-template>
+	</div>-->
+</div>

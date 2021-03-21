@@ -1,0 +1,142 @@
+<div class="card-container">
+	<div class="card-title">
+		User Setting
+		<span class="card-subtitle">modify or add user to access dashboard</span>
+	</div>
+	<div class="card-divider"></div>
+	<div class="card-content">
+		<form [formGroup]="form"> 
+			<app-form-field label="Role">
+				<ng-select
+					placeholder="Select Role User"
+					formControlName="role">
+					<!-- <ng-template ng-label-tmp let-item="item" let-clear="clear"> -->
+						<!-- <div class="ng-select-jala-item">
+							{{item.name}}
+							<span (click)="clear(item)"></span>
+						<svg><use xlink:href="assets/symbol-defs.svg#icon-close"></use></svg>
+						</div> -->
+				</ng-select>
+				<!-- <app-form-field-error *ngIf="formGroup.get('coverage').hasError('required')">
+					This field is required
+				</app-form-field-error> -->
+			</app-form-field>
+
+			<app-form-field label="Email">
+				<input type="email" placeholder="Enter email that’s use in login" formControlName="email" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('email').hasError('required')">Email Required</app-form-field-error>
+			</app-form-field>
+			
+			<h3 style="font-family: Ubuntu; font-style: normal;font-weight: normal;font-size: 16px;line-height: 18px;color: #9B9B9B;margin-bottom: 10px;
+				margin-top: 10px;">Privilege</h3>
+			<div class="cont">
+				<div class="cont-line">
+					<div class="cont-title">Team</div> 
+					<div class="cont-square"> 
+						<div class="checkbox-container" style="padding-left: 10px;padding-top: 1px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">All</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 120px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Create</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 225px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Modify</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 340px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Read</div>
+							</label>
+						</div>
+					</div>
+				</div>
+	
+				<div class="cont-line">
+					<div class="cont-title">Project</div> 
+					<div class="cont-square"> 
+						<div class="checkbox-container" style="padding-left: 10px;padding-top: 1px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">All</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 120px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Create</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 225px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Modify</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 340px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Read</div>
+							</label>
+						</div>
+					</div>
+				</div>
+	
+				<div class="cont-line">
+					<div class="cont-title">Ticketing</div> 
+					<div class="cont-square"> 
+						<div class="checkbox-container" style="padding-left: 10px;padding-top: 1px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">All</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 120px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Create</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 225px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Modify</div>
+							</label>
+						</div>
+						<div class="checkbox-container" style="margin-top: -31px;margin-left: 340px;">
+							<label class="checkbox-label">
+								<input type="checkbox">
+								<span class="checkbox-custom rectangular"></span>
+								<div class="input-title">Read</div>
+							</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<div class="card-option">
+			<button appJalaButton style="width: 14rem;" color="primary">Submit</button>
+		</div>
+		
+	</div>
+</div>

@@ -1,0 +1,74 @@
+<div class="card-container">
+	<div class="card-title">
+		Profile Setting
+		<span class="card-subtitle">Update your profile information</span>
+	</div>
+	<div class="card-divider"></div>
+	<div class="card-content">
+		<form [formGroup]="form">
+
+			<div class="card-label">Picture</div>
+			<app-image-upload [imageUrl]="picture" style="width: 20rem;"
+							  (getImage)="newPicture = $event"></app-image-upload>
+
+			<app-form-field label="Name">
+				<input type="text" formControlName="name" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('name').hasError('required')">Please fill out this field
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Email">
+				<input type="email" placeholder="" formControlName="email" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('email').hasError('required')">Email Required
+				</app-form-field-error>
+				<app-form-field-error *ngIf="form.get('email').hasError('email')">
+					Email is not Valid
+				</app-form-field-error>
+				<app-form-field-error *ngIf="form.get('email').hasError('emailExists')">
+					Email already Exists
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Phone">
+				<input type="text" formControlName="phone" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('phone').hasError('required')">
+					Please fill out this field
+				</app-form-field-error>
+				<app-form-field-error *ngIf="form.get('phone').hasError('minlength')">
+					Phone Number Min Length 8 digit
+				</app-form-field-error>
+				<app-form-field-error *ngIf="form.get('phone').hasError('pattern')">
+					Phone Number Must Be Number And +62 Number Only
+				</app-form-field-error>
+				<app-form-field-error *ngIf="form.get('phone').hasError('phoneExists')">
+					Phone already Exists
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Company">
+				<input type="text" formControlName="company" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('company').hasError('required')">Please fill out this field
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="PIC">
+				<input type="text" formControlName="pic" appFormFieldInput>
+				<app-form-field-error *ngIf="form.get('pic').hasError('required')">Please fill out this field
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Address">
+				<textarea formControlName="address" appFormFieldInput></textarea>
+				<app-form-field-error *ngIf="form.get('address').hasError('required')">Please fill out this field
+				</app-form-field-error>
+			</app-form-field>
+
+			<div class="card-option">
+				<button appJalaButton style="width: 14rem;" color="primary" (click)="submitForm(form.value)">Submit
+				</button>
+			</div>
+
+
+		</form>
+	</div>
+</div>

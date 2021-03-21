@@ -1,0 +1,34 @@
+.button-toggle {
+	width: 100%;
+	height: 100%;
+	font-size: 1.4rem;
+	background-color: white;
+	font-family: inherit;
+	font-weight: 500;
+	color: #57BF94;
+	border: none;
+	outline: none;
+	transition: all .3s ease;
+	position: relative;
+
+	&-on {
+		background-color: #57BF94;
+		color: white;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-color: transparent;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		transition: all .3s ease;
+	}
+
+	&:hover:after{
+		background-color: rgba(black, .05);
+	}
+}

@@ -1,0 +1,31 @@
+<app-breadcrumb title="Support" subtitle="Category"></app-breadcrumb>
+
+<div class="card">
+	<div class="card-category">
+		<div class="card-title">HELP</div>
+	</div>
+	<div class="card-wrapper">
+		<div class="card-list">
+			<div class="card-list-header">
+				<ng-container *ngIf="tutorialData$ | async as data">
+					<div class="card-list-header-pic">
+						<img [src]="'https://jala.ai/admin-new/assets/picture/support/' + data.picture">
+					</div>
+					<div class="card-list-header-text">{{ data.name }}</div>
+				</ng-container>
+			</div>
+			<div class="card-list-item" *ngFor="let dataTut of arrTutorialCat; let i = index"
+				 [ngClass]="{ 'card-list-item--active': pageShow === i }" (click)="changePage(i)">
+				<div class="card-list-item-text">
+					{{dataTut.detail}}
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<app-support-category-body [dataParent]="arrTutorialForChild"></app-support-category-body>
+		</div>
+	</div>
+	<div class="card-action">
+		<button appJalaButton [routerLink]="['help']">Back To HomePage</button>
+	</div>
+</div>

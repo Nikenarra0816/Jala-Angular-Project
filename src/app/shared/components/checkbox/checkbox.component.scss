@@ -1,0 +1,165 @@
+/*
+
+.cbx {
+  -webkit-perspective: 20;
+  perspective: 20;
+  position: absolute;
+  width: 21px;
+  height: 20px;
+  top: 295px;
+  left: 436px;
+  margin-top: -12px;
+  margin-left: -8px;
+  border: 2px solid #D9D9D9;
+  background: #D9D9D9;
+  transform: translate3d(0, 0, 0);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+}
+.cbx:hover {
+  border-color:#D9D9D9;
+}
+.flip {
+  display: block;
+  transition: all 0.4s ease;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+#cbx {
+  display: none;
+}
+#cbx:checked + .cbx {
+  border-color:#D9D9D9;
+}
+#cbx:checked + .cbx .flip {
+  transform: rotateY(180deg);
+}
+.front,
+.back {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+}
+.front {
+  background: #D9D9D9;
+  z-index: 1;
+}
+.back {
+  transform: rotateY(180deg);
+  background: #D9D9D9;
+  text-align: center;
+  color: #D9D9D9;
+  line-height: 20px;
+  box-shadow: 0 0 0 1px #D9D9D9;
+}
+.back svg {
+  margin-top: 3px;
+  fill: none;
+}
+.back svg path {
+  stroke:#9B9B9B;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}*/
+
+.checkbox {
+	opacity: 0;
+	position: absolute;
+	left: 0;
+	top: 0;
+
+	&-wrapper {
+		width: 100%;
+		position: relative;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	&-label {
+		color: #9B9B9B;
+		font-size: 1.6rem;
+		margin: 0 1rem;
+		//line-height: 1.8rem;
+		/*position: absolute;
+		top: 50%;
+		transform: translateY(-50%);*/
+	}
+
+	&-touch {
+		background-color: transparent;
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: 2;
+	}
+
+	&-check {
+		background-color: transparent;
+		width: 80%;
+		height: 80%;
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1;
+		transition: transform .2s;
+
+		& svg {
+			display: block;
+			z-index: -1;
+			fill: #9B9B9B;
+			width: 100%;
+			height: 100%;
+		}
+	}
+
+	&-uncheck {
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%) scale(0);
+	}
+
+	&-box {
+		position: relative;
+		display: inline-block;
+		width: 2rem;
+		height: 2rem;
+		background-color: white;
+		border-radius: 5px;
+		border: 1px solid #9B9B9B;
+		transition: background-color, outline .2s;
+	}
+
+	&-disable {
+		background-color: #D9D9D9;
+	}
+
+	&-ripple {
+		border-radius: 5px;
+		position: absolute;
+		width: 2rem;
+		height: 2rem;
+		top: 50%;
+		left: 50%;
+		background-color: blue;
+		transform: translate(-50%, -50%) scale(.5);
+		transition: transform .2s;
+		z-index: -1;
+	}
+
+	&-focus {
+		background-color: blue;
+		transform: translate(-50%, -50%) scale(1.2);
+	}
+}

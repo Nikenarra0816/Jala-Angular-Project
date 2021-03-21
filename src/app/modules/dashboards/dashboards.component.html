@@ -1,0 +1,10 @@
+<div class="container--custom">
+	<div class="header-bg"></div>
+	<div class="header">
+		<app-header></app-header>
+	</div>
+	<div class="content" [@routeAnimations]="prepareRoute(outlet)">
+		<router-outlet #outlet="outlet"></router-outlet>
+	</div>
+	<app-footer></app-footer>
+</div>

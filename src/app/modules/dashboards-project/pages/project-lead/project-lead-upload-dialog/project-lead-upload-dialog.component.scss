@@ -1,0 +1,69 @@
+.dialog {
+
+	&-container {
+		display: flex;
+		height: 30rem;
+		width: 100%;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	&-form {
+
+		&--download {
+			display: flex;
+			align-items: center;
+			margin-bottom: 3rem;
+
+			> h3 {
+				font-style: italic;
+				font-weight: normal;
+				font-size: 1.4rem;
+				line-height: 16px;
+				color: #9B9B9B;
+				margin-left: 1rem;
+			}
+		}
+
+		&--upload {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			> input[type="file"] {
+				display: none;
+			}
+
+			> h3 {
+				font-weight: normal;
+				font-size: 1.4rem;
+				line-height: 16px;
+				color: black;
+				text-align: center;
+			}
+		}
+	}
+
+	&-progress {
+		> h3 {
+			font-weight: normal;
+			font-size: 1.4rem;
+			line-height: 16px;
+			color: black;
+			text-align: center;
+			margin-top: 1rem;
+		}
+	}
+
+	&-action {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+
+		> *:not(:first-child) {
+			margin-left: 1rem;
+		}
+	}
+}

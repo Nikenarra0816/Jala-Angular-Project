@@ -1,0 +1,203 @@
+<app-breadcrumb title="Project" subtitle="Add Form"></app-breadcrumb>
+<app-stepper #linear #stepper>
+	<!--	TAB 1 START		-->
+	<cdk-step label="SETUP INFORMATION">
+		<div class="form-group form-group--1" *ngIf="channelMetadata| async as metadata">
+			<div class="card-wrapper">
+				<div class="card card--1" (click)="mediaType = 'online'; formGroup1.get('pageUrl').enable()"
+					 [ngClass]="{'card--green': mediaType === 'online'}">
+					<div class="card-title">
+						ONLINE
+					</div>
+					<div class="card-body card-body--1">
+						<ng-template ngFor let-item [ngForOf]="metadata.medias">
+							<ng-template [ngIf]="item.type === 'online'">
+								<div class="badge">
+									<div class="badge-image">
+										<img [src]="item.picture" appImageLoader>
+									</div>
+									<div class="badge-title">
+										{{ item.name }}
+									</div>
+								</div>
+							</ng-template>
+						</ng-template>
+					</div>
+				</div>
+				<div class="card card--1" (click)="mediaType = 'offline'; formGroup1.get('pageUrl').disable()"
+					 [ngClass]="{'card--green': mediaType === 'offline'}">
+					<div class="card-title">
+						OFFLINE
+					</div>
+					<div class="card-body card-body--1">
+						<ng-template ngFor let-item [ngForOf]="metadata.medias">
+							<ng-template [ngIf]="item.type === 'offline'">
+								<div class="badge">
+									<div class="badge-image">
+										<img [src]="item.picture" appImageLoader>
+									</div>
+									<div class="badge-title">
+										{{ item.name }}
+									</div>
+								</div>
+							</ng-template>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+			<form [formGroup]="formGroup1">
+				<app-form-field label="Name">
+					<input type="text" formControlName="name" appFormFieldInput>
+					<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+						This field is required
+					</app-form-field-error>
+					<app-form-field-error *ngIf="formGroup1.get('name').hasError('minlength')" pl>
+						Name Must be Greater than 5 words
+					</app-form-field-error>
+				</app-form-field>
+				<ng-template [ngIf]="mediaType === 'online'">
+					<app-form-field label="Page URL">
+						<input type="text" formControlName="pageUrl" appFormFieldInput
+							   [placeholder]="'https://google.com'">
+						<app-form-field-error *ngIf="formGroup1.get('pageUrl').hasError('required')">
+							This field is required
+						</app-form-field-error>
+						<app-form-field-error *ngIf="formGroup1.get('pageUrl').hasError('urlValid')">
+							Url is invalid
+						</app-form-field-error>
+					</app-form-field>
+				</ng-template>
+			</form>
+			<div class="form-action">
+				<button appJalaButton color="outline" [routerLink]="['../','form']">Back</button>
+				<button appJalaButton color="primary" (click)="isValid(formGroup1)">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 1 END		-->
+	<!--	TAB 2 START		-->
+	<cdk-step label="FIELD">
+		<div class="form-group">
+			<div class="card-wrapper">
+				<div class="card card--2">
+					<div class="card-title card-title--with-subtitle">
+						<h3>Provide Field</h3>
+						<h5>Check field that's use in form to generate lead and Uncheck if cancel</h5>
+					</div>
+					<div class="card-body" *ngIf="formMetadata | async as field">
+						<div class="checkbox-list">
+							<div class="checkbox-list-item" *ngFor="let data of field.fields">
+								{{data.name}}
+								<app-checkbox [ngModel]="( data.mandatory )"
+											  [disabled]="( data.mandatory )"
+											  (checked)="changeField(data, $event)"></app-checkbox>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card--mid">
+					<svg>
+						<use xlink:href="assets/sprite.svg#object-double-arrow"></use>
+					</svg>
+				</div>
+				<div class="card card--green-reverse" style="align-self: center;">
+					<div class="card-title card-title--with-subtitle">
+						<h3>Your Field</h3>
+						<h5>This is field that’s use in field</h5>
+					</div>
+					<div class="card-body">
+						<div class="checkbox-list checkbox-list--green"
+							 [@.disabled]="stepper._getFocusIndex() !== 1">
+							<div class="checkbox-list-item" *ngFor="let data of selectedFormField" [@inOutAnimation]>
+								{{data.name}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary"
+						(click)="isForm3Valid()">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!--	TAB 2 END		-->
+	<!--	TAB 3 START		-->
+	<!--<cdk-step label="CHANNEL">
+		<div class="form-group form-group&#45;&#45;3">
+			<div class="card card&#45;&#45;3">
+				<div class="card-title card-title&#45;&#45;with-subtitle">
+					<h3>Available Channel</h3>
+					<h5>Check the channel that’s you want to participate in form</h5>
+				</div>
+				<div class="card-body">
+					<div class="checkbox-list" style="max-height: 30rem; overflow-y: auto;">
+						<div class="checkbox-list-item" *ngFor="let data of channelList | async">
+							{{data.data.name}}
+							<app-checkbox [ngModel]="false"
+										  (checked)="changeChannels(data, $event)"></app-checkbox>
+						</div>
+					</div>
+				</div>
+			</div>
+			<app-form-field label="Default Channel">
+				<app-select [formControl]="formGroup3" [dataAll]="selectedChannel" bindLabel="data.name"
+							bindValue="data.id" placeholder="Select Default Channel"></app-select>
+				<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+					This field is required
+				</app-form-field-error>
+			</app-form-field>
+			<div class="form-action">
+				<button appJalaButton color="outline" (click)="stepper.previous()">Back</button>
+				<button appJalaButton color="primary"
+						(click)="isForm3Valid()">Next
+				</button>
+			</div>
+		</div>
+	</cdk-step>-->
+	<!--	TAB 3 END		-->
+	<!--	TAB 4 START		-->
+	<ng-template [ngIf]="mediaType === 'online'">
+		<cdk-step label="LAUNCH">
+			<div class="form-group form-group--4">
+				<div class="card--script" *ngIf="finalizedForm">
+					<div class="card--script-title">
+						<h3>Script</h3>
+						<h5>Your Script Form</h5>
+					</div>
+					<div class="card--script-body">
+						<div class="card--script-box card--script-box-script">
+							{{finalizedForm.data.script}}
+							<a role="button" appCopyClipboard [copyClipboard]="finalizedForm.data.script"
+							   (copied)="copied($event)">
+								<svg>
+									<use xlink:href="assets/symbol-defs.svg#icon-clipboard"></use>
+								</svg>
+							</a>
+						</div>
+						<h3>Guide</h3>
+						<h5>Read the guide for add script to your website that’s has form </h5>
+						<p>Put the script inside head<br>
+							<br>
+							Example :</p>
+						<div class="card--script-box card--script-box-script card--script-box-script--html"
+							 style="grid-column: 1/3">
+							<p><strong>&lt;head&gt;</strong><br>
+								&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ finalizedForm.data.script }}</em><br>
+								<strong>&lt;/head&gt;</strong>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="form-action">
+					<button appJalaButton color="primary" (click)="finishFormOnline()">Finish
+					</button>
+				</div>
+			</div>
+		</cdk-step>
+	</ng-template>
+	<!--	TAB 4 END		-->
+</app-stepper>

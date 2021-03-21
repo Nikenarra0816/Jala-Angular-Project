@@ -1,0 +1,11 @@
+<div class="container">
+	<h3>Please select Your file export do you want</h3>
+	<div class="container-checkbox" *ngIf="!data.disableJourney">
+		<app-checkbox [(ngModel)]="withJourney"></app-checkbox>
+		<h3>Include Journey Leads</h3>
+	</div>
+	<div class="container-action">
+		<button appJalaButton (click)="exportAsExcel()">Excel</button>
+		<button appJalaButton (click)="exportAsCSV()">CSV</button>
+	</div>
+</div>

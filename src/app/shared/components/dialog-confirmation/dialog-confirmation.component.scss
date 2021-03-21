@@ -1,0 +1,27 @@
+.dialog-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.dialog-action {
+	margin-top: 3rem;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+
+	& > button {
+		width: 10rem;
+	}
+
+	& > button:last-child {
+		margin-left: 2rem;
+	}
+}
+
+h3 {
+	text-align: left;
+	width: 100%;
+	font-size: 1.8rem;
+	line-height: 2.1rem;
+	font-weight: 400;
+}

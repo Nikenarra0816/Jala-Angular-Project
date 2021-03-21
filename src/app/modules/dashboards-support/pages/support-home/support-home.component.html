@@ -1,0 +1,41 @@
+<app-breadcrumb title="Support" subtitle="Help"></app-breadcrumb>
+<div class="header">
+	<div class="header-text">How Can We Help You ?</div>
+	<div class="header-search">
+		<app-form-field-green icon="search" label="search">
+			<input type="text" placeholder="Search FAQ" [formControl]=searchInput>
+		</app-form-field-green>
+		<div class="header-search-result" *ngIf="showResult">
+			<div class="header-search-result-item" *ngFor="let question of arrResult" (click)="jumpPageDetail(question.tutorial_id, question.id)">
+				<div class="header-search-result-item-title">{{ question.detail }}</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container-card">
+	<div class="sub-header" *ngFor="let tutor of arrTutorial"
+		 (click)="jumpPage(tutor)">
+		<div class="sub-header-icon"><img src="https://jala.ai/admin-new/assets/picture/support/{{tutor.picture}}"
+										  alt="" height="69" width="69">
+		</div>
+		<div class="sub-header-title">{{tutor.name}}</div>
+		<div class="sub-header-subtitle">{{tutor.detail}}</div>
+	</div>
+</div>
+
+<div class="row margin-top">
+	<div class="col-7">
+		<router-outlet></router-outlet>
+	</div>
+	<div class="col-5">
+		<div class="card-faq"> FAQ
+			<app-collapsible [title]="data.frequently" *ngFor="let data of arrFaq" (clicked)="(faqOpen = data.id)"
+							 [isOpen]="data.id === faqOpen">
+				{{data.question}}
+			</app-collapsible>
+		</div>
+	</div>
+</div>
+
+

@@ -1,0 +1,156 @@
+.background {
+	width: 100vw;
+	height: 100vh;
+	background-image: url('/assets/bg.jpeg');
+	background-size: cover;
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	overflow: hidden;
+}
+
+
+.card {
+
+	//border-radius: .5rem;
+	/*background-color: rgba(245, 245, 245, 0.5);*/
+	/*
+		display: flex;
+		flex-direction: column;
+		height: 55rem;
+		margin-left: 415px;*/
+	/*transition: height .5s ease;*/
+
+	&-left {
+		height: 100%;
+		width: 50%;
+
+		&-container {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 100%;
+			z-index: 1;
+			padding: 6rem;
+		}
+
+		& svg {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			height: 115%;
+			width: 55%;
+			transform: translateY(-50%);
+			z-index: 0;
+		}
+	}
+
+	&-right {
+		height: 100%;
+		width: 50%;
+		position: relative;
+
+		&-container {
+			width: 45rem;
+			padding: 4rem;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			//overflow: hidden;
+			overflow-y: auto;
+			overflow-x: hidden;
+			max-height: 100vh;
+
+			&::-webkit-scrollbar {
+				width: 10px;
+				background-color: #F5F5F5;
+			}
+
+			&::-webkit-scrollbar-track {
+				border-radius: 10px;
+				background: rgba(255, 255, 255, 1);
+				border: none;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				border-radius: 10px;
+				background: rgba(0, 0, 0, .05);
+				border: 1px solid rgba(0, 0, 0, .05);
+			}
+
+			&::-webkit-scrollbar-thumb:hover {
+				background: rgba(0, 0, 0, .1);
+			}
+
+			&::-webkit-scrollbar-thumb:active {
+				background: rgba(0, 0, 0, .15);
+			}
+		}
+	}
+
+
+}
+
+.label {
+	display: block;
+	font-weight: 500;
+	font-size: 3rem;
+	line-height: 3.4rem;
+	color: #FFFFFF;
+}
+
+.text {
+	display: block;
+	font-weight: 300;
+	font-size: 2.2rem;
+	line-height: 25px;
+	color: #F5F5F5;
+}
+
+.people {
+	//height: 42rem;
+	margin: 5rem auto 0;
+
+	& img {
+		display: block;
+		max-width: 32rem;
+		width: 70%;
+		margin: 0 auto;
+	}
+}
+
+.logo {
+	background-image: url("https://jala.ai/dashboard/assets/pages/jala-logo-new.png");
+	background-size: cover;
+	width: 15rem;
+	height: 5.5rem;
+	position: absolute;
+	top: 2.5rem;
+	left: 2.5rem;
+	z-index: 2;
+}
+
+@media(max-width: 767px) {
+	.card-left {
+		display: none;
+	}
+	.card-right {
+		width: 100%;
+	}
+	.card-left-container {
+		display: none;
+	}
+}
+
+@media(min-width: 768px) and (max-width: 991px) {
+	.card-left {
+		display: none;
+	}
+	.card-right {
+		width: 100%;
+	}
+	.card-left-container {
+		display: none;
+	}
+}

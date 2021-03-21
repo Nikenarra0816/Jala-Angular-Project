@@ -1,0 +1,139 @@
+<div class="overlay-lead-detail overlay-lead-detail--close" [ngClass]="{'overlay-lead-detail--open': isOpen}">
+	<div class="overlay-lead-detail-body">
+		<div class="card">
+			<div class="card-title">Lead Detail</div>
+			<div class="card-body">
+				<ng-template let-data [ngIf]="dataLead | async" [ngIfElse]="spinner">
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-campaign"></use>
+						</svg>
+						<h4>{{data.getCampaign.name ? data.getCampaign.name : '-'}}</h4>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-email"></use>
+						</svg>
+						<h4>{{data.data.email ? data.data.email : '-'}}</h4>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-address"></use>
+						</svg>
+						<h4>{{data.data.address ? data.data.address : '-'}}</h4>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-gender"></use>
+						</svg>
+						<h4>{{data.data.gender ? data.data.gender : '-'}}</h4>
+					</div>
+
+					<div class="card-item card-item--product">
+						<ng-container *ngIf="data.data.interests.length === 0; then thenBlock else elseBlock "></ng-container>
+						<ng-template #thenBlock>
+							<h4>Product : -</h4>
+						</ng-template>
+						<ng-template #elseBlock>
+							<h4>Product :</h4>
+							<ng-container *ngFor="let product of data.data.interests">
+								<div class="card-item ">
+									<svg>
+										<use xlink:href="assets/sprite-lead.svg#icon-product"></use>
+									</svg>
+									<h4>{{product.product}}</h4>
+								</div>
+								<div class="card-item card-item--product-price">
+									<h4>{{product.productPrice | currency:'IDR':'symbol-narrow'}}</h4>
+								</div>
+							</ng-container>
+						</ng-template>
+					</div>
+
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-ktp"></use>
+						</svg>
+						<h4>{{data.data.additionalInfo?.noKTP ? data.data.additionalInfo.noKTP : '-'}}</h4>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-called"></use>
+						</svg>
+						<h4>Called {{data.data.statistic.call}}x</h4>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-lead.svg#icon-whatsapp"></use>
+						</svg>
+						<h4>Messages {{data.data.statistic.whatsappCall}}x</h4>
+					</div>
+				</ng-template>
+			</div>
+			<!--<div class="card-footer">
+				<button appJalaButtonIcon color="red-inverse" [round]="false" icon="whatsapp"></button>
+				<button appJalaButtonIcon color="red-inverse" [round]="false" icon="phone"></button>
+				<button appJalaButtonIcon color="red-inverse" [round]="false" icon="email"></button>
+			</div>-->
+		</div>
+
+		<div class="card">
+			<div class="card-title">Lead History</div>
+			<div class="card-body">
+				<ng-template let-datas [ngIf]="dataJourney | async" [ngIfElse]="spinner">
+					<ng-template [ngIf]="datas.length" [ngIfElse]="noResult">
+						<div class="tree">
+							<div class="tree-item" *ngFor="let data of datas">
+								<span class="bullet" [ngClass]="'bullet--' + data.status.categorySort"></span>
+								<h3>Update Status : {{data.status.status}}</h3>
+								<h4>{{data.note}}</h4>
+								<ng-template [ngIf]="data.documents !== undefined">
+									<ng-template ngFor let-doc [ngForOf]="data.documents">
+										<ng-template [ngIf]="doc.type === 'photo'">
+											<div class="tree-item--image">
+												<img [src]="doc.path" appImageLoader>
+												<h5>{{doc.info?.location}}</h5>
+											</div>
+										</ng-template>
+									</ng-template>
+								</ng-template>
+								<h4>{{data.createdAt | date: 'MMM d, y, H:mm'}}</h4>
+							</div>
+						</div>
+					</ng-template>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="overlay-lead-detail-backdrop overlay-lead-detail-backdrop--close"
+	 [ngClass]="{'overlay-lead-detail-backdrop--open': isOpen}"
+	 (click)="close()"></div>
+
+<ng-template #noResult>
+	<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+		No
+		History</h1>
+</ng-template>
+
+<ng-template #spinner>
+	<div class="spinner">
+		<svg width="50%" height="50%" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg"
+			 style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+			<g fill="none" fill-rule="evenodd">
+				<g transform="translate(1 1)" stroke-width="2">
+					<circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+					<path d="M36 18c0-9.94-8.06-18-18-18">
+						<animateTransform
+							attributeName="transform"
+							type="rotate"
+							from="0 18 18"
+							to="360 18 18"
+							dur="1s"
+							repeatCount="indefinite"></animateTransform>
+					</path>
+				</g>
+			</g>
+		</svg>
+	</div>
+</ng-template>

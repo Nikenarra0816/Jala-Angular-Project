@@ -1,0 +1,49 @@
+<form class="form" [formGroup]="formGroup">
+	<app-form-field label="Name">
+		<input type="text" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup.get('name').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('name').hasError('minlength')">
+			This field required atleast 6 character
+		</app-form-field-error>
+	</app-form-field>
+
+	<app-form-field label="Detail">
+		<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+		<app-form-field-error *ngIf="formGroup.get('detail').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+
+	<div class="form-field">
+		<h3>Project Status</h3>
+		<div class="radio-group-linear">
+			<div *ngFor="let data of metadata?.statuses">
+				<input class="radio" [id]="data" type="radio" [value]="data" formControlName="status">
+				<label class="radio__label" [for]="data">{{data}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-field">
+		<h3>Duration</h3>
+		<div>
+			<input class="radio" id="duration" type="radio" value="duration" formControlName="duration">
+			<label class="radio__label" for="duration">
+					<span class="form-group1-input">
+						<input type="number" id="durationInput" min="1" [formControl]="formGroupMonth"
+							   appOnlyDigit maxInput="30">
+						<label for="durationInput">/ Month</label>
+					</span>
+			</label>
+		</div>
+		<div>
+			<input class="radio" id="no-duration" type="radio" value="noDuration" formControlName="duration">
+			<label class="radio__label" for="no-duration">Manually Stop Project</label>
+		</div>
+	</div>
+</form>
+<div class="form-action">
+	<button appJalaButton color="primary" (click)="submit(formGroup)">Save</button>
+</div>

@@ -1,0 +1,39 @@
+.container-channel {
+	display: flex;
+	flex-direction: column;
+
+	& > * {
+		margin-bottom: 4rem;
+	}
+}
+
+.chart-wrapper{
+	padding: 1rem;
+}
+
+app-form-field-green {
+	max-width: 45rem;
+	width: 100%;
+}
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.button-action {
+	display: flex;
+	align-items: center;
+	margin-left: auto;
+}
+
+.button-action > button {
+	position: relative;
+	margin: 0 1rem;
+}
+
+.button-action > button:nth-child(3) {
+	width: 16.5rem;
+	margin: 0 0 0 3rem;
+}

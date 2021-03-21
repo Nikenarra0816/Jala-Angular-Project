@@ -1,0 +1,45 @@
+<form [formGroup]="formGroupForm">
+	<app-form-field label="Name">
+		<input type="text" placeholder="Name" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="name.hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="name.hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+	<ng-template [ngIf]="pageUrl.enabled">
+		<app-form-field label="Page Url">
+			<input type="text" placeholder="Page Url" formControlName="pageUrl" appFormFieldInput>
+			<app-form-field-error *ngIf="pageUrl.hasError('required')">
+				This field is required
+			</app-form-field-error>
+			<app-form-field-error *ngIf="pageUrl.hasError('urlValid')">
+				Url is not valid
+			</app-form-field-error>
+		</app-form-field>
+	</ng-template>
+</form>
+<div class="form-label">
+	<span>Field Form</span>
+</div>
+<app-loader-spinner [loading]="allFields">
+	<div class="box">
+		<div class="box-item" *ngFor="let data of curFields" [@inOutAnimation]>
+			<h5>{{ data.name }}</h5>
+			<ng-template [ngIf]="!data.mandatory">
+				<span (click)="updateDiff(data.id, 'delete')">X</span>
+			</ng-template>
+		</div>
+	</div>
+	<div class="box" style="border-top: none;">
+		<div class="box-item box-item--green" *ngFor="let data of diffFields" [@inOutAnimation]>
+			<h5>{{ data.name }}</h5>
+				<span (click)="updateDiff(data.id, 'add')">+</span>
+		</div>
+	</div>
+</app-loader-spinner>
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto;">
+	<button appJalaButton color="outline" (click)="close()">Cancel</button>
+	<button appJalaButton color="primary" (click)="submit(formGroupForm)">Save</button>
+</div>

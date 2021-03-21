@@ -1,0 +1,50 @@
+.container {
+	> *:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+}
+
+.content {
+
+	&-container {
+		display: flex;
+	}
+
+	&-number {
+		flex-shrink: 0;
+		margin-right: 4rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 4rem;
+		height: 4rem;
+		border-radius: 100px;
+		background: #F5F5F5;
+		font-style: normal;
+		font-weight: bold;
+		font-size: 1.8rem;
+		color: #000000;
+	}
+
+	&-body {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&-detail {
+		margin: calc((4rem - 1.8rem) / 4) 0;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 1.8rem;
+		line-height: 2.1rem;
+		color: #000000;
+	}
+
+	&-image {
+		max-height: 55rem;
+		margin: 0 auto;
+		max-width: 100%;
+	}
+
+
+}

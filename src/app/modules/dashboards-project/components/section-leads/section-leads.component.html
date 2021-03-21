@@ -1,0 +1,8 @@
+<div class="section" [ngClass]="{'section--green': color === 'green'}">
+	<div class="section-title" [ngClass]="{'section-title--green': color === 'green'}">
+		<ng-content select="div.title"></ng-content>
+	</div>
+	<div class="section-body">
+		<ng-content></ng-content>
+	</div>
+</div>

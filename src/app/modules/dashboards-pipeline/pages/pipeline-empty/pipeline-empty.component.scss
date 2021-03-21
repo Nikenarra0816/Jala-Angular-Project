@@ -1,0 +1,38 @@
+.container-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100%;
+	max-width: 50rem;
+
+	& > svg {
+		width: 100%;
+	}
+
+	& > h1 {
+		font-weight: 400;
+		font-size: 3rem;
+		line-height: 3.4rem;
+		text-align: center;
+		color: #000000;
+	}
+
+	& > h2 {
+		font-weight: normal;
+		font-size: 1.8rem;
+		line-height: 2.1rem;
+		text-align: center;
+		color: #9B9B9B;
+	}
+
+	& > div {
+		width: fit-content;
+		margin: 4rem auto 12rem;
+	}
+}

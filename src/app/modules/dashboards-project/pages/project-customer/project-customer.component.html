@@ -1,0 +1,104 @@
+<div class="wrapper">
+	<div class="card-info card-info--1">
+		<div>
+			<svg>
+				<use xlink:href="assets/sprite.svg#icon-customer-1"></use>
+			</svg>
+		</div>
+		<h3>Total</h3>
+		<h2>{{ this.dataForOverview ? this.dataForOverview.totalCustomers : 0 }}</h2>
+		<h4>Customers</h4>
+	</div>
+	<div class="card-info card-info--2">
+		<div>
+			<svg>
+				<use xlink:href="assets/sprite.svg#icon-customer-2"></use>
+			</svg>
+		</div>
+		<h3>Total Income</h3>
+		<h2>{{ this.dataForOverview ? (this.dataForOverview.totalIncome | currencyShort: true: true) : 0 }}</h2>
+		<h4>{{ this.dataForOverview ? (this.dataForOverview.totalIncome | currencyShort : false : false: true) : 'Rupiah' }}</h4>
+	</div>
+	<div class="card-info card-info--3">
+		<div>
+			<svg>
+				<use xlink:href="assets/sprite.svg#icon-customer-3"></use>
+			</svg>
+		</div>
+		<h3>Total Purchased</h3>
+		<h2>{{ this.dataForOverview ? this.dataForOverview.totalPurchased : 0 }}</h2>
+		<h4>Times</h4>
+	</div>
+	<app-section-leads color="green">
+		<div class="title">
+			<svg>
+				<use xlink:href="assets/symbol-defs.svg#icon-filter"></use>
+			</svg>
+			<h3>FILTER</h3>
+		</div>
+		<div class="filter">
+			<form [formGroup]="formFilter" *ngIf="dataForFilter; else spinner">
+				<!--			<form [formGroup]="formFilter">-->
+				<div>
+					<span (click)="getDate.reset()">x</span>
+					<input type="text"
+						   formControlName="getDate"
+						   appFormFieldInputGreen
+						   placeholder="Pick date range"
+						   bsDaterangepicker
+						   placement="bottom"
+						   [maxDate]="dateNow"
+						   [bsConfig]="{ isAnimated: true, containerClass: 'theme-default',rangeInputFormat: 'MMM DD YYYY' }">
+				</div>
+				<ng-select [items]="dataForFilter.getCategory" formControlName="getCategory" bindValue="id"
+						   placeholder="Category"
+						   bindLabel="name" class="jala-select-lead-filter--green"></ng-select>
+				<ng-select [items]="dataForFilter.getStatus" formControlName="getStatus" bindValue="id"
+						   placeholder="Status"
+						   bindLabel="name" class="jala-select-lead-filter--green"></ng-select>
+				<ng-select [items]="dataForFilter.getSalesOfficer" formControlName="getSalesOfficer" bindValue="id"
+						   placeholder="Sales Officer"
+						   bindLabel="name" class="jala-select-lead-filter--green"></ng-select>
+			</form>
+		</div>
+	</app-section-leads>
+	<app-section-leads style="grid-row: 2; grid-column: 1/5">
+		<div class="title">
+			<svg>
+				<use xlink:href="assets/symbol-defs.svg#icon-graph"></use>
+			</svg>
+			<h3>CHART PER CATEGORIES</h3>
+		</div>
+		<div class="card-body">
+			<ng-template let-data [ngIf]="dataForChart1" [ngIfElse]="spinner">
+				<ng-template [ngIf]="data !== 'empty'" [ngIfElse]="elseBlock">
+					<app-bar-stacked-chart [dataParent]="data"></app-bar-stacked-chart>
+				</ng-template>
+			</ng-template>
+		</div>
+	</app-section-leads>
+
+	<div class="wrapper-action" style="grid-row: 3; grid-column: 1/5">
+		<app-form-field-green icon="search" label="search">
+			<input type="text" placeholder="Search Name Lead" [formControl]="searchInputForm">
+		</app-form-field-green>
+	</div>
+
+	<!--<app-project-lead-table [dataLeads]="dataForTable" style="width: 100%; margin-top:20px"
+							(openOverlay)="overlay.open($event)"></app-project-lead-table>-->
+	<app-project-customer-table [dataCustomers]="dataForTable" style="grid-row: 4; grid-column: 1/5"
+								(rowClicked)="openDialog($event)">
+	</app-project-customer-table>
+</div>
+
+
+<ng-template #elseBlock>
+	<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+		No
+		Data</h1>
+</ng-template>
+
+
+<ng-template #spinner>
+	<app-loader-spinner-v2 height="10rem"></app-loader-spinner-v2>
+</ng-template>

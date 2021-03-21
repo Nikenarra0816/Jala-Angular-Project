@@ -1,0 +1,87 @@
+<div class="container">
+
+	<form [formGroup]="formGroup1">
+		<app-form-field label="Projects">
+			<ng-select
+				class="jala-select"
+				[items]="projects$ | async"
+				[multiple]="true"
+				[closeOnSelect]="false"
+				[hideSelected]="true"
+				bindLabel="name"
+				placeholder="Select Projects"
+				formControlName="projects">
+				<ng-template ng-label-tmp let-item="item" let-clear="clear">
+					<div class="ng-select-jala-item">
+						{{item.name}}
+						<span (click)="clear(item)">
+						<svg><use xlink:href="assets/symbol-defs.svg#icon-close"></use></svg>
+					</span>
+					</div>
+				</ng-template>
+			</ng-select>
+			<app-form-field-error *ngIf="formGroup1.get('projects').hasError('required')">
+				This field is required
+			</app-form-field-error>
+		</app-form-field>
+
+
+		<app-form-field label="Name">
+			<input type="text" formControlName="name" appFormFieldInput>
+			<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+				This field is required
+			</app-form-field-error>
+			<app-form-field-error *ngIf="formGroup1.get('name').hasError('minlength')">
+				This field is required 6 character or more
+			</app-form-field-error>
+		</app-form-field>
+
+		<app-form-field label="Detail">
+			<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+			<app-form-field-error *ngIf="formGroup1.get('detail').hasError('required')">
+				This field is required
+			</app-form-field-error>
+		</app-form-field>
+
+		<app-form-field label="Price">
+			<input type="number" formControlName="price" appFormFieldInput appOnlyDigit>
+			<app-form-field-error *ngIf="formGroup1.get('price').hasError('required')">
+				This field is required
+			</app-form-field-error>
+		</app-form-field>
+
+		<div class="form-field">
+			<h3>Product Status</h3>
+			<div class="radio-group-linear">
+				<div>
+					<input class="radio" id="active" type="radio" [value]="true" formControlName="isActive">
+					<label class="radio__label" for="active">ACTIVE</label>
+				</div>
+				<div>
+					<input class="radio" id="inactive" type="radio" [value]="false" formControlName="isActive">
+					<label class="radio__label" for="inactive">INACTIVE</label>
+				</div>
+			</div>
+		</div>
+
+	</form>
+	<div class="image-container">
+		<div class="image-item" *ngFor="let image of imageList">
+			<img [src]="image.path" [alt]="image.title" appImageLoader>
+		</div>
+		<div class="image-item" *ngFor="let image of newImage">
+			<img [src]="image">
+		</div>
+		<div class="image-item" (click)="upload.click()" style="cursor:pointer;">
+			<svg>
+				<use xlink:href="assets/symbol-defs.svg#icon-plus"></use>
+			</svg>
+			<input type="file" accept=".png, .jpg, .jpeg" #upload (change)="addImage(upload.files)">
+		</div>
+	</div>
+
+</div>
+<div style="display:flex; justify-content: flex-end; width: 100%; margin-top: 2rem;">
+	<button appJalaButton color="outline" style="margin-right: 2rem;" (click)="close()">Close</button>
+	<button appJalaButton color="primary" (click)="submit(formGroup1)">Save</button>
+</div>

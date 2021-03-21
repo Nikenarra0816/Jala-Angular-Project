@@ -1,0 +1,19 @@
+<section class="stepper">
+	<div class="stepper-header">
+		<div class="stepper-item" *ngFor="let step of steps; let i = index;"
+			 [ngClass]="{ 'stepper-item-active': selectedIndex === i, 'stepper-item--col': headerCol }"
+			 [ngStyle]="{width: (100 / steps.length)+'%'}">
+			<div class="stepper-icon"
+				 [ngClass]="{ 'stepper-icon-active': selectedIndex === i, 'stepper-icon--col': headerCol }">
+				<span>{{i + 1}}</span>
+			</div>
+			<div class="stepper-label"
+				 [ngClass]="{'stepper-label-active': selectedIndex === i, 'stepper-label--col': headerCol}">
+				<span>{{step.label}}</span></div>
+		</div>
+	</div>
+	<div class="stepper-body">
+		<ng-container [ngTemplateOutlet]="selected.content"></ng-container>
+	</div>
+</section>
+

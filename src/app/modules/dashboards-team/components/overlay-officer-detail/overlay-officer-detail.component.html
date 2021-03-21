@@ -1,0 +1,127 @@
+<div class="overlay-team-detail overlay-team-detail--close" [ngClass]="{'overlay-team-detail--open': isOpen}">
+	<div class="overlay-team-detail-body">
+		<ng-template [ngIf]="data">
+			<div class="card">
+				<div class="card-title">Officer Detail</div>
+				<div class="card-body">
+					<div class="card-item"><h4 style="margin-left: 0;">Created At</h4></div>
+					<div class="card-item date-period date-period--green">
+						<div>
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+							</svg>
+						</div>
+						<span>{{ data.data.createdAt ? ( data.data.createdAt | date:'mediumDate' ) : 'PRESENT' }}</span>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-officer.svg#icon-gender-detail"></use>
+						</svg>
+						<h4>Gender</h4>
+						<div class="card-item-data">
+							<h4>{{data.data.gender | titlecase}}</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-officer.svg#icon-lead-detail"></use>
+						</svg>
+						<h4>Leads</h4>
+						<div class="card-item-data">
+							<h4>{{data.summary.total_lead}} Leads</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-officer.svg#icon-email-detail"></use>
+						</svg>
+						<h4>Email</h4>
+						<div class="card-item-data">
+							<h4>{{ data.data.email }}</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-officer.svg#icon-phone-detail"></use>
+						</svg>
+						<h4>Phone</h4>
+						<div class="card-item-data">
+							<h4>{{data.data.phone ? data.data.phone : '-'}}</h4>
+						</div>
+					</div>
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-officer.svg#icon-address-detail"></use>
+						</svg>
+						<h4>Address</h4>
+						<div class="card-item-data">
+							<h4>{{data.data.address ? data.data.address : '-'}}</h4>
+						</div>
+					</div>
+
+					<div class="card-item">
+						<svg>
+							<use xlink:href="assets/sprite-team.svg#icon-coverage-detail"></use>
+						</svg>
+						<h4>Sales Team</h4>
+					</div>
+
+					<div class="card-item--team">
+						<div *ngFor="let team of data.data.teams">
+							<h4>{{team.name}}</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</ng-template>
+		<div class="card">
+			<div class="card-title">Officer History</div>
+			<div class="card-body">
+				<ng-template [ngIf]="dataJourney | async" let-data [ngIfElse]="spinner">
+					<ng-template [ngIf]="data.length" [ngIfElse]="noResult">
+						<div class="tree">
+							<div class="tree-item" *ngFor="let data of dataJourney| async">
+								<span class="bullet" [ngClass]="'bullet--' + data.status.categorySort"></span>
+								<h3>Update Status : {{data.status.status}}</h3>
+								<h4>{{data.note}}</h4>
+								<h4>{{dummyDate | date: 'MMM d, y, H:mm'}}</h4>
+							</div>
+						</div>
+					</ng-template>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="overlay-team-detail-backdrop overlay-team-detail-backdrop--close"
+	 [ngClass]="{'overlay-team-detail-backdrop--open': isOpen}"
+	 (click)="close()"></div>
+<ng-template #noResult>
+	<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+		No
+		History</h1>
+</ng-template>
+
+<ng-template #spinner>
+	<div class="spinner">
+		<svg width="50%" height="50%" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg"
+			 style="position:absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+			<g fill="none" fill-rule="evenodd">
+				<g transform="translate(1 1)" stroke-width="2">
+					<circle stroke-opacity=".5" cx="18" cy="18" r="18"/>
+					<path d="M36 18c0-9.94-8.06-18-18-18">
+						<animateTransform
+							attributeName="transform"
+							type="rotate"
+							from="0 18 18"
+							to="360 18 18"
+							dur="1s"
+							repeatCount="indefinite"></animateTransform>
+					</path>
+				</g>
+			</g>
+		</svg>
+	</div>
+</ng-template>

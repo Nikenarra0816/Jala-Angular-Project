@@ -1,0 +1,52 @@
+<div class="background">
+	<div class="card-left">
+		<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+			 xmlns:xlink="http://www.w3.org/1999/xlink"
+			 x="0px" y="0px"
+			 viewBox="0 0 802 1024" xml:space="preserve" preserveAspectRatio="none">
+			<g>
+				<path style="fill: #FF6F67;" d="M0,486v538h663.1c90.3-108.6,140.6-319.4,138.8-530.2C701.2,410.1,624.2,399,574,403
+					c-93.4,7.5-102.3,68.1-237,95c-89.8,18-178.5,9.5-226,5C65.2,498.6,27.2,491.8,0,486z"/>
+				<path style="fill: #FF8680;" d="M0,0v488c217.8,250.5,479.4-164.5,785.6,0c5.7,3,11.1,5.6,16.3,7.8C800.3,306.9,755.6,115,661.8,0
+						C537.2-0.3,313.4,0,313.4,0H0z"/>
+			</g>
+		</svg>
+
+		<div class="card-left-container" [ngSwitch]="o.activatedRouteData[ 'users' ]">
+			<ng-template ngSwitchCase="login">
+				<div class="label">Simplify your selling activity</div>
+				<div class="text">Now, All of your leads are able to be monitored and analyzed quickly.</div>
+				<div class="people">
+					<img src="assets/people1.png">
+				</div>
+			</ng-template>
+			<ng-template ngSwitchCase="forgot">
+				<div class="label">Forgot Password ?</div>
+				<div class="text">Fill your email address, we will send a link to change your password</div>
+				<div class="people">
+					<img src="assets/people2.png" style="width: 33%;max-width: 15rem;">
+				</div>
+			</ng-template>
+			<ng-template ngSwitchCase="change-password">
+				<div class="label">Change Password</div>
+				<div class="text">Change your new password</div>
+				<div class="people">
+					<img src="assets/people3.png">
+				</div>
+			</ng-template>
+			<ng-template ngSwitchCase="register">
+				<div class="label">Sign Up</div>
+				<div class="text">Fill the form to get JALA account</div>
+				<div class="people">
+					<img src="assets/people4.png" style="width: 50%;max-width: 21rem;">
+				</div>
+			</ng-template>
+		</div>
+	</div>
+	<div class="card-right">
+		<div class="card-right-container" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''">
+			<router-outlet #o="outlet"></router-outlet>
+		</div>
+	</div>
+	<div class="logo"></div>
+</div>

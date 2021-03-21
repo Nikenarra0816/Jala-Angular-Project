@@ -1,0 +1,72 @@
+.title {
+	color: #9B9B9B;
+	font-size: 2rem;
+	line-height: 1.8rem;
+	font-weight: 400;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.divider {
+	border: 1px solid #E8E8E8;
+	margin: 2.5rem 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.download-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 90%;
+	margin: 0 auto;
+	max-height: 20rem;
+	overflow: auto;
+
+	&::-webkit-scrollbar {
+		width: .4rem;
+		height: .4rem;
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+	&:hover::-webkit-scrollbar {
+		width: .4rem;
+		height: .4rem;
+		background-color: rgba(0, 0, 0, .16);
+	}
+
+	&:hover::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, .26);
+	}
+
+	div {
+		display: flex;
+		justify-content: space-between;
+		font-size: 1.6rem;
+		line-height: 1.6rem;
+		font-weight: 400;
+		margin-bottom: 1rem;
+
+		p {
+			flex-grow: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		span {
+			display: inline-block;
+			margin: 0 1rem;
+		}
+
+		a {
+			color: #58BBF3;
+			text-decoration: none;
+			flex-shrink: 0;
+		}
+	}
+}

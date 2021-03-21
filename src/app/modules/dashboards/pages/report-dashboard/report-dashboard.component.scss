@@ -1,0 +1,64 @@
+.container-chart {
+	width: 100%;
+	background: #FFFFFF;
+	border-radius: 10px;
+
+	#sankey {
+		height: 100%;
+	}
+
+}
+
+::ng-deep {
+	.links-item {
+		transition: all .3s ease;
+
+		&:hover {
+			stroke-opacity: 0.5;
+		}
+	}
+
+	.node-text {
+		font-family: Ubuntu, sans-serif;
+		font-weight: 500;
+	}
+}
+
+.portlet {
+	width: 100%;
+	padding: 0 2rem 2rem;
+	background-color: #fff;
+	border-radius: 10px;
+	margin-bottom: 3rem;
+
+	&-header {
+		border-bottom: 1px solid #E8E8E8;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		height: 5rem;
+
+		&-title {
+			font-weight: 500;
+			font-size: 2rem;
+			line-height: 2.3rem;
+			color: #9B9B9B;
+
+			> span {
+				margin-left: 10px;
+				font-style: italic;
+				font-weight: normal;
+				font-size: 1.2rem;
+				line-height: 1.4rem;
+				color: #9B9B9B;
+			}
+		}
+
+		&-action {
+		}
+	}
+
+	&-body {
+		padding: 2rem 0;
+	}
+}

@@ -1,0 +1,19 @@
+<div class="faq-panel">
+	<div class="faq-panel-header" (click)="changeState()">
+		<div class="faq-panel-header-title" [ngClass]="{'is-bold':isOpen}">{{title}}</div>
+		<div class="faq-panel-header-icon" [ngClass]="{'faq-panel-header-icon--collapse':!isOpen,'icon':isOpen}">
+			<svg viewBox="0 0 20 14" xmlns="http://www.w3.org/2000/svg">
+				<path [attr.fill]="isOpen? 'black':'inherit'"
+					  d="M8.9995 12.9808L0.86096 3.14911C0.342983 2.5237 0.346166 1.51235 0.86807 0.890508C1.38951 0.268618 2.23206 0.27127 2.74953 0.896431L9.95089 9.59595L17.2066 0.942192C17.7283 0.320302 18.5707 0.322954 19.0883 0.948115C19.606 1.57328 19.6028 2.58458 19.0811 3.20672L10.8807 12.987C10.6199 13.2979 10.2792 13.4525 9.9388 13.4515C9.59824 13.4504 9.25826 13.2933 8.9995 12.9808Z"
+					  fill="#9B9B9B"/>
+			</svg>
+		</div>
+	</div>
+	<div class="faq-panel-content" #panel
+		 [@expandCollapse]="isOpen">
+		<div class="faq-panel-text">
+
+			<ng-content></ng-content>
+		</div>
+	</div>
+</div>

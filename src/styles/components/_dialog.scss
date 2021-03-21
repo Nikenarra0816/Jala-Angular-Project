@@ -1,0 +1,14 @@
+.jala-dialog {
+	max-width: 86rem !important;
+	width: 90%;
+
+	& mat-dialog-container {
+		padding: 6rem;
+		border-radius: 10px;
+	}
+}
+.jala-dialog-padding-small{
+	& mat-dialog-container {
+		padding: 3rem;
+	}
+}

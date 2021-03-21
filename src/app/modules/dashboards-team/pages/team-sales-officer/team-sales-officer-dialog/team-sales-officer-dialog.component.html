@@ -1,0 +1,104 @@
+<form [formGroup]="formGroup" mat-dialog-content>
+	<!--	//////// COVERAGE //////////-->
+	<app-form-field label="Sales Team">
+		<ng-select
+			class="jala-select"
+			[items]="teams$ | async"
+			[multiple]="true"
+			[closeOnSelect]="false"
+			[hideSelected]="true"
+			bindLabel="name"
+			placeholder="Select Sales Team"
+			formControlName="teams">
+			<ng-template ng-label-tmp let-item="item" let-clear="clear">
+				<div class="ng-select-jala-item">
+					{{item.name}}
+					<span (click)="clear(item)">
+						<svg><use xlink:href="assets/symbol-defs.svg#icon-close"></use></svg>
+					</span>
+				</div>
+			</ng-template>
+		</ng-select>
+		<app-form-field-error *ngIf="formGroup.get('teams').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+	<!--	////////////////////////////-->
+
+	<app-form-field label="Name">
+		<input type="text" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup.get('name').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('name').hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+
+	<app-form-field label="Phone">
+		<input type="text" formControlName="phone" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup.get('phone').hasError('required')">
+			Please fill out this field
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('phone').hasError('minlength')">
+			Phone Number Min Length 8 digit
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('phone').hasError('pattern')">
+			Phone Number Must Be Number And +62 Number Only
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('phone').hasError('phoneExists')">
+			Phone already Exists
+		</app-form-field-error>
+	</app-form-field>
+
+	<app-form-field label="Email">
+		<input type="email" formControlName="email" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup.get('email').hasError('required')">
+			Email Required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('email').hasError('email')">
+			Email is not Valid
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup.get('email').hasError('emailExists')">
+			Email already Exists
+		</app-form-field-error>
+	</app-form-field>
+
+
+	<app-form-field label="Address">
+		<textarea formControlName="address" appFormFieldInput></textarea>
+		<app-form-field-error *ngIf="formGroup.get('address').hasError('required')">
+			Please fill out this field
+		</app-form-field-error>
+	</app-form-field>
+
+
+	<div class="form-field">
+		<h3>Gender<span>*</span></h3>
+		<div>
+			<div>
+				<input class="radio" id="male" type="radio" value="male" formControlName="gender">
+				<label class="radio__label" for="male">Male</label>
+			</div>
+			<div>
+				<input class="radio" id="female" type="radio" value="female" formControlName="gender">
+				<label class="radio__label" for="female">Female</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-field">
+		<h3>Officer Status</h3>
+		<div class="radio-group-linear">
+			<div *ngFor="let data of (metadata$ | async)?.statuses">
+				<input class="radio" [id]="data" type="radio" [value]="data" formControlName="status">
+				<label class="radio__label" [for]="data">{{data | titlecase}}</label>
+			</div>
+		</div>
+	</div>
+
+</form>
+
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto;">
+		<button appJalaButton color="primary" (click)="save(formGroup)" [disabled]="formGroup.invalid">Save</button>
+</div>

@@ -1,0 +1,8 @@
+<div class="container">
+	<ng-template [ngIf]="urls">
+		<div *ngFor="let url of urls; let i = index" class="video-wrapper">
+			<app-loader-spinner-v2 *ngIf="isLoading[i]"></app-loader-spinner-v2>
+			<iframe width="560" height="349" [src]="url" frameborder="0" allowfullscreen (load)="isLoaded(i)"></iframe>
+		</div>
+	</ng-template>
+</div>

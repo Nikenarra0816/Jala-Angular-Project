@@ -1,0 +1,58 @@
+<div class="container-channel">
+	<app-form-field-green icon="filter" label="filter" clearBtn="true">
+		<input type="text"
+			   [formControl]="dateInputForm"
+			   appFormFieldInputGreen
+			   placeholder="Pick date range"
+			   bsDaterangepicker
+			   placement="bottom"
+			   [maxDate]="dateNow"
+			   [bsConfig]="{ isAnimated: true, containerClass: 'theme-default',rangeInputFormat: 'MMM DD YYYY' }">
+	</app-form-field-green>
+	<app-expansion-panel title="performance" *ngIf="dataChart | async as data; else elseBlock">
+		<div class="chart-wrapper">
+			<app-bar-stacked-chart [dataParent]="data" [showMore]="true"></app-bar-stacked-chart>
+		</div>
+	</app-expansion-panel>
+
+	<div class="wrapper">
+		<app-form-field-green icon="search" label="search">
+			<input type="text" placeholder="Search Name Channel" [formControl]="searchInputForm">
+		</app-form-field-green>
+		<div class="button-action">
+			<button (click)="tabsView = 2" class="button-jala-icon button-jala-icon-gray"
+					[ngClass]="{'button-jala-icon-gray--active' : tabsView === 1}">
+				<svg class="button-jala-icon-svg">
+					<use xlink:href="assets/symbol-defs.svg#icon-grid"></use>
+				</svg>
+			</button>
+			<button (click)="tabsView = 1" class="button-jala-icon button-jala-icon-gray"
+					[ngClass]="{'button-jala-icon-gray--active' : tabsView === 2}">
+				<svg class="button-jala-icon-svg">
+					<use xlink:href="assets/symbol-defs.svg#icon-list"></use>
+				</svg>
+			</button>
+			<ng-template [appPermission]="{page: 'channel', feature: 'add'}">
+				<button appJalaButtonInlineIcon color="primary" icon="plus-thick" [routerLink]="['../../new-channel']">
+					ADD
+				</button>
+			</ng-template>
+		</div>
+	</div>
+	<app-loader-spinner [loading]="dataViewRes">
+		<div *ngIf="dataViewRes as data">
+			<app-project-channel-grid-view *ngIf="tabsView === 2" [dataChannel]="data"
+										   (editClicked)="openDialog($event)"></app-project-channel-grid-view>
+			<app-project-channel-list-view *ngIf="tabsView === 1" [dataChannel]="data"
+										   (editClicked)="openDialog($event)"></app-project-channel-list-view>
+		</div>
+	</app-loader-spinner>
+</div>
+
+<ng-template #elseBlock>
+	<app-expansion-panel title="performance">
+		<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+			No
+			Data</h1>
+	</app-expansion-panel>
+</ng-template>

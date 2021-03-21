@@ -1,0 +1,96 @@
+<div class="card-container--grid-view">
+	<div class="card-container--grid-view--left">
+		<ng-template ngFor let-data let-odd="odd" let-even="even" [ngForOf]="dataShow | async">
+			<ng-template [ngIf]="even">
+				<ng-container *ngTemplateOutlet="cardTemplate; context: {data: data}"></ng-container>
+			</ng-template>
+		</ng-template>
+	</div>
+
+	<div class="card-container--grid-view--right">
+		<ng-template ngFor let-data let-odd="odd" let-even="even" [ngForOf]="dataShow | async">
+			<ng-template [ngIf]="odd">
+				<ng-container *ngTemplateOutlet="cardTemplate; context: {data: data}"></ng-container>
+			</ng-template>
+		</ng-template>
+	</div>
+	<div *ngIf="dataShow | async" (appIntersection)="test()"></div>
+</div>
+
+<ng-template let-data="data" #cardTemplate>
+	<div class="card">
+		<div class="card__title">
+			<div class="card__title-balloon">
+				<img [src]="data.data.picture" appImageLoader>
+			</div>
+			<div class="card__title-title">
+				{{data.data.name}}
+			</div>
+			<div class="card__title-subtitle">
+				{{data.data.detail | truncateWord: 8}}
+			</div>
+
+			<div class="card__title-status"
+				 [ngClass]="{'card__title-status--green': data.data.status === 'running',
+				 'card__title-status--yellow': data.data.status === 'hold',
+				'card__title-status--red': data.data.status === 'stop'}">
+				<span>{{data.data.status | uppercase}}</span>
+			</div>
+		</div>
+		<div class="card__status">
+			<div class="card__status-title card__status-title--1">Start Date</div>
+			<div class="card__status-title card__status-title--2">End Date</div>
+			<div class="date-period card__status-date--1 date-period--green">
+				<div>
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+					</svg>
+				</div>
+				<span>{{ data.data.periodStart ? ( data.data.periodStart | date:'mediumDate' ) : 'PRESENT' }}</span>
+			</div>
+			<div class="date-period card__status-date--2 date-period--red">
+				<div>
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+					</svg>
+				</div>
+				<span>{{ data.data.periodEnd ? ( data.data.periodEnd | date:'mediumDate' ) : 'PRESENT' }}</span>
+			</div>
+		</div>
+		<div class="card__pageUrl" *ngIf="data.data.channelUrl as pageUrl">
+			<h3 class="card__pageUrl-title">Page Url</h3>
+			<div class="card__pageUrl-body">{{ pageUrl }}</div>
+		</div>
+		<div class="card__summary">
+			<h3 class="card__summary-title">Summary</h3>
+
+			<app-card-list-summary icon="lead" [values]="data.data.totalLeads"
+								   title="Lead" (click)="jumpToLead(data.data.id)"></app-card-list-summary>
+
+			<app-card-list-summary icon="click" [values]="data.data.click"
+								   title="Click"></app-card-list-summary>
+
+			<app-card-list-summary icon="sales-team" [values]="data.data.totalTeam"
+								   title="Sales Team"
+								   [routerLink]="['/dashboard/team/sales-team']"
+			></app-card-list-summary>
+
+			<app-card-list-summary icon="sales-officer" [values]="data.data.totalSales"
+								   title="Sales Officer"
+								   [routerLink]="['/dashboard/team/sales-officer']"
+			></app-card-list-summary>
+
+		</div>
+		<div class="card__action">
+			<ng-template [appPermission]="{page: 'channel', feature: 'edit'}">
+				<button class="card__action-button card__action-button--1 card__action-button--green"
+						(click)="edit(data)">
+					Setting
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-right-arrow"></use>
+					</svg>
+				</button>
+			</ng-template>
+		</div>
+	</div>
+</ng-template>

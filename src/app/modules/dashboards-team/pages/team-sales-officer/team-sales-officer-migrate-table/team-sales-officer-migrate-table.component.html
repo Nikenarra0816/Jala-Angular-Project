@@ -1,0 +1,68 @@
+<table cdk-table matSort
+	   [dataSource]="dataSource">
+	///////////// Name ////////////////////
+	<ng-container cdkColumnDef="name">
+		<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Name</th>
+		<td cdk-cell *cdkCellDef="let data">
+			<div class="name">
+				<h3>{{data.data.name | truncateWord: 2}}</h3>
+				<h4>{{data.data.phone ? data.data.phone : '-'}}</h4>
+				<h4>{{data.data.lastJourney?.note ? ( data.data.lastJourney?.note | truncate ) : '-' }}</h4>
+			</div>
+		</td>
+	</ng-container>
+
+	///////////// Category ////////////////////
+	<ng-container cdkColumnDef="category">
+		<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Category</th>
+		<td cdk-cell *cdkCellDef="let data">
+			<div class="label" [ngClass]="'label--'+ data.getCategorySort.id ">
+				{{data.getCategorySort.name}}
+			</div>
+		</td>
+	</ng-container>
+
+	///////////// Status ////////////////////
+	<ng-container cdkColumnDef="status">
+		<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Status</th>
+		<td cdk-cell *cdkCellDef="let data">
+			<h3>{{data.getStatus.name}}</h3>
+		</td>
+	</ng-container>
+
+	///////////// Sales Officer ////////////////////
+	<ng-container cdkColumnDef="salesOfficer">
+		<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Sales Officer</th>
+		<td cdk-cell *cdkCellDef="let data">
+			<h3>{{data.getSalesOfficer.name}}</h3>
+		</td>
+	</ng-container>
+
+	///////////// Channel ////////////////////
+	<ng-container cdkColumnDef="channel">
+		<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Channel</th>
+		<td cdk-cell *cdkCellDef="let data">
+			<h3>{{data.getChannel.name}}</h3>
+		</td>
+	</ng-container>
+
+	///////////// Checkbox ////////////////////
+	<ng-container cdkColumnDef="checkbox">
+		<th cdk-header-cell *cdkHeaderCellDef>
+			<div class="checkbox-container">
+				<app-checkbox (checked)="checkAll($event)" [ngModel]="false">All</app-checkbox>
+			</div>
+		</th>
+		<td cdk-cell *cdkCellDef="let data; let i = index">
+			<div class="checkbox-container">
+				<app-checkbox [ngModel]="getDataChecked(data).checked"
+							  (ngModelChange)="setDataChecked(data, $event)"></app-checkbox>
+			</div>
+		</td>
+	</ng-container>
+
+	<tr cdk-header-row *cdkHeaderRowDef="columnsToDisplay"></tr>
+	<tr cdk-row *cdkRowDef="let data; columns: columnsToDisplay;">
+	</tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10 ,20]" [pageSize]="5" #matPaginator></mat-paginator>

@@ -1,0 +1,47 @@
+<app-breadcrumb title="Project" subtitle="Detail"></app-breadcrumb>
+<div class="tabs">
+	<div class="tabs-header">
+		<div class="tabs-header-item" routerLink="campaign"
+		routerLinkActive="tabs-header-item--active">
+			<div class="tabs-header-item-icon">
+				<svg><use xlink:href="assets/sprite.svg#icon-campaign"></use></svg>
+			</div>
+			<div class="tabs-header-item-title">CAMPAIGN</div>
+		</div>
+		<div class="tabs-header-item"  routerLink="channel"
+			 routerLinkActive="tabs-header-item--active">
+			<div class="tabs-header-item-icon">
+				<svg><use xlink:href="assets/sprite.svg#icon-channel"></use></svg>
+			</div>
+			<div class="tabs-header-item-title">CHANNEL</div>
+		</div>
+		<div class="tabs-header-item"  routerLink="lead"
+			 routerLinkActive="tabs-header-item--active">
+			<div class="tabs-header-item-icon">
+				<svg><use xlink:href="assets/sprite.svg#icon-lead"></use></svg>
+			</div>
+			<div class="tabs-header-item-title">LEAD</div>
+		</div>
+		<div class="tabs-header-item"  routerLink="customer"
+			 routerLinkActive="tabs-header-item--active">
+			<div class="tabs-header-item-icon">
+				<svg><use xlink:href="assets/sprite.svg#icon-customer-1"></use></svg>
+			</div>
+			<div class="tabs-header-item-title">CUSTOMER</div>
+		</div>
+	</div>
+	<div class="tabs-content">
+		<router-outlet></router-outlet>
+		<!--<ng-container [ngSwitch]="viewTabs">
+			<ng-template [ngSwitchCase]="1">
+				<app-project-campaign></app-project-campaign>
+			</ng-template>
+			<ng-template [ngSwitchCase]="2">
+				<app-project-channel></app-project-channel>
+			</ng-template>
+			<ng-template [ngSwitchCase]="3">
+				<app-project-lead></app-project-lead>
+			</ng-template>
+		</ng-container>-->
+	</div>
+</div>

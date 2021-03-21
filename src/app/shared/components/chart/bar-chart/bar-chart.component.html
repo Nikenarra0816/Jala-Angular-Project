@@ -1,0 +1,11 @@
+<div class="chart-line" [ngStyle]="{'height': height}" *ngIf="dataForChart as data">
+	<canvas baseChart class="chart-line__small"
+			[datasets]="data.data"
+			[labels]="data.label"
+			[options]="barChartOptions"
+			[plugins]="barChartPlugins"
+			[legend]="barChartLegend"
+			[colors]="barChartColorScheme"
+			[chartType]="barChartType">
+	</canvas>
+</div>

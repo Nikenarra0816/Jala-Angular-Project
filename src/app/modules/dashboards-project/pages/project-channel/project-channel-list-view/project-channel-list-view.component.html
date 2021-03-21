@@ -1,0 +1,149 @@
+<div style="width: 100%; border-radius: 10px; overflow: hidden">
+<div class="table-wrapper">
+	<table cdk-table matSort
+		   [dataSource]="dataSource" >
+		///////////// Alias ////////////////////
+		<ng-container cdkColumnDef="alias" sticky>
+			<th cdk-header-cell *cdkHeaderCellDef></th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-balloon">
+					<img [src]="data.data.picture" appImageLoader>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Name ////////////////////
+		<ng-container cdkColumnDef="name" sticky>
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Name</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-title">
+					{{data.data.name}}
+				</div>
+				<div class="card__title-subtitle">
+					{{data.data.detail| truncateWord: 8}}
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Status ////////////////////
+		<ng-container cdkColumnDef="status">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Status</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-status"
+					 [ngClass]="{'card__title-status--green': data.data.status === 'running',
+				 'card__title-status--yellow': data.data.status === 'hold',
+				 'card__title-status--red': data.data.status === 'stop'}">
+					<span>{{data.data.status | uppercase}}</span>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Leads ////////////////////
+		<ng-container cdkColumnDef="leads">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Leads</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__data" (click)="jumpToLead(data.data.id)">
+					<h3>{{data.data.totalLeads}}</h3>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Click ////////////////////
+		<ng-container cdkColumnDef="click">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Click</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__data">
+					<h3>{{data.data.click}}</h3>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Click ////////////////////
+		<ng-container cdkColumnDef="clickRate">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Lead Rate</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__data">
+					<h3>{{data.data.clickRate | percent : '1.0-1'}}</h3>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Sales Team ////////////////////
+		<ng-container cdkColumnDef="salesTeam">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Sales Team</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__data" [routerLink]="['/dashboard/team/sales-team']">
+					<h3>{{data.data.totalTeam}}</h3>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Sales Officer ////////////////////
+		<ng-container cdkColumnDef="salesOfficer">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Sales Officer</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__data" [routerLink]="['/dashboard/team/sales-officer']">
+					<h3>{{data.data.totalSales}}</h3>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// StartDate ////////////////////
+		<ng-container cdkColumnDef="startDate">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Start Date</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="date-period card__status-date date-period--green">
+					<div>
+						<svg>
+							<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+						</svg>
+					</div>
+					<span>{{ data.data.periodStart ? (data.data.periodStart | date:'mediumDate') : 'PRESENT' }}</span>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// EndDate ////////////////////
+		<ng-container cdkColumnDef="endDate">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>End Date</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="date-period card__status-date date-period--red">
+					<div>
+						<svg>
+							<use xlink:href="assets/symbol-defs.svg#icon-calendar"></use>
+						</svg>
+					</div>
+					<span>{{ data.data.periodEnd ? (data.data.periodEnd | date:'mediumDate') : 'PRESENT' }}</span>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Action ////////////////////
+		<ng-container cdkColumnDef="action" stickyEnd>
+			<th cdk-header-cell *cdkHeaderCellDef>Action</th>
+			<td cdk-cell *cdkCellDef="let data"
+				style="display:flex; justify-content: space-around; align-items: center">
+				<ng-template [appPermission]="{page: 'channel', feature: 'edit'}">
+					<button appJalaButtonIcon icon="setting" color="green" (click)="edit(data)"></button>
+				</ng-template>
+			</td>
+		</ng-container>
+
+		<tr cdk-header-row *cdkHeaderRowDef="columnsToDisplay"></tr>
+		<tr cdk-row *cdkRowDef="let data; columns: columnsToDisplay;"
+			class="trigger-row">
+		</tr>
+	</table>
+</div>
+<div class="table-paginator">
+	<h4>Items Per Page:</h4>
+	<mat-form-field>
+		<mat-select [formControl]="pageSize">
+			<mat-option *ngFor="let value of pageSizeOption" [value]="value.value">
+				{{value.label}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-paginator [pageSizeOptions]="[5, 10 ,20]" [hidePageSize]="true" [pageSize]="5"></mat-paginator>
+</div>
+</div>

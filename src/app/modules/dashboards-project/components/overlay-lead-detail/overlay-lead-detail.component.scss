@@ -1,0 +1,265 @@
+.overlay-lead-detail {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100vh;
+	background-color: #F3F5F9;
+	z-index: 99;
+	transition: all .3s ease;
+	overflow-y: auto;
+
+	&::-webkit-scrollbar {
+		width: .4rem;
+		height: .4rem;
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, 0);
+	}
+
+	&:hover::-webkit-scrollbar {
+		width: .4rem;
+		height: .4rem;
+		background-color: rgba(0, 0, 0, .16);
+	}
+
+	&:hover::-webkit-scrollbar-thumb {
+		background-color: rgba(0, 0, 0, .26);
+	}
+
+	&--close {
+		width: 0;
+		right: -50%;
+	}
+
+	&--open {
+		width: 400px;
+		right: 0;
+	}
+
+
+	&-backdrop {
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 98;
+		background-color: rgba(0, 0, 0, 0.6);
+		transition: all .3s ease;
+		backdrop-filter: blur(3px);
+		-webkit-backdrop-filter: blur(3px);
+
+		&--close {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		&--open {
+			opacity: 1;
+			visibility: visible;
+			height: 100vh;
+			width: 100vw;
+		}
+	}
+
+	&-body {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 1rem 1rem;
+
+	}
+}
+
+.card {
+	border-radius: 10px;
+	overflow: hidden;
+	width: 100%;
+	margin: 1rem 0;
+
+	&-title {
+		height: 4rem;
+		background-color: #E8E8E8;
+		font-weight: 400;
+		font-size: 1.4rem;
+		line-height: 1.6rem;
+		color: #9B9B9B;
+		display: flex;
+		padding-left: 2rem;
+		align-items: center;
+	}
+
+	&-body {
+		padding: 1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		background-color: white;
+	}
+
+	&-footer {
+		background-color: white;
+		display: flex;
+		justify-content: space-evenly;
+		padding: 1rem;
+
+		& > button {
+			width: calc(70% / 3);
+		}
+	}
+
+	&-item {
+		display: flex;
+		margin: 1rem 0;
+		width: 100%;
+
+		& > svg {
+			width: 2rem;
+			height: 2rem;
+		}
+
+		& > h4 {
+			margin-left: 1rem;
+			font-weight: 400;
+			font-size: 1.4rem;
+			line-height: 1.6rem;
+			color: #000000;
+		}
+
+		&--product{
+			display: flex;
+			flex-direction: column;
+
+			& > h4 {
+				margin-left: 0;
+			}
+
+			> .card-item {
+				margin: .5rem 0 .5rem 2rem;
+			}
+
+			&-price {
+				margin-left: 5rem !important;
+				width: fit-content;
+				min-width: 50%;
+				background-color: #FFCFCC;
+				border-radius: 5px;
+				padding: 0.5rem 1.5rem;
+				& > h4 {
+					width: 100%;
+					text-align: center;
+					color: #FF6E66;
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}
+
+.tree {
+	display: flex;
+	flex-direction: column;
+
+	&-item {
+		border-left: 1px solid #CCCCCC;
+		display: flex;
+		flex-direction: column;
+		padding: 0 1rem 1rem 1rem;
+		position: relative;
+
+		&--image {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+
+			> img {
+				width: 100%;
+			}
+			> h5 {
+				font-style: italic;
+				font-weight: 300;
+				font-size: 1.2rem;
+				line-height: 1.4rem;
+				color: #9B9B9B;
+				text-align: center;
+			}
+		}
+
+		& > h3 {
+			font-weight: 400;
+			font-size: 1.4rem;
+			line-height: 1.6rem;
+			color: #000000;
+		}
+
+		& > h4 {
+			font-style: italic;
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			color: #9B9B9B;
+		}
+
+		& > :last-child {
+			margin-top: 1rem;
+			font-style: italic;
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			color: #000000;
+		}
+	}
+}
+.bullet {
+	position: absolute;
+	top: 0;
+	left: calc(0px - ((1rem) / 2));
+	width: 1rem;
+	height: 1rem;
+	background-color: cornflowerblue;
+	border-radius: 10rem;
+	&--1 {
+		background-color: #46B989;
+	}
+
+	// hot
+	&--2 {
+		background-color: #FF6E66;
+	}
+
+	// warm
+	&--3 {
+		background-color: #FF9433;
+	}
+
+	// cold
+	&--4 {
+		background-color: #58BBF3;
+	}
+
+	// unqualified
+	&--5 {
+		background-color: #777777;
+	}
+
+	// closed
+	&--6 {
+		background-color: #E967B5;
+	}
+}
+
+.spinner {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	align-items: center;
+	height: 30rem;
+	background-color: #fff;
+	position: relative;
+
+	& > svg {
+		stroke: lightslategray;
+	}
+}

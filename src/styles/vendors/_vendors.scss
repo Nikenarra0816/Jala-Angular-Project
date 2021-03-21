@@ -1,0 +1,126 @@
+//@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/grid";
+//@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~ngx-bootstrap/datepicker/bs-datepicker";
+// Custom datepicker
+.bs-datepicker-head {
+	font-size: 1.6rem;
+}
+
+//@import "~ng-zorro-antd/style/index.min.css";
+//@import "~ng-zorro-antd/date-picker/style/index.min.css";
+
+@import '~ngx-toastr/toastr';
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+@import "~@angular/material/theming";
+$mat-jala-green: (
+	50 : #e9f7f1,
+	100 : #c8eadc,
+	200 : #a3dcc4,
+	300 : #7eceac,
+	400 : #62c49b,
+	500 : #46b989,
+	600 : #3fb281,
+	700 : #37aa76,
+	800 : #2fa26c,
+	900 : #209359,
+	A100 : #cfffe5,
+	A200 : #9cffca,
+	A400 : #69ffaf,
+	A700 : #4fffa2,
+	contrast: (
+		50 : #000000,
+		100 : #000000,
+		200 : #000000,
+		300 : #000000,
+		400 : #000000,
+		500 : #000000,
+		600 : #000000,
+		700 : #000000,
+		800 : #ffffff,
+		900 : #ffffff,
+		A100 : #000000,
+		A200 : #000000,
+		A400 : #000000,
+		A700 : #000000,
+	)
+);
+$mat-jala-red: (
+	50 : #fff6f6,
+	100 : #ffe9e8,
+	200 : #ffdbd9,
+	300 : #ffcdca,
+	400 : #ffc2be,
+	500 : #ffb7b3,
+	600 : #ffb0ac,
+	700 : #ffa7a3,
+	800 : #ff9f9a,
+	900 : #ff908b,
+	A100 : #ffffff,
+	A200 : #ffffff,
+	A400 : #ffffff,
+	A700 : #ffffff,
+	contrast: (
+		50 : #000000,
+		100 : #000000,
+		200 : #000000,
+		300 : #000000,
+		400 : #000000,
+		500 : #000000,
+		600 : #000000,
+		700 : #000000,
+		800 : #000000,
+		900 : #000000,
+		A100 : #000000,
+		A200 : #000000,
+		A400 : #000000,
+		A700 : #000000,
+	)
+);
+$mat-jala-blue: (
+	50 : #ebf7fe,
+	100 : #cdebfb,
+	200 : #acddf9,
+	300 : #8acff7,
+	400 : #71c5f5,
+	500 : #58bbf3,
+	600 : #50b5f1,
+	700 : #47acef,
+	800 : #3da4ed,
+	900 : #2d96ea,
+	A100 : #ffffff,
+	A200 : #f7fbff,
+	A400 : #c4e4ff,
+	A700 : #abd8ff,
+	contrast: (
+		50 : #000000,
+		100 : #000000,
+		200 : #000000,
+		300 : #000000,
+		400 : #000000,
+		500 : #000000,
+		600 : #000000,
+		700 : #000000,
+		800 : #000000,
+		900 : #000000,
+		A100 : #000000,
+		A200 : #000000,
+		A400 : #000000,
+		A700 : #000000,
+	)
+);
+
+@include mat-core();
+
+$mat-jala-primary: mat-palette($mat-jala-green);
+$mat-jala-accent: mat-palette($mat-jala-blue);
+$mat-jala-warn: mat-palette($mat-jala-red);
+
+$mat-jala-theme: mat-light-theme($mat-jala-primary, $mat-jala-accent, $mat-jala-warn);
+
+@include angular-material-theme($mat-jala-theme);

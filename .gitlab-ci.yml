@@ -1,0 +1,159 @@
+stages:
+  - prepare
+  - build
+  - deploy
+  - run
+
+.set_dev_ssh_key:
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - echo "$DEV_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan 18.136.223.199 >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - cat ~/.ssh/known_hosts
+
+.set_prod_ssh_key:
+  before_script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan 18.138.66.20 >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - cat ~/.ssh/known_hosts
+
+.set_aws_key:
+  before_script:
+    - apk -Uuv add make gcc groff less musl-dev libffi-dev openssl-dev python2-dev py-pip
+    - pip install awscli
+    # - apk --purge -v del py-pip
+    # - rm /var/cache/apk/*
+
+.build_mixin:
+  before_script:
+    - npm install @angular/cli@8.3.4 -g --silent
+
+prepare_env:
+  stage: prepare
+  image: node:latest
+  cache:
+    paths:
+      - node_modules
+      - dist/
+  script:
+    # install dependencies
+    - npm install --silent
+
+build_dev:
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'development'"
+      when: on_success
+    - when: never
+  stage: build
+  image: node:latest
+  extends: .build_mixin
+  cache:
+    paths:
+      - node_modules
+      - dist/
+  script:
+    # build application
+    - ng build --configuration=dev
+  artifacts:
+    name: "dev-$CI_COMMIT_REF_SLUG"
+    expire_in: 1 week
+    paths:
+      - dist/
+
+build_prod:
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
+      when: on_success
+    - if: "$CI_COMMIT_BRANCH == 'master'"
+      when: on_success
+    - when: never
+  stage: build
+  image: node:latest
+  extends: .build_mixin
+  cache:
+    paths:
+      - node_modules
+      - dist/
+  script:
+    # build application
+    - ng build --prod
+  artifacts:
+    name: "prod-$CI_COMMIT_REF_SLUG"
+    expire_in: 1 week
+    paths:
+      - dist/
+
+deploy_dev:
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'development'"
+      when: on_success
+    - when: never
+  stage: deploy
+  image: docker:latest
+  dependencies:
+    - build_dev
+  extends: .set_aws_key
+  services:
+    - docker:dind
+  script:
+    - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+    - docker build -t jala/jala-dashboard:dev .
+    - docker tag jala/jala-dashboard:dev 352635696299.dkr.ecr.ap-southeast-1.amazonaws.com/jala/jala-dashboard:dev
+    - docker push 352635696299.dkr.ecr.ap-southeast-1.amazonaws.com/jala/jala-dashboard:dev
+
+deploy_prod:
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
+      when: on_success
+    - when: never
+  stage: deploy
+  image: docker:latest
+  dependencies:
+    - build_prod
+  extends: .set_aws_key
+  services:
+    - docker:dind
+  script:
+    - $(aws ecr get-login --no-include-email --region ap-southeast-1)
+    - docker build -t jala/jala-dashboard:latest .
+    - docker tag jala/jala-dashboard:latest 352635696299.dkr.ecr.ap-southeast-1.amazonaws.com/jala/jala-dashboard:latest
+    - docker push 352635696299.dkr.ecr.ap-southeast-1.amazonaws.com/jala/jala-dashboard:latest
+
+run_dev:
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'development'"
+      when: on_success
+    - when: never
+  stage: run
+  extends: .set_dev_ssh_key
+  script:
+    - |
+      ssh ubuntu@18.136.223.199 << EOF
+      sudo su
+      cd /data/app
+      ./start_jala_dashboard.sh
+      EOF
+
+run_prod:
+  rules:
+    - if: "$CI_COMMIT_BRANCH == 'master'"
+      when: on_success
+    - when: never
+  stage: run
+  extends: .set_prod_ssh_key
+  script:
+    - |
+      ssh ubuntu@18.138.66.20 << EOF
+      sudo su
+      cd /app
+      ./start_jala_dashboard.sh
+      EOF

@@ -1,0 +1,109 @@
+.card {
+	width: 100%;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid #46B989;
+	margin-bottom: 2rem;
+
+	&-title {
+		background: linear-gradient(186.49deg, #46B989 0%, rgba(255, 255, 255, 0) 100%), #57BF94;
+		color: white;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: flex-start;
+		padding: 2.5rem;
+
+		& > h3 {
+			font-weight: 500;
+			font-size: 1.8rem;
+			line-height: 2.1rem;
+		}
+
+		& > h5 {
+			font-style: italic;
+			font-weight: 400;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+		}
+	}
+
+	&-body {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		padding: 2rem;
+
+		& > h3 {
+			font-weight: 500;
+			font-size: 2rem;
+			line-height: 2.3rem;
+			color: #46B989;
+			margin: 4rem 2rem 0;
+		}
+
+		& > h5 {
+			font-weight: 300;
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			color: #46B989;
+			margin: 0 2rem 4rem;
+		}
+
+		& > p {
+			font-weight: 400;
+			font-size: 1.4rem;
+			line-height: 1.6rem;
+			margin: 0 2rem;
+			color: #000;
+		}
+	}
+
+	&-box {
+		height: 3.6rem;
+		background-color: rgba(196, 196, 196, 0.3);
+		border-radius: 10px;
+		display: flex;
+		font-size: 1.2rem;
+		align-items: center;
+		color: black;
+
+		&-script {
+			padding: 2rem;
+			min-height: 5rem;
+			position: relative;
+
+			&--html {
+				padding: 1rem;
+				width: 90%;
+				margin: 1rem auto;
+				height: auto;
+				& > p {
+					font-weight: 400;
+					font-size: 1.4rem;
+					line-height: 1.6rem;
+					color: #000;
+
+					& > em {
+						color: #9B9B9B;
+					}
+				}
+			}
+
+			& > a {
+				cursor: pointer;
+
+				& > svg {
+					height: 2.1rem;
+					width: 1.6rem;
+					position: absolute;
+					bottom: 1rem;
+					right: 1rem;
+					fill: currentColor;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+<div class="select__wrapper" [ngClass]="{'select__disable' : disabled, 'select__error': hasError}"
+	 (click)="open()">
+	<div class="select__placeholder">{{ valueName ? getByPath( valueName, bindLabel ) : placeholder }}
+		<span class="select__placeholder__icon">
+			<svg width="16" height="9" viewBox="0 0 16 9" class="select__placeholder__svg"
+				 [class.select__placeholder__svg--rotate]="openDropdown" xmlns="http://www.w3.org/2000/svg">
+				<path
+					d="M15.703 0.296838C15.5052 0.0988911 15.2708 0 14.9999 0H1.00008C0.729069 0 0.494784 0.0988911 0.296837 0.296838C0.0988911 0.495003 0 0.729288 0 1.00013C0 1.27092 0.0988911 1.5052 0.296837 1.7032L7.29676 8.70313C7.49493 8.90108 7.72921 9.00019 8 9.00019C8.27079 9.00019 8.50529 8.90108 8.70307 8.70313L15.703 1.70315C15.9007 1.5052 16 1.27092 16 1.00008C16 0.729288 15.9007 0.495003 15.703 0.296838Z"
+					fill="#9B9B9B"/>
+			</svg>
+		</span>
+	</div>
+	<div class="select__container" [ngClass]="{'select__open' : openDropdown}">
+		<div class="select__item" *ngFor="let item of dataAll"
+			 (click)="onChange(item)">{{ getByPath( item, bindLabel ) }}</div>
+	</div>
+</div>

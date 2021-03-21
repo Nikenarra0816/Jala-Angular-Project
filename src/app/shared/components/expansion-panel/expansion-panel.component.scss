@@ -1,0 +1,48 @@
+.expansion-panel {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	background: #E8E8E8;
+	overflow: hidden;
+	border-radius: 10px;
+
+	&-header {
+		color: #9B9B9B;
+		padding: 1.5rem 2rem;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		&-title {
+			font-size: 2rem;
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+
+		&-icon {
+			transition: transform .3s ease;
+			width: 2rem;
+			height: 2rem;
+
+			& svg {
+				fill: currentColor;
+				width: 100%;
+				height: inherit;
+			}
+
+			&--collapse {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	&-content {
+		border: 1px solid #E8E8E8;
+		border-radius: 0 0 10px 10px;
+		overflow: hidden;
+		background-color: white;
+
+
+	}
+}

@@ -1,0 +1,38 @@
+<div class="card" (click)="cardClicked()">
+	<div class="card-header">
+		<span class="card-header-baloon"
+			  [ngClass]="'card-header-baloon--' + dataParent.getCategorySort.id">{{dataParent.data.name | uppercase | slice:0:1}}</span>
+		<h3>{{dataParent.data.name}}</h3>
+	</div>
+	<div class="card-divider"></div>
+	<div class="card-body">
+		<div class="card-icon">
+			<svg>
+				<use xlink:href="assets/sprite-lead.svg#icon-called"></use>
+			</svg>
+		</div>
+		<div class="card-item">{{dataParent.data.phone}}</div>
+		<div class="card-item card-item--date">{{dataParent.data.modifiedAt | dateFormatDistance }} ago</div>
+		<div class="card-icon">
+			<svg>
+				<use xlink:href="assets/sprite-lead.svg#icon-channel"></use>
+			</svg>
+		</div>
+		<div class="card-item" style="grid-column: 2/4;">{{dataParent.getChannel.name | truncateWord: 10}}</div>
+		<div class="card-icon">
+			<svg>
+				<use xlink:href="assets/sprite-lead.svg#icon-home"></use>
+			</svg>
+		</div>
+		<div class="card-item" style="grid-column: 2/4;">{{dataParent.data.interests.length === 0 ? '-' : dataParent.data.interests.length + ' products'}}</div>
+		<div class="card-status"
+			 [ngClass]="'card-header-baloon--' + dataParent.getCategorySort.id">{{ dataParent.getStatus.name}}</div>
+		<div class="card-price"
+			 [matTooltip]="'Rp.' + dataParent.getAllProductTotalPrice.toLocaleString()"
+			 [matTooltipPosition]="'above'"
+			 [ngStyle]="{'backgroundColor': color.color, 'color': color.secondaryColor}">
+			{{ dataParent.getAllProductTotalPrice  | currencyShort}}
+		</div>
+	</div>
+</div>
+<div style="height: 20px; width: 100%;"></div>

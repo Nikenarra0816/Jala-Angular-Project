@@ -1,0 +1,53 @@
+<form [formGroup]="formGroup1" mat-dialog-content>
+	<app-form-field label="Name">
+		<input type="text" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup1.get('name').hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+
+	<app-form-field label="Detail">
+		<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+		<app-form-field-error *ngIf="formGroup1.get('detail').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+
+	<div class="form-field">
+		<h3>Campaign Status</h3>
+		<div class="radio-group-linear">
+			<div *ngFor="let data of (metadata | async)?.statuses">
+				<input class="radio" [id]="data" type="radio" [value]="data" formControlName="status">
+				<label class="radio__label" [for]="data">{{data | titlecase}}</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-field">
+		<h3>Duration</h3>
+		<div>
+			<div>
+				<input class="radio" id="duration" type="radio" value="duration" formControlName="duration">
+				<label class="radio__label" for="duration">
+						<span class="form-group1-input">
+							<input type="number" id="durationInput" min="1" [formControl]="formGroup1Month"
+								   appOnlyDigit maxInput="30">
+							<label for="durationInput">/ Month</label>
+						</span>
+				</label>
+			</div>
+			<div>
+				<input class="radio" id="no-duration" type="radio" value="noDuration" formControlName="duration">
+				<label class="radio__label" for="no-duration">Manually Stop Project</label>
+			</div>
+		</div>
+	</div>
+	<app-image-upload [imageUrl]="imageUrl" (getImage)="imageUpload($event)"></app-image-upload>
+</form>
+
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto;">
+	<button appJalaButton color="primary" (click)="save(formGroup1)" [disabled]="formGroup1.invalid">Save</button>
+</div>

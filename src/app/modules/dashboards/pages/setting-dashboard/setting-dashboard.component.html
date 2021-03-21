@@ -1,0 +1,90 @@
+<app-breadcrumb title="Profile" subtitle="Setting"></app-breadcrumb>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xl-4 col-md-12">
+			<div class="card-left" *ngIf="dataUser | async as data">
+				<div class="card-profile">
+					<div class="card-profile-image">
+						<img [src]="data.data.picture" alt="profile picture" appImageLoader>
+					</div>
+					<h3 class="card-profile-title">{{data.data.name}}</h3>
+					<h4 class="card-profile-subtitle">{{data.data.company}}</h4>
+					<h4 class="card-profile-user">{{data.data.role | titlecase}}</h4>
+					<div class="card-profile-valid">
+						<h4>{{data.data.createdAt | date:'mediumDate'}}
+							- {{data.data.createdAt | date:'mediumDate'}}</h4>
+						<div><span>{{ data.data.daysLeft }}d left</span></div>
+					</div>
+				</div>
+
+				<div class="card-property"><span>Property</span></div>
+
+				<div class="card-summary">
+					<div class="card-summary-left card-summary-left--1">Email :</div>
+					<div class="card-summary-right card-summary-right--1">{{ data.data.email }}</div>
+					<div class="card-summary-left card-summary-left--2">Phone :</div>
+					<div class="card-summary-right card-summary-right--2">{{ data.data.phone }}</div>
+					<div class="card-summary-left card-summary-left--3">Address :</div>
+					<div class="card-summary-right card-summary-right--3">{{ data.data.address }}</div>
+				</div>
+				<div class="card-menu">
+					<div class="card-menu-nonactive" routerLink="profile" routerLinkActive="card-menu-active">
+						<div class="card-menu-nonactive-image" routerLinkActive="card-menu-active-image">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-setting"></use>
+							</svg>
+						</div>
+						<div class="card-menu-nonactive-label" routerLinkActive="card-menu-active-label">
+							Profile Setting
+						</div>
+					</div>
+					<div class="card-menu-nonactive" routerLink="password" routerLinkActive="card-menu-active">
+						<div class="card-menu-nonactive-image" routerLinkActive="card-menu-active-image">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-lock"></use>
+							</svg>
+						</div>
+						<div class="card-menu-nonactive-label" routerLinkActive="card-menu-active-label">
+							Password Setting
+						</div>
+					</div>
+					<!--<div class="card-menu-nonactive" routerLink="client" routerLinkActive="card-menu-active">
+						<div class="card-menu-nonactive-image" routerLinkActive="card-menu-active-image">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-info"></use>
+							</svg>
+						</div>
+						<div class="card-menu-nonactive-label" routerLinkActive="card-menu-active-label">
+							Client Information
+						</div>
+					</div>
+					<div class="card-menu-nonactive" routerLink="user" routerLinkActive="card-menu-active">
+						<div class="card-menu-nonactive-image" routerLinkActive="card-menu-active-image">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-user-group"></use>
+							</svg>
+						</div>
+						<div class="card-menu-nonactive-label" routerLinkActive="card-menu-active-label">
+							User Setting
+						</div>
+					</div>
+					<div class="card-menu-nonactive" routerLink="usage" routerLinkActive="card-menu-active">
+						<div class="card-menu-nonactive-image" routerLinkActive="card-menu-active-image">
+							<svg>
+								<use xlink:href="assets/symbol-defs.svg#icon-billing"></use>
+							</svg>
+						</div>
+						<div class="card-menu-nonactive-label" routerLinkActive="card-menu-active-label">
+							Billing & Usage
+						</div>
+					</div>-->
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-8 col-md-12" [@routeAnimations]="o.isActivated ? o.activatedRoute : ''"
+			 style="overflow: hidden">
+			<router-outlet #o="outlet"></router-outlet>
+		</div>
+	</div>
+</div>
+

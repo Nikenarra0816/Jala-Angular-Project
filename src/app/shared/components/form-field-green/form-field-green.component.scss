@@ -1,0 +1,119 @@
+.form {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	font-family: inherit;
+
+	&-wrapper {
+		position: relative;
+		overflow: hidden;
+	}
+
+	&-label {
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		background-color: #57BF94;
+		height: 100%;
+		width: 12rem;
+		border-radius: 10px;
+
+		font-size: 1.4rem;
+		font-weight: 500;
+		color: #EDF8F3;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+
+		& > span {
+			color: inherit;
+			text-transform: uppercase;
+		}
+
+		& > svg {
+			width: 14px;
+			height: 14px;
+			fill: currentColor;
+			margin-right: 5px;
+		}
+	}
+
+	&-clear {
+		position: absolute;
+		top: 50%;
+		right: 1rem;
+		transform: translateY(-50%);
+		height: 20px;
+		width: 20px;
+		border-radius: 100px;
+		color: white;
+		background-color: #9B9B9B;
+		overflow: hidden;
+		cursor: pointer;
+
+		& > svg {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 10px;
+			height: 10px;
+			fill: currentColor
+		}
+	}
+
+	&-input {
+		width: 100%;
+		////////////////////////////
+
+	}
+
+	&-error-container {
+		height: 2rem;
+		padding: .5rem 1rem;
+	}
+}
+
+:host ::ng-deep {
+
+	& input[type="text"] {
+		font-family: 'Ubuntu', sans-serif;
+		width: 100%;
+		border: 1px solid #57BF94;
+		background: white;
+		border-radius: 1rem;
+		padding: 1.2rem 1rem 1.2rem 13rem;
+		font-size: 1.2rem;
+		line-height: 1.4rem;
+		color: black;
+		outline: none;
+		transition: all .5s ease;
+
+		&::placeholder {
+			color: rgba(0, 0, 0, .3);
+		}
+
+		&:focus {
+			border: 1px solid darken(#57BF94, 5);
+		}
+	}
+
+
+	& select {
+		width: 100%;
+		border: 1px solid gray;
+		border-radius: 5px;
+		font-family: 'Ubuntu', sans-serif;
+		padding: 1.2rem 1rem;
+		font-size: 1.2rem;
+		outline: none;
+		transition: all .5s ease;
+
+		& option {
+			display: none;
+		}
+	}
+}

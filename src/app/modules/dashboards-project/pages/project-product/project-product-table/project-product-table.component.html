@@ -1,0 +1,93 @@
+<ng-template [appPermission]="{page: 'product', feature: 'add'}">
+	<div class="button-action">
+		<button appJalaButtonInlineIcon icon="plus-thick" color="primary" (click)="addProduct()">Add Product</button>
+	</div>
+</ng-template>
+<div class="wrapper">
+	<table cdk-table matSort
+		   [dataSource]="dataSource">
+		///////////// Alias ////////////////////
+		<ng-container cdkColumnDef="alias">
+			<th cdk-header-cell *cdkHeaderCellDef></th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-balloon">
+					<ng-container [ngSwitch]="data.pictures.length === 0">
+						<ng-template [ngSwitchCase]="false">
+							<img [src]="data.pictures[0].path" [alt]="data.pictures[0].title">
+						</ng-template>
+						<ng-template [ngSwitchCase]="true">
+							<span>{{data.name| uppercase | slice:0:2}}</span>
+						</ng-template>
+					</ng-container>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Name ////////////////////
+		<ng-container cdkColumnDef="name">
+			<th cdk-header-cell *cdkHeaderCellDef class="name" mat-sort-header>Name</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-title">
+					{{data.name}}
+				</div>
+				<div class="card__title-subtitle">
+					{{data.detail}}
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Status ////////////////////
+		<ng-container cdkColumnDef="status">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Status</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-status"
+					 [ngClass]="{'card__title-status--green': data.isActive,
+					 'card__title-status--red': !data.isActive}">
+					<span>{{ (data.isActive ? 'active' : 'inactive') | uppercase}}</span>
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Price ////////////////////
+		<ng-container cdkColumnDef="minBookingPrice">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Price</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-title" style="text-align:center;">
+					{{data.price ? (data.price | currency: 'IDR': 'Rp. ') : 'Rp. 0'}}
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Total Price ////////////////////
+		<ng-container cdkColumnDef="price">
+			<th cdk-header-cell *cdkHeaderCellDef mat-sort-header>Total Price</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="card__title-title card__title-title--price">
+					{{data.avaragePrice | currency: 'IDR': 'Rp. '}}
+				</div>
+			</td>
+		</ng-container>
+
+		///////////// Action ////////////////////
+		<ng-container cdkColumnDef="action">
+			<th cdk-header-cell *cdkHeaderCellDef>Action</th>
+			<td cdk-cell *cdkCellDef="let data">
+				<div class="table-action">
+					<button appJalaButtonIcon icon="eyes" color="red"
+							(click)="jumpToLead(data.id)"></button>
+					<ng-template [appPermission]="{page: 'product', feature: 'edit'}">
+						<button appJalaButtonIcon icon="setting" color="green" (click)="editData(data)"></button>
+					</ng-template>
+				</div>
+			</td>
+		</ng-container>
+
+		<!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+
+		<tr cdk-header-row *cdkHeaderRowDef="columnsToDisplay" class="header"></tr>
+		<tr cdk-row *cdkRowDef="let data; columns: columnsToDisplay;"
+			class="trigger-row">
+		</tr>
+	</table>
+	<mat-paginator [pageSizeOptions]="[5, 10 ,20]"></mat-paginator>
+</div>

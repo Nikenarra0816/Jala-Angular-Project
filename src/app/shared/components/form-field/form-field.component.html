@@ -1,0 +1,19 @@
+<div class="form-wrapper">
+	<div class="form-label">
+		<span>{{label}}</span>
+		<ng-template [ngIf]="required()">
+			<span class="form-label--required">*</span>
+		</ng-template>
+	</div>
+	<div class="form-input">
+		<ng-content select="input"></ng-content>
+		<ng-content select="textarea"></ng-content>
+		<ng-content select="app-select"></ng-content>
+		<ng-content select="ng-select"></ng-content>
+	</div>
+	<div class="form-error-container">
+		<ng-template [ngIf]="first">
+			<ng-content></ng-content>
+		</ng-template>
+	</div>
+</div>

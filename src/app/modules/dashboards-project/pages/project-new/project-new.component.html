@@ -1,0 +1,233 @@
+<app-breadcrumb title="Project" subtitle="Setting"></app-breadcrumb>
+<app-stepper linear #step>
+	<!-- Tab 1  -->
+	<cdk-step label="SETUP INFORMATION">
+		<form class="form-body" [formGroup]="formGroup1">
+			<app-form-field label="Name">
+				<input type="text" formControlName="name" appFormFieldInput>
+				<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+					This field is required
+				</app-form-field-error>
+				<app-form-field-error *ngIf="formGroup1.get('name').hasError('minlength')">
+					This field required atleast 6 character
+				</app-form-field-error>
+			</app-form-field>
+
+			<app-form-field label="Detail">
+				<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+				<app-form-field-error *ngIf="formGroup1.get('detail').hasError('required')">
+					This field is required
+				</app-form-field-error>
+			</app-form-field>
+
+			<div class="form-field">
+				<h3>Duration</h3>
+				<div>
+					<input class="radio" id="duration" type="radio" value="duration" formControlName="duration">
+					<label class="radio__label" for="duration">
+					<span class="form-group1-input">
+						<input type="number" id="durationInput" min="1" [formControl]="formGroup1Month"
+							   appOnlyDigit maxInput="30">
+						<label for="durationInput">/ Month</label>
+					</span>
+					</label>
+				</div>
+				<div>
+					<input class="radio" id="no-duration" type="radio" value="noDuration" formControlName="duration">
+					<label class="radio__label" for="no-duration">Manually Stop Project</label>
+				</div>
+			</div>
+
+			<div class="form-action">
+				<button appJalaButton color="outline" [routerLink]="['../', 'project-empty']">Back</button>
+				<button appJalaButton color="primary" (click)="nextStep(formGroup1)">Next</button>
+			</div>
+
+		</form>
+	</cdk-step>
+	<!-- End Tab 1 -->
+
+	<!-- Tab 2 -->
+	<cdk-step label="ADD PRODUCT">
+		<!--<form class="form-body-2" [formGroup]="formGroup2">
+			<div formArrayName="products" *ngFor="let product of productArr.controls; let i = index">
+				<div [formGroupName]="i" class="form-body-2&#45;&#45;inline">
+					<app-form-field label="Name">
+						<input type="text" formControlName="name" appFormFieldInput>
+						<app-form-field-error *ngIf="productGetter(i, 'name').hasError('required')">
+							This field is required
+						</app-form-field-error>
+						<app-form-field-error *ngIf="productGetter(i, 'name').hasError('minlength')">
+							This field required atleast 6 character
+						</app-form-field-error>
+					</app-form-field>
+
+					<app-form-field label="Detail">
+						<input type="text" formControlName="detail" appFormFieldInput>
+						<app-form-field-error *ngIf="productGetter(i, 'detail').hasError('required')">
+							This field is required
+						</app-form-field-error>
+					</app-form-field>
+
+					<app-form-field label="Price">
+						<input type="number" formControlName="price" appFormFieldInput appOnlyDigit>
+						<app-form-field-error *ngIf="productGetter(i, 'price').hasError('required')">
+							This field is required
+						</app-form-field-error>
+					</app-form-field>
+					<div>
+						<button (click)="addProduct()" appJalaButtonIcon color="gray" icon="plus"
+								*ngIf="productArr.controls.length - 1 === i"></button>
+					</div>
+					<div>
+						<button (click)="deleteProduct(i)" appJalaButtonIcon color="gray" icon="minus"
+								*ngIf="i !== 0"></button>
+					</div>
+				</div>
+			</div>
+			<div class="form-action">
+				<div class="form-action&#45;&#45;notification">
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-disclaimer"></use>
+					</svg>
+					<h6>You can add picture to your product in menu setting project</h6>
+				</div>
+				<button appJalaButton color="outline" (click)="step.previous()">Back</button>
+				<button appJalaButton color="primary" (click)="nextStep(formGroup2)">Next</button>
+			</div>
+		</form>-->
+		<div class="form-body">
+			<ng-container [ngSwitch]="listProduct.length">
+				<ng-template [ngSwitchCase]="0">
+					<h4 class="no-product">
+						It's look like you don't have any Product yet. <br>
+						You can skip it now and add it later.
+					</h4>
+				</ng-template>
+				<ng-template ngSwitchDefault>
+					<div class="product-list">
+						<div class="product" *ngFor="let product of listProduct">
+							<app-checkbox [ngModel]="isProductSelected(product.id)"
+										  (ngModelChange)="changeSelectedProduct($event, product.id)"></app-checkbox>
+							<div class="product-item">
+								<div class="product-name">
+									<h4>{{product.name}}</h4>
+									<h5>{{product.detail}}</h5>
+								</div>
+								<div class="product-price">{{product.price  | currency: 'IDR': 'Rp. '}}</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+
+			</ng-container>
+			<div class="form-action">
+				<div class="form-action--notification">
+					<svg>
+						<use xlink:href="assets/symbol-defs.svg#icon-disclaimer"></use>
+					</svg>
+					<h6>You can add picture to your product in menu setting project</h6>
+				</div>
+				<button appJalaButton color="outline" (click)="step.previous()">Back</button>
+				<ng-container [ngSwitch]="listProduct.length">
+					<ng-template [ngSwitchCase]="0">
+						<button appJalaButton color="primary" (click)="step.next()">Skip</button>
+					</ng-template>
+					<ng-template ngSwitchDefault>
+						<button appJalaButton color="primary"
+								[disabled]="this.selectedProduct.length === 0"
+								(click)="this.selectedProduct.length !== 0 ? step.next(): undefined">Next
+						</button>
+					</ng-template>
+				</ng-container>
+			</div>
+		</div>
+	</cdk-step>
+	<!-- End Tab 2 -->
+
+	<!-- Tab 3 -->
+	<cdk-step label="SETUP STATUS">
+		<div class="form-container">
+			<div class="form-group3--left">
+				<div class="form-group3-title">
+					<h3>Provide Status</h3>
+					<h6>Check the status list if you want to use and uncheck if you don't use</h6>
+				</div>
+				<div class="form-group3-list">
+					<div class="form-group3-item" *ngFor="let item of leadsStatus"
+						 [ngStyle]="{'background-color' : item.color}">
+						<h5>{{ item.name }}</h5>
+						<app-checkbox [ngModel]="item.id === 1" [disabled]="item.id === 1"
+									  (checked)="changeStatus(item, $event)"></app-checkbox>
+					</div>
+				</div>
+				<div class="form-group3-title form-group3-title--custom">
+					<h3>Custom Status</h3>
+					<h6>Click add if you want custom status</h6>
+				</div>
+				<div class="form-group3-list">
+					<div class="form-group3-item" *ngFor="let item of customLeadsStatus"
+						 [ngStyle]="{'background-color' : item.color}">
+						<h5>{{ item.name }}</h5>
+						<app-checkbox [ngModel]="isChecked(item)"
+									  (checked)="changeStatus(item, $event)"></app-checkbox>
+					</div>
+					<div class="form-group3-item--custom">
+						<h4>Add Custom Status</h4>
+						<button appJalaButtonInlineIcon color="primary" icon="plus-thick" (click)="openDialog()">ADD
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group3--mid">
+				<svg>
+					<use xlink:href="assets/sprite.svg#object-double-arrow"></use>
+				</svg>
+			</div>
+			<div class="form-group3--right">
+				<div class="form-group3-title">
+					<h3>Your Status</h3>
+					<h6>Check the status list if you want to use and uncheck if you don't use</h6>
+				</div>
+				<div class="form-group3-list">
+					<div class="form-group3-item" *ngFor="let item of checkLeadsStatus; let i = index" [@inOutAnimation]
+						 [ngStyle]="{'background-color' : item.color, 'border-radius': checkLeadsStatus.length - 1 === i? '0 0 1rem 1rem': 'unset'}">
+						<h5>{{ item.name }}</h5>
+						<input type="number" [value]="item.point"
+							   (change)="changeValue(item.name, $event.target.value)" min="0" max="100"
+							   appOnlyDigit maxInput="100">
+					</div>
+				</div>
+				<div class="form-action" style="margin-top: 5rem;">
+					<button appJalaButton color="outline" (click)="step.previous()">Back</button>
+					<button appJalaButton color="primary" (click)="submitProject()" style="margin-right: 0;">Next
+					</button>
+				</div>
+			</div>
+		</div>
+	</cdk-step>
+	<!-- End Tab 3 -->
+
+	<!-- Tab 4 -->
+	<cdk-step label="FINISH">
+		<div class="body-finish">
+			<div class="finish-logo">
+				<img src="assets/checked.png">
+			</div>
+			<div class="label-finish">
+				<p style="color:#000000; font-size: 30px;margin-top: 10px;">Yaaay, you success create project</p>
+			</div>
+			<div class="label-finish2">
+				<p style="color:#000000; font-size: 18px">Next Step is setup your campaign</p>
+			</div>
+			<div class="form-action form-action--tab4">
+				<button appJalaButton color="green" routerLink="/dashboard/project">View Project</button>
+				<button appJalaButton color="primary" [routerLink]="routerLink">Campaign</button>
+			</div>
+		</div>
+	</cdk-step>
+	<!-- End Tab 4 -->
+
+
+</app-stepper>
+

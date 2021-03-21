@@ -1,0 +1,48 @@
+@mixin center{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+
+// media query manager
+/*
+0 - 600px phone
+600 - 900px tablet-portrait
+900 - 1200px tablet-landscape
+1200 - 1800px desktop-reguler / default
+1800px ++ big desktop
+
+
+URUTAN mengganti media query lebih baik / disarankan dari
+1.Base dan typography
+2.General Layout dan Grid
+3.Page Layout
+4.Components
+
+ */
+// menggunakan em karena lebih seperti yang kita inginkan daripada rem di beberapa browser
+// dan perlu diingat 1em = 16 px
+
+@mixin respond ($breakpoint){
+	@if $breakpoint == phone {
+		@media only screen and (max-width: 37.5em) { @content }; //sama dengan media query 600px untuk phone
+	}
+
+	@if $breakpoint == tab-port {
+		@media only screen and (max-width: 56.25em) { @content }; // sama dengan media query 900px untuk tablet berdiri
+	}
+
+	@if $breakpoint == tab-land {
+		@media only screen and (max-width: 75em) { @content }; // sama dengan media query 1200px untuk tablet tidur
+	}
+
+	@if $breakpoint == big-desktop {
+		@media only screen and (min-width: 112.5em) { @content }; // sama dengan media query 1800px untuk desktop besar
+	}
+
+	@else {
+		@media only screen and (max-width: $breakpoint) { @content };
+	}
+}

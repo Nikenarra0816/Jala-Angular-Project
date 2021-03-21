@@ -1,0 +1,92 @@
+<form [formGroup]="formGroup1" mat-dialog-content>
+	<!--	/////////////// NAME //////////////////-->
+	<app-form-field label="Name">
+		<input type="text" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup1.get('name').hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+
+	<!--	/////////////// SALES TEAM //////////////////-->
+	<app-form-field label="Sales Team">
+		<ng-select
+			class="jala-select"
+			[items]="teams$ | async"
+			[multiple]="true"
+			[closeOnSelect]="false"
+			[hideSelected]="true"
+			bindLabel="name"
+			placeholder="Select Sales Teams"
+			formControlName="teams">
+			<ng-template ng-label-tmp let-item="item" let-clear="clear">
+				<div class="ng-select-jala-item">
+					{{item.name}}
+					<span (click)="clear(item)">
+						<svg><use xlink:href="assets/symbol-defs.svg#icon-close"></use></svg>
+					</span>
+				</div>
+			</ng-template>
+		</ng-select>
+		<app-form-field-error *ngIf="formGroup1.get('teams').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+
+	<ng-template [ngIf]="isOnlineMedia">
+		<!--	/////////////// REDIRECT URL //////////////////-->
+		<app-form-field label="Redirect Url">
+			<input type="text" formControlName="redirectUrl" appFormFieldInput>
+			<app-form-field-error *ngIf="formGroup1.get('redirectUrl').hasError('required')">
+				This field is required
+			</app-form-field-error>
+			<app-form-field-error *ngIf="formGroup1.get('redirectUrl').hasError('urlValid')">
+				Url is not valid
+			</app-form-field-error>
+		</app-form-field>
+	</ng-template>
+
+	<div class="form-field">
+		<h3>Channel Status</h3>
+		<div class="radio-group-linear">
+			<div *ngFor="let data of (metadata$ | async)?.statuses">
+				<input class="radio" [id]="data" type="radio" [value]="data" formControlName="status">
+				<label class="radio__label" [for]="data">{{data | titlecase}}</label>
+			</div>
+		</div>
+	</div>
+
+	<!--	/////////////// DURATION //////////////////-->
+	<div class="form-field">
+		<h3>Duration</h3>
+		<div>
+			<div>
+				<input class="radio" id="duration" type="radio" value="duration" formControlName="duration">
+				<label class="radio__label" for="duration">
+							<span class="form-group1-input">
+								<input type="number" id="durationInput" min="1" [formControl]="formGroup1Month"
+									   appOnlyDigit maxInput="30">
+								<label for="durationInput">/ Month</label>
+							</span>
+				</label>
+			</div>
+			<div>
+				<input class="radio" id="no-duration" type="radio" value="noDuration" formControlName="duration">
+				<label class="radio__label" for="no-duration">Manually Stop Project</label>
+			</div>
+		</div>
+	</div>
+	<!--	/////////////// DETAIL //////////////////-->
+	<app-form-field label="Detail">
+		<textarea type="text" formControlName="detail" appFormFieldInput></textarea>
+		<app-form-field-error *ngIf="formGroup1.get('detail').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+</form>
+
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto;">
+	<button appJalaButton color="primary" (click)="save(formGroup1)" [disabled]="formGroup1.invalid">Save</button>
+</div>

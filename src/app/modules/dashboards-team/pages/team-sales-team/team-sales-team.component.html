@@ -1,0 +1,91 @@
+<app-breadcrumb title="Team" subtitle="Statistic"></app-breadcrumb>
+
+<div class="container">
+	<div class="overview">
+		<div class="overview-image">
+			<svg>
+				<use xlink:href="assets/sprite-team.svg#icon-team"></use>
+			</svg>
+		</div>
+		<div class="overview-status">
+			<h3>{{dataTotal?.totalTeam}}</h3>
+			<h4>Total</h4>
+			<h5>Sales Team</h5>
+		</div>
+	</div>
+	<div class="overview overview--2">
+		<div class="overview-image">
+			<svg>
+				<use xlink:href="assets/sprite-team.svg#icon-lead"></use>
+			</svg>
+		</div>
+		<div class="overview-status">
+			<h3>{{dataTotal?.totalLeads}}</h3>
+			<h4>Total</h4>
+			<h5>Leads</h5>
+		</div>
+	</div>
+
+	<div class="card-container">
+		<div class="card-header">
+			<div class="card-title">
+				Top Sales Team Summary
+			</div>
+			<div class="card-action">
+				<app-button-toggle-group [(value)]="chartOption" (valueChange)="chartChange($event)">
+					<app-button-toggle value="owner.team,status.category">Leads</app-button-toggle>
+					<app-button-toggle value="owner.team">Point</app-button-toggle>
+				</app-button-toggle-group>
+			</div>
+		</div>
+		<div class="card-divider"></div>
+		<div class="card-content">
+			<ng-template let-data [ngIf]="dataChartTeam | async">
+				<app-bar-stacked-chart [dataParent]="data" [showMore]="true"></app-bar-stacked-chart>
+			</ng-template>
+		</div>
+	</div>
+
+	<div class="container-content">
+		<div class="container-content-action">
+			<app-form-field-green icon="search" label="search">
+				<input type="text" placeholder="Search Name Team" [formControl]="searchInputForm">
+			</app-form-field-green>
+			<div class="button-action">
+				<button (click)="tabsView = 2" class="button-jala-icon button-jala-icon-gray"
+						[ngClass]="{'button-jala-icon-gray--active' : tabsView === 1}">
+					<svg class="button-jala-icon-svg">
+						<use xlink:href="assets/symbol-defs.svg#icon-grid"></use>
+					</svg>
+				</button>
+				<button (click)="tabsView = 1" class="button-jala-icon button-jala-icon-gray"
+						[ngClass]="{'button-jala-icon-gray--active' : tabsView === 2}">
+					<svg class="button-jala-icon-svg">
+						<use xlink:href="assets/symbol-defs.svg#icon-list"></use>
+					</svg>
+				</button>
+				<ng-template [appPermission]="{page: 'salesTeam', feature: 'add'}">
+					<button appJalaButtonInlineIcon color="primary" icon="plus-thick" routerLink="../new-sales-team">ADD SALES TEAM
+					</button>
+				</ng-template>
+			</div>
+		</div>
+
+		<app-loader-spinner [loading]="dataTeam">
+			<div *ngIf="dataTeam as data">
+				<app-team-sales-team-list-view *ngIf="tabsView === 1"
+											   [dataTeams]="data"
+											   (editClicked)="editDialog($event)"
+											   (detailClicked)="overlay.open($event)">
+				</app-team-sales-team-list-view>
+				<app-team-sales-team-grid-view *ngIf="tabsView === 2"
+											   [dataTeam]="data"
+											   (editClicked)="editDialog($event)"
+											   (detailClicked)="overlay.open($event)">
+				</app-team-sales-team-grid-view>
+			</div>
+		</app-loader-spinner>
+	</div>
+</div>
+
+<app-overlay-team-detail #overlay></app-overlay-team-detail>

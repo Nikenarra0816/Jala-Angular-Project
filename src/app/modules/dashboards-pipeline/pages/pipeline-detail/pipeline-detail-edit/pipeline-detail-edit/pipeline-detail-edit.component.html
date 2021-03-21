@@ -1,0 +1,32 @@
+<form [formGroup]="formGroup1">
+	<app-form-field label="Title">
+		<input type="text" formControlName="title" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup1.get('title').hasError('required')">
+			This field is required
+		</app-form-field-error>
+		<app-form-field-error *ngIf="formGroup1.get('title').hasError('minlength')">
+			This field min. character is 6
+		</app-form-field-error>
+	</app-form-field>
+	<app-form-field label="Select Lead Status">
+		<app-select formControlName="status" [dataAll]="dataStatus" bindLabel="name"
+					bindValue="name" placeholder="Select Lead Status"></app-select>
+	</app-form-field>
+	<div class="form-field">
+		<h3>Result</h3>
+		<div class="form-field-input">
+			<div *ngFor="let status of selectedDataStatus ">
+				{{ status.name}}
+				<span (click)="deleteStatus(status.id)">X</span>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+<div mat-dialog-actions style="width: fit-content;margin-left: auto;">
+	<button appJalaButton color="outline" style="margin-right: 1rem" (click)="closeDialog()">Close</button>
+	<button appJalaButton color="primary" (click)="save(formGroup1)"
+			[disabled]="formGroup1.invalid || selectedDataStatus.length === 0">Save
+	</button>
+</div>

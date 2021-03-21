@@ -1,0 +1,80 @@
+<!--<app-breadcrumb title="Pipeline" subtitle="Detail"></app-breadcrumb>
+<div class="container-pipeline" *ngIf="dataPipeline$ | async as data">
+	<div class="container-pipeline-header"
+		 [ngStyle]="{'backgroundColor':data.color}">
+		<h3 [ngStyle]="{'color': allColor?.secondaryColor}">{{ data.name }}</h3>
+		<button appJalaButtonInlineIcon color="primary" icon="home" [routerLink]="['../../list']">PIPELINE LIST</button>
+	</div>
+	<div class="container-pipeline-body">
+		<div class="card-pipeline-item" *ngFor="let pipeLine of dataPipelineList$ | async ">
+			<app-pipeline-detail-list [dataParent]="pipeLine"
+									  [color]="allColor"></app-pipeline-detail-list>
+		</div>
+
+		<div class="card-pipeline-item card-pipeline-item&#45;&#45;add">
+			<button appJalaButtonInlineIcon color="primary" icon="plus-thick" (click)="openDialog()">ADD LIST</button>
+		</div>
+	</div>
+</div>
+
+ALTERNATE-->
+<app-breadcrumb title="Pipeline" subtitle="Detail"></app-breadcrumb>
+<ng-template [ngIf]="dataPipeline$ | async" let-data>
+	<div class="container-header">
+		<div class="container-header-title"
+			 [ngStyle]="{'backgroundColor':allColor.color}">
+			<h3 [ngStyle]="{'color': allColor.secondaryColor}">{{ data.name }}</h3>
+			<button appJalaButtonInlineIcon color="primary" icon="home" [routerLink]="['../../list']">PIPELINE LIST
+			</button>
+		</div>
+		<form class="container-header-filter" [formGroup]="formGroup">
+			<h3>Filter:</h3>
+			<div class="header-filter--date">
+				<span (click)="getDate.reset()">x</span>
+				<input type="text"
+					   formControlName="getDate"
+					   appFormFieldInputGreen
+					   placeholder="Pick date range"
+					   bsDaterangepicker
+					   placement="bottom"
+					   [maxDate]="dateNow"
+					   [bsConfig]="{ isAnimated: true, containerClass: 'theme-default',rangeInputFormat: 'MMM DD YYYY' }">
+			</div>
+			<ng-select [items]="dataFilter?.getChannel" formControlName="getChannel" bindLabel="label"
+					   bindValue="value"
+					   [loading]="!dataFilter"
+					   loadingText="Please Wait"
+					   placeholder="Channel" class="jala-select"></ng-select>
+			<ng-select [items]="dataFilter?.getSalesOfficer" formControlName="getSalesOfficer" bindLabel="label"
+					   bindValue="value"
+					   [loading]="!dataFilter"
+					   loadingText="Please Wait"
+					   placeholder="Officer" class="jala-select"></ng-select>
+			<ng-select [items]="dataFilter?.getCategory" formControlName="getCategory" bindLabel="label"
+					   bindValue="value"
+					   [loading]="!dataFilter"
+					   loadingText="Please Wait"
+					   placeholder="Category" class="jala-select"></ng-select>
+		</form>
+	</div>
+	<div class="container-pipeline">
+		<div class="container-pipeline-body">
+			<ng-template [appLoaderSpinner]="!filteredDataPipelineListAndLead">
+				<div class="card-pipeline-item" *ngFor="let pipeLine of filteredDataPipelineListAndLead">
+					<app-pipeline-detail-list [dataParent]="pipeLine"
+											  [color]="allColor" (deleteClicked)="deletePipeline($event)"
+											  (editClicked)="editPipeline($event)"></app-pipeline-detail-list>
+				</div>
+			</ng-template>
+
+			<div class="card-pipeline-item card-pipeline-item--add">
+				<button appJalaButtonInlineIcon color="primary" icon="plus-thick" (click)="openDialog()">ADD LIST
+				</button>
+			</div>
+		</div>
+	</div>
+
+</ng-template>
+<app-overlay-lead-pipeline></app-overlay-lead-pipeline>
+
+<ng-template #wait>Please Wait</ng-template>

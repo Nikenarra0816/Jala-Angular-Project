@@ -1,0 +1,19 @@
+<form [formGroup]="formGroup1">
+	<app-form-field label="Status Name">
+		<input type="text" formControlName="name" appFormFieldInput>
+		<app-form-field-error *ngIf="formGroup1.get('name').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+	<app-form-field label="Category">
+		<app-select [dataAll]="categoryList" formControlName="category" placeholder="Select Category"
+					bindValue="value" bindLabel="sort"></app-select>
+		<app-form-field-error *ngIf="formGroup1.get('category').hasError('required')">
+			This field is required
+		</app-form-field-error>
+	</app-form-field>
+</form>
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto; margin-top: 12rem;">
+	<button appJalaButton color="outline" style="margin-right: 1rem;" (click)="close()">Close</button>
+	<button appJalaButton color="primary" (click)="save(formGroup1)" [disabled]="formGroup1.invalid">Save</button>
+</div>

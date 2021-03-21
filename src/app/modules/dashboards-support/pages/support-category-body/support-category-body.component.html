@@ -1,0 +1,33 @@
+<div class="card-body-header">{{dataParent?.detail}}</div>
+<div class="tabs">
+	<div class="tabs-header">
+		<div class="tabs-header-item" [ngClass]="{'tabs-header-item--active' : pageShow === 'IMAGE'}"
+			 (click)="pageShow = 'IMAGE'">
+			<div class="tabs-header-item-icon">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-image"></use>
+				</svg>
+			</div>
+			<div class="tabs-header-item-title">IMAGES</div>
+		</div>
+		<div class="tabs-header-item" [ngClass]="{'tabs-header-item--active' : pageShow === 'VIDEO'}"
+			 (click)="pageShow = 'VIDEO'">
+			<div class="tabs-header-item-icon">
+				<svg>
+					<use xlink:href="assets/sprite.svg#icon-tutorial"></use>
+				</svg>
+			</div>
+			<div class="tabs-header-item-title">VIDEO</div>
+		</div>
+	</div>
+	<div class="tabs-content">
+		<ng-container [ngSwitch]="pageShow">
+			<ng-template [ngSwitchCase]="'IMAGE'">
+				<app-support-image-category [dataParent]="dataImage$ | async"></app-support-image-category>
+			</ng-template>
+			<ng-template [ngSwitchCase]="'VIDEO'">
+				<app-support-video-category [dataParent]="dataVideo$ | async"></app-support-video-category>
+			</ng-template>
+		</ng-container>
+	</div>
+</div>

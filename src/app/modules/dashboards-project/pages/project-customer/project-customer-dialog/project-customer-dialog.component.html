@@ -1,0 +1,119 @@
+<div class="card">
+	<div class="card-title">Last Activity</div>
+	<div class="card-body card-body--journeys">
+		<ng-template let-datas [ngIf]="dataJourney | async" [ngIfElse]="spinner">
+			<ng-template [ngIf]="datas.length" [ngIfElse]="noResult">
+				<div class="tree">
+					<div class="tree-item" *ngFor="let data of datas">
+						<span class="bullet" [ngClass]="'bullet--' + data.status.categorySort"></span>
+						<h3 [ngStyle]="{'color': data.status.availability === 'achieved' ? '#46B989': 'initial' }">
+							Update Status : {{data.status.status}}</h3>
+						<h4>{{data.note}}</h4>
+						<ng-template [ngIf]="data.documents !== undefined">
+							<ng-template ngFor let-doc [ngForOf]="data.documents">
+								<ng-template [ngIf]="doc.type === 'photo'">
+									<div class="tree-item--image">
+										<img [src]="doc.path" appImageLoader>
+										<h5>{{doc.info?.location}}</h5>
+									</div>
+								</ng-template>
+							</ng-template>
+						</ng-template>
+						<h4>{{data.createdAt | date: 'MMM d, y, H:mm'}}</h4>
+					</div>
+				</div>
+			</ng-template>
+		</ng-template>
+	</div>
+</div>
+
+<div class="table-container">
+	<table *ngIf="!isDetailTableShow" [@inOutAnimation]="'isLeft'" class="table">
+		<thead>
+		<tr>
+			<th>Purchased<br> Date</th>
+			<th>Invoice</th>
+			<th>Product</th>
+			<th>Tax</th>
+			<th>Total<br> Purchased</th>
+			<th>Action</th>
+		</tr>
+		</thead>
+		<tbody>
+		<ng-container *ngIf="dataProductArchived">
+			<tr *ngFor="let data of dataProductArchived">
+				<td>{{ data.createdAt ? (data.createdAt | date:'MMM d, y') : '-' }}<br>
+					{{ data.createdAt ? (data.createdAt | date:'HH:mm') : '' }}</td>
+				<td>
+					<div class="invoice-container">
+						<span [matTooltip]="'Download Invoice'" (click)="openDialogInvoiceDownload(data)"
+							  [matTooltipPosition]="'above'">Download
+						</span>
+						<!--<span [matTooltip]="'Download'" [matTooltipPosition]="'above'" (click)="openDialogInvoiceDownload(data)">
+							<svg viewBox="0 0 20 30" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M20 0H4.02852L0 4.02852V25.8392H6.57464L9.48791 29.9854H10.5121L13.4254 25.8392H20V0ZM4.61107 1.90214V4.61113H1.90214L4.61107 1.90214ZM10 27.6582L6.97148 23.348H9.12152V14.7123H10.8785V23.3479H13.0285L10 27.6582ZM18.243 24.0823H14.6599L15.5714 22.785V21.591H12.6354V12.9554H7.36457V21.591H4.42858V22.785L5.34009 24.0822H1.75695V6.36802H6.36802V1.75695H18.243V24.0823Z"
+								fill="#46B989"/>
+						</svg>
+						</span>-->
+					</div>
+				</td>
+				<td>{{ convertNameProduct(data.interests) | truncateWord: 8 }}</td>
+				<!--			<td>{{data.taxAmount}}</td>-->
+				<td>{{ data.purchaseTaxAmmount > 0 ? (data.purchaseTaxAmmount | currencyShort) : '-' }}</td>
+				<td>{{ data.totalPurchased > 0 ? (data.totalPurchased | currencyShort) : '-' }}</td>
+				<td>
+					<button appJalaButtonIcon icon="eyes" color="red"
+							(click)="showDetailTable(data.interests)"></button>
+				</td>
+			</tr>
+		</ng-container>
+	</table>
+	<div *ngIf="isDetailTableShow" [@inOutAnimation]="'isRight'" class="overlay-detail">
+		<button appJalaButtonInlineIcon icon="left-arrow" color="primary" (click)="backToTable()">Back</button>
+		<div class="overlay-detail-table">
+			<ng-container *ngIf="dataProductInterestTable">
+				<table class="table table--product">
+					<thead>
+					<tr>
+						<th>No.</th>
+						<th>Product</th>
+						<th>Qty</th>
+						<th>Total</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr *ngFor="let data of dataProductInterestTable; let i = index">
+						<td>{{i + 1}}</td>
+						<td>{{data.product}}</td>
+						<td>{{data.productQty}}</td>
+						<td>{{data.productTotalPrice | currency:'IDR':'symbol-narrow'}}</td>
+					</tr>
+					</tbody>
+					<tfoot>
+					<tr>
+						<td></td>
+						<td>Total</td>
+						<td style="color: #FF9433;">{{totalProductQty()}}</td>
+						<td style="color: #FF9433;">{{totalPriceProductInterest() | currency:'IDR':'symbol-narrow'}}</td>
+					</tr>
+					</tfoot>
+				</table>
+			</ng-container>
+		</div>
+	</div>
+</div>
+
+<div mat-dialog-actions style=" width: fit-content;margin-left: auto; margin-top: 5rem">
+	<button appJalaButton color="primary" (click)="close()">Close</button>
+</div>
+
+<ng-template #spinner>
+	<app-loader-spinner-v2 height="20rem"></app-loader-spinner-v2>
+</ng-template>
+
+<ng-template #noResult>
+	<h1 style="text-align: center; margin: 3rem auto; color: #9B9B9B; font-size: 2rem; font-weight: 400;">There is
+		No
+		History</h1>
+</ng-template>

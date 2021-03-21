@@ -1,0 +1,272 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	padding-bottom: 1rem;
+	/*overflow-y: scroll;
+	max-height: 90vh;*/
+	&-title {
+		margin-bottom: 2rem;
+
+		& h3 {
+			font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 2rem;
+            line-height: 2.3rem;
+		}
+
+		& h4 {
+			font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: normal;
+            font-size: 1.6rem;
+            line-height: 1.8rem;
+        }
+
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 5.5rem;
+
+	& > * {
+		margin-bottom: 1.5rem;
+    }
+
+    &-textarea{
+        position: relative;
+
+		& input {
+			padding: 1.4rem;
+			background-color: #F5F5F5;
+			outline: none;
+			border: none;
+			border-radius: 1rem;
+            width: 100%;
+            height: 9rem;
+			font-size: 1.6rem;
+		}
+
+		& input::placeholder {
+			font-size: 1.6rem;
+            color: #D9D9D9;
+		}
+
+		& label {
+			position: absolute;
+			height: 2rem;
+			width: 2rem;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		& label span {
+			width: 100%;
+			height: 100%;
+		}
+
+		& label span svg {
+			width: 100%;
+			height: 100%;
+		}
+
+    }
+
+    &-click{
+        position: relative;
+
+        &-text{
+            font-family: 'Ubuntu';
+            font-style: normal;
+            font-weight: bold;
+            font-size: 1.6rem;
+            line-height: 1.8rem;
+            width: 353px;
+            height: 46px;
+            margin-top: -46px;
+            padding-left: 190px;
+            padding-top: 12px;
+            color: black;
+        }
+
+		& input {
+			padding: 1.4rem;
+			background-color: #F5F5F5;
+			outline: none;
+			border: none;
+			border-radius: 1rem;
+			width: 17rem;
+			font-size: 1.6rem;
+		}
+
+		& input::placeholder {
+			font-size: 1.6rem;
+			color: #D9D9D9;
+		}
+
+		& label {
+			position: absolute;
+			height: 2rem;
+			width: 2rem;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		& label span {
+			width: 100%;
+			height: 100%;
+		}
+
+		& label span svg {
+			width: 100%;
+			height: 100%;
+		}
+    }
+
+	&-field {
+		position: relative;
+
+		& input {
+			padding: 1.4rem;
+			background-color: #F5F5F5;
+			outline: none;
+			border: none;
+			border-radius: 1rem;
+			width: 100%;
+			font-size: 1.6rem;
+		}
+
+		& input::placeholder {
+			font-size: 1.6rem;
+			color: #D9D9D9;
+		}
+
+		& label {
+			position: absolute;
+			height: 2rem;
+			width: 2rem;
+			right: 1.5rem;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		& label span {
+			width: 100%;
+			height: 100%;
+		}
+
+		& label span svg {
+			width: 100%;
+			height: 100%;
+		}
+
+	}
+
+	&-option {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		color: #9B9B9B;
+		font-size: 1.4rem;
+
+		& a {
+			text-decoration: none;
+			color: inherit;
+		}
+	}
+
+	&-action {
+		display: flex;
+		flex-direction: row;
+        justify-content: space-around;
+
+	}
+
+	&-button {
+		background-color: #FF6F67;
+		outline: none;
+		border-radius: 1rem;
+		font: inherit;
+		font-size: 1.4rem;
+		height: 4rem;
+		width: 14rem;
+		border: none;
+		color: white;
+        margin: 0 auto;
+
+
+		&-muted {
+			background-color: #D9D9D9;
+			color: #9B9B9B;
+		}
+	}
+}
+
+@media(max-width:767px){
+	.container{
+		justify-content: center;
+    	width: 82%;
+		margin-top: 2.5rem;
+		margin-left: 4rem;
+		padding-top: 2rem;
+		background: white;
+		opacity: 2;
+		border-radius: 1rem;
+	}
+	.container-title{
+		margin-bottom: 2rem;
+	}
+	.form{
+		width: 27.5rem;
+		justify-content: center;
+	}
+	.form-field{
+		width: 35.5rem;
+	}
+	.form-action {
+		width: 35.5rem;
+	}
+	.form-textarea{
+		width: 35.5rem;
+	}
+	.form-click{
+		width: 35.5rem;
+	}
+
+}
+@media(min-width:768px) and (max-width:991px){
+	.container{
+		justify-content: center;
+    	width: 82%;
+		margin-top: 2.5rem;
+		margin-left: 4rem;
+		padding-top: 2rem;
+		background: white;
+		opacity: 2;
+		border-radius: 1rem;
+	}
+	.container-title{
+		margin-bottom: 2rem;
+	}
+	.form{
+		width: 27.5rem;
+		justify-content: center;
+	}
+	.form-field{
+		width: 35.5rem;
+	}
+	.form-action {
+		width: 35.5rem;
+	}
+	.form-textarea{
+		width: 35.5rem;
+	}
+	.form-click{
+		width: 35.5rem;
+	}
+
+}

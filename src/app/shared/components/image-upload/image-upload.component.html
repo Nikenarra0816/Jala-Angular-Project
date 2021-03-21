@@ -1,0 +1,18 @@
+<div class="image__container">
+    <div class="image__preview" *ngIf="imageUrl">
+        <img #img [src]="imageUrl" alt="image"
+             appImageLoader>
+    </div>
+    <input type="file" accept=".png, .jpg, .jpeg" #upload (change)="uploadImage(upload.files)">
+    <div class="image__action">
+        <button appJalaButtonIcon icon="edit" round="true" color="blue" class="image__button"
+                (click)="upload.click()"></button>
+    </div>
+    <!--<div class="image__close">
+        <button appJalaButtonIcon icon="close" color="red" round="true" class="image__button"></button>
+    </div>-->
+    <!--<button appJalaButtonIcon icon="edit" round="true" color="blue" class="button-edit" *ngIf="isNewImage"
+            (click)="upload.click()"></button>-->
+    <!--<button appJalaButtonIcon icon="close" round="true" color="red" class="button-delete" *ngIf="!isNewImage"
+            (click)="upload.click()"></button>-->
+</div>
